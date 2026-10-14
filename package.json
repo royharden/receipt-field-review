@@ -4,8 +4,19 @@
   "private": true,
   "type": "module",
   "description": "Configuration scaffold for the receipt review viewer; UI is pending",
-  "engines": { "node": ">=24 <25" },
+  "engines": {
+    "node": ">=24 <25"
+  },
   "scripts": {
-    "test:scaffold": "node --test tests/contracts/test_frontend_config.mjs"
+    "test:scaffold": "node --test tests/contracts/test_frontend_config.mjs",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "react": "19.3.1",
+    "react-dom": "19.3.1"
+  },
+  "devDependencies": {
+    "typescript": "7.0.2",
+    "vite": "8.3.4"
   }
 }

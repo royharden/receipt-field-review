@@ -7,11 +7,13 @@ Receipt Field Review is being built to extract receipt fields with source eviden
 From this repository root, use Python 3.12 and Node 24:
 
 ```text
-python -m unittest discover -s tests/contracts -p "test_*.py" -v
+python -m unittest discover -s tests/contracts -p "test_scaffold.py" -v
 node --test tests/contracts/test_frontend_config.mjs
 ```
 
-The checks exercise forbidden module dependencies and publication controls with positive and negative cases. They do not start a server, open sockets, install OCR, or call a provider. Python/Node checks below are scaffold checks; native OCR, extraction, evaluation and frontend build are pending.
+The checks exercise forbidden module dependencies and publication controls with positive and negative cases. They do not start a server, open sockets, install OCR, or call a provider. These are scaffold checks; native OCR, extraction, evaluation and frontend build are pending.
+
+The setup also locks Pydantic, pytest/ruff, React/Vite/TypeScript. After the dependencies are installed with `uv sync --frozen` and `npm ci --ignore-scripts`, run `uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`, and `npm run typecheck`. Type checking currently covers configuration only.
 
 ## Planned workflow
 
@@ -21,7 +23,7 @@ Import a single-currency batch of up to 100 JPEG/PNG/HEIC receipts. Inspect fiel
 
 The Python `rfr` core will own independently reusable `docio`, `fieldextract`, `rulings` and `evalkit` modules. Receipt rules, local storage, API and UI will adapt those modules. React/Vite will supply a loopback review viewer and a clearly labelled, transient synthetic static preview. Shared owner/consumer schemas are still proposals and are not implemented in the scaffold.
 
-`pyproject.toml` and `package.json` currently have no runtime dependencies. Frozen empty-scope lockfiles describe this scaffold only; Pydantic/FastAPI/OCR/React/Vite/test tooling are installed and locked in a later assigned setup step. There is no frontend `build` script yet, so scaffold green cannot be mistaken for an application build.
+Frozen lockfiles describe the installed scaffold dependencies. FastAPI/native OCR/provider SDKs and the actual review UI are deferred to their assigned work packages. There is no frontend `build` script yet, so scaffold green cannot be mistaken for an application build.
 
 ## Results and cost
 

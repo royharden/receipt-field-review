@@ -1,4 +1,4 @@
-# Receipt Field Review agent instructions — version 1
+# Receipt Field Review agent instructions — version 2
 
 Product code, tests and stable product documentation belong in this Git repository. Plans, agent identity registries, private reviews, transcripts, execution receipts and live resource records belong in the designated outer workspace, never here. A moved product repository must not depend on absolute workspace imports.
 
@@ -7,11 +7,11 @@ Product code, tests and stable product documentation belong in this Git reposito
 The repository is a scaffold. Python 3.12 and Node 24 are the declared runtimes.
 
 ```text
-python -m unittest discover -s tests/contracts -p "test_*.py" -v
+python -m unittest discover -s tests/contracts -p "test_scaffold.py" -v
 node --test tests/contracts/test_frontend_config.mjs
 ```
 
-No OCR/model/runtime/frontend dependencies are installed by those checks. Runtime dependencies and ordinary uv/pytest/ruff/frontend build gates are added after their setup assignment. Never claim a scaffold check is extraction accuracy, a frontend build, deployed security or a finished app.
+Those dependency-free checks install nothing. The assigned setup adds frozen Pydantic/pytest/ruff and React/Vite/TypeScript dependencies; `uv sync --frozen`, `uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`, `npm ci --ignore-scripts`, and `npm run typecheck` verify that setup. Type checking currently covers configuration only. Never claim a scaffold check is extraction accuracy, a frontend build, deployed security or a finished app.
 
 ## Invariants
 
@@ -37,4 +37,4 @@ Use the current workspace's pinned delivery and plan-adoption rules when partici
 
 Skill paths describe the development environment, not runtime imports. Do not copy skills, credentials or coordination history into the product. Claude imports this file; Cursor has a pointer; Grok/Codex read this root instruction file. No separate local skill mirrors are introduced.
 
-Changelog: v1 establishes the bootstrap commands, product boundaries, and safety/data/independence invariants.
+Changelog: v1 established bootstrap commands and product invariants. v2 adds frozen scaffold dependencies and setup checks while retaining dependency-free architecture checks and the pending UI/schema/runtime boundaries.

@@ -9,7 +9,8 @@ const vite = readFileSync(new URL("../../vite.config.ts", import.meta.url), "utf
 test("bootstrap never presents a scaffold check as a frontend build", () => {
   assert.equal(packageConfig.private, true);
   assert.equal(packageConfig.scripts.build, undefined);
-  assert.equal(packageConfig.dependencies, undefined);
+  assert.equal(packageConfig.dependencies?.openai, undefined);
+  assert.equal(packageConfig.dependencies?.["@typesafe-ai/sdk"], undefined);
   assert.ok(packageConfig.scripts["test:scaffold"].includes("node --test"));
 });
 

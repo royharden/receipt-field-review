@@ -21,10 +21,18 @@ def forbidden_shared_imports(module: str, source: str) -> list[str]:
         elif isinstance(node, ast.ImportFrom):
             base = node.module or ""
             if node.level:
-                base = importlib.util.resolve_name("." * node.level + base, module.rsplit(".", 1)[0])
+                base = importlib.util.resolve_name(
+                    "." * node.level + base, module.rsplit(".", 1)[0]
+                )
             dependencies.extend(f"{base}.{alias.name}" for alias in node.names)
-    return sorted({name for name in dependencies if name == "rfr" or name.startswith("rfr.")
-                   if not any(name == root or name.startswith(root + ".") for root in allowed)})
+    return sorted(
+        {
+            name
+            for name in dependencies
+            if name == "rfr" or name.startswith("rfr.")
+            if not any(name == root or name.startswith(root + ".") for root in allowed)
+        }
+    )
 
 
 SECRET_PATTERNS = (
@@ -32,7 +40,14 @@ SECRET_PATTERNS = (
     re.compile(r"\bgh[pousr]_[A-Za-z0-9]{20,}"),
     re.compile(r"-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----"),
 )
-PRIVATE_COMPONENTS = {"data", ".creds", ".thinking", ".chatexports", ".agent-registry", ".agent-work"}
+PRIVATE_COMPONENTS = {
+    "data",
+    ".creds",
+    ".thinking",
+    ".chatexports",
+    ".agent-registry",
+    ".agent-work",
+}
 
 
 def publication_violations(path: str, content: str = "") -> list[str]:

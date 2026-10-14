@@ -9,7 +9,9 @@ description = "Evidence-preserving receipt extraction and human review (scaffold
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = { file = "LICENSE" }
-dependencies = []
+dependencies = [
+    "pydantic>=2,<3",
+]
 
 [tool.setuptools.packages.find]
 where = ["src"]
@@ -31,5 +33,11 @@ line-length = 100
 [tool.ruff.lint]
 select = ["E", "F", "I", "UP", "B"]
 
-# Runtime/development dependencies are intentionally absent from WP01.
-# Add adopted module dependencies and real frozen locks in the assigned setup slot.
+[dependency-groups]
+dev = [
+    "pytest>=9.1.1",
+    "ruff>=0.17.0",
+]
+
+# Only scaffold dependencies are installed in WP01. Add adopted module/runtime
+# dependencies through assigned root setup; shared schemas and providers are pending.
