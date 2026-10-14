@@ -69,7 +69,9 @@ def validate_artifact_bytes(retained: bytes, expected_sha256: str) -> Processing
     if type(retained) is not bytes or hashlib.sha256(retained).hexdigest() != expected_sha256:
         raise ValueError("retained artifact hash mismatch")
     artifact = ProcessingArtifact.model_validate_json(retained)
-    if artifact_bytes(artifact) != retained:
+    # Preserve the original finite JSON number representation; typed float fields
+    # may interpret integer2 as2.0 without changing the retained artifact identity.
+    if canonical_bytes(json.loads(retained)) != retained:
         raise ValueError("artifact must retain exact canonical wire bytes")
     return artifact
 

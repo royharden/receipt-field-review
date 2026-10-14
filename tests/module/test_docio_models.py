@@ -193,6 +193,27 @@ def test_exact_retained_artifact_not_reencoded_or_rerun():
         validate_artifact_bytes(pretty, hashlib.sha256(pretty).hexdigest())
 
 
+def test_original_integer_geometry_retained_bytes_not_float_reencoding_identity():
+    _, _, floating, _ = document_fixture()
+    raw = json.loads(floating)
+    raw["words"][0]["bbox_px"]["x0"] = 2
+    integer = json.dumps(
+        raw, ensure_ascii=False, sort_keys=True, separators=(",", ":"), allow_nan=False
+    ).encode()
+    integer_hash = hashlib.sha256(integer).hexdigest()
+    floating_hash = hashlib.sha256(floating).hexdigest()
+    assert integer != floating and integer_hash != floating_hash
+    assert validate_artifact_bytes(integer, integer_hash).words[0].bbox_px.x0 == 2.0
+    assert validate_artifact_bytes(floating, floating_hash).words[0].bbox_px.x0 == 2.0
+    with pytest.raises(ValueError):
+        validate_artifact_bytes(integer, floating_hash)
+    # Canonical original numeric types survive; duplicate/nonfinite/alternate encodings do not.
+    duplicate = b'{"schema_version":1,' + integer[1:]
+    for bad in (duplicate, integer.replace(b'"x0":2,', b'"x0":NaN,', 1), b" " + integer):
+        with pytest.raises(ValueError):
+            validate_artifact_bytes(bad, hashlib.sha256(bad).hexdigest())
+
+
 def test_genuine_blank_ok_differs_from_unavailable_ocr():
     document, _, _, _ = document_fixture()
     blank = Page.model_validate(
