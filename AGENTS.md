@@ -1,0 +1,40 @@
+# Receipt Field Review agent instructions — version 1
+
+Product code, tests and stable product documentation belong in this Git repository. Plans, agent identity registries, private reviews, transcripts, execution receipts and live resource records belong in the designated outer workspace, never here. A moved product repository must not depend on absolute workspace imports.
+
+## Commands and current state
+
+The repository is a scaffold. Python 3.12 and Node 24 are the declared runtimes.
+
+```text
+python -m unittest discover -s tests/contracts -p "test_*.py" -v
+node --test tests/contracts/test_frontend_config.mjs
+```
+
+No OCR/model/runtime/frontend dependencies are installed by those checks. Runtime dependencies and ordinary uv/pytest/ruff/frontend build gates are added after their setup assignment. Never claim a scaffold check is extraction accuracy, a frontend build, deployed security or a finished app.
+
+## Invariants
+
+- Generic shared modules own their schemas and injected protocols. They must not import receipt/pipeline/methods/ports/API/export/CLI/UI code. The only proposed owned-module dependency is fieldextract -> docio; unadopted wire schemas remain proposals.
+- Source regions use one declared source-page pixel frame, explicit dimensions/hash/page convention and preprocessing transform. Model-claimed boxes are not measured evidence. Missing confidence remains unknown.
+- Corrections use append-only durable events, source/prior-revision compare-and-set and explicit conflicts. Re-extraction never silently overwrites a human decision.
+- Absent, abstained and unlabelled differ. Arithmetic/date/currency checks run in code. Missing operands are not a successful check. Uncalibrated or insufficient-data strata remain review-only.
+- Ordinary fixtures are synthetic, owned or explicitly cleared public data. Gold manifests will live in `gold/`, with grouped dev/held-out splits frozen before tuning. No real uploads or uncleared images/labels/derived responses may be committed.
+- API keys belong only in trusted server processes. No public frontend variable, command argument, log, fixture, image layer or committed file may contain a key. Mock/cached mode cannot silently fall back to a paid request.
+- A live call needs the adopted canonical provider/ledger controller, trusted spend authority and complete bounded reservation, including retry/fan-out/unknown liabilities. Estimated tokens alone do not prove a spend bound.
+- Before any listener or Docker resources, use the project's resource registration policy. Start and clean up only assigned, owned resources. Do not choose a port to bypass that policy.
+- Independent app acceptance is separate from an author's or its child's advisory checks.
+
+## Applicable canonical skills
+
+Use the current workspace's pinned delivery and plan-adoption rules when participating in that run. Global canonical skills are available from `C:/Users/Roy Harden/OneDrive/PJ-OD/skills` (not vendored into this public product):
+
+- `ai-first-persistent-memory-and-planning-framework/SKILL.md`: recon, scoped changes and lean stable documentation; workspace outer-shell storage overrides generic scratch placement.
+- `sync-skills-across-agents/SKILL.md`: changes to these instruction files or skill references.
+- `skills-bts/bolt-new-infrastructure/SKILL.md`: actual portability/handoff inventory, without inventing backend provisioning.
+- `skills-bts/typesafe-ai/SKILL.md`: current official docs before any Jev integration.
+- `skills-bts/agent-ports/SKILL.md`: resources before listening or Docker.
+
+Skill paths describe the development environment, not runtime imports. Do not copy skills, credentials or coordination history into the product. Claude imports this file; Cursor has a pointer; Grok/Codex read this root instruction file. No separate local skill mirrors are introduced.
+
+Changelog: v1 establishes the bootstrap commands, product boundaries, and safety/data/independence invariants.

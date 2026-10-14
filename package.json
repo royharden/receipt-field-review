@@ -1,0 +1,11 @@
+{
+  "name": "receipt-field-review",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Configuration scaffold for the receipt review viewer; UI is pending",
+  "engines": { "node": ">=24 <25" },
+  "scripts": {
+    "test:scaffold": "node --test tests/contracts/test_frontend_config.mjs"
+  }
+}

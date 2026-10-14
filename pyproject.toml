@@ -1,0 +1,35 @@
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "receipt-field-review"
+version = "0.1.0"
+description = "Evidence-preserving receipt extraction and human review (scaffold)"
+readme = "README.md"
+requires-python = ">=3.12,<3.13"
+license = { file = "LICENSE" }
+dependencies = []
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+addopts = "-ra --strict-markers"
+markers = [
+  "native_ocr: requires a separately installed and verified OCR engine",
+  "live: explicitly bounded provider tests with trusted spend authority",
+  "browser: requires a claimed loopback instance and a browser",
+]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+
+# Runtime/development dependencies are intentionally absent from WP01.
+# Add adopted module dependencies and real frozen locks in the assigned setup slot.
