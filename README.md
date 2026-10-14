@@ -17,13 +17,15 @@ The setup also locks Pydantic, pytest/ruff, React/Vite/TypeScript. After the dep
 
 With the installed Python environment, run `python -m pytest tests/module -q` for synthetic model and moved-copy checks, and `python tools/generate_schemas.py --check` for exact generated-schema parity. Generate schemas with the same helper without `--check` after a versioned model change. These checks use no provider keys, images or human-labelled corpus.
 
+`python -m pytest tests/rulings -q` exercises the bounded local journal, historical retries, CAS, damaged-tail refusal, scalar projection and moved-runtime closure. Windows process races, lock deadlines and process exit after fsync are tested with owned temporary files. POSIX and power-loss recovery remain unverified.
+
 ## Planned workflow
 
 Import a single-currency batch of up to 100 JPEG/PNG/HEIC receipts. Inspect fields alongside highlighted source regions, correct or confirm values with the keyboard, save and move to the next item, then export CSV/JSONL. Extraction reruns preserve decisions; changed evidence requires conflict resolution. This workflow is not implemented yet.
 
 ## Architecture
 
-The Python `rfr` core contains reusable [docio](src/rfr/shared/docio/README.md), [fieldextract](src/rfr/shared/fieldextract/README.md), [rulings](src/rfr/shared/rulings/README.md) and [evalkit](src/rfr/shared/evalkit/README.md) wire foundations. Each owns generated JSON schemas and declares its copy closure. Receipt rules, local storage, API and UI will adapt those modules. React/Vite will supply a loopback review viewer and a clearly labelled, transient synthetic static preview. Runtime decoders, journals, scoring/statistics engines, providers and domain adapters remain pending.
+The Python `rfr` core contains reusable [docio](src/rfr/shared/docio/README.md), [fieldextract](src/rfr/shared/fieldextract/README.md), [rulings](src/rfr/shared/rulings/README.md) and [evalkit](src/rfr/shared/evalkit/README.md) foundations. Each owns generated JSON schemas and declares its copy closure. Rulings now includes a bounded owner-private journal and recorded-decision projection; its actor metadata does not authenticate a human. Receipt rules, app storage/API and UI will adapt these modules. Runtime decoders, scoring/statistics engines, providers, domain adapters and the review viewer remain pending.
 
 Frozen lockfiles describe the installed scaffold dependencies. FastAPI/native OCR/provider SDKs and the actual review UI are deferred to their assigned work packages. There is no frontend `build` script yet, so scaffold green cannot be mistaken for an application build.
 

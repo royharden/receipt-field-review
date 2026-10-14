@@ -1,8 +1,8 @@
 # Current limitations
 
-The repository contains a scaffold plus four reusable models/ports/pure-validation foundations and generated schemas. Receipt ingestion, native HEIC conversion, actual OCR, candidate extraction, model verification, durable review, scoring/statistical engines, API/UI and exports are not implemented.
+The repository contains a scaffold, four reusable models/ports/pure-validation foundations, generated schemas and a bounded rulings journal/scalar projection. Receipt ingestion, native HEIC conversion, actual OCR, candidate extraction, model verification, app review workflow, scoring/statistical engines, API/UI and receipt exports are not implemented.
 
-The Python/Node checks verify architecture and publication controls. Synthetic module tests verify schema/identity/evidence admission and moved model closures. They do not prove OCR quality, receipt-field accuracy, durable append/CAS/reducers, statistical computations, provider stability, a frontend build, browser persistence, hosted isolation or app acceptance.
+The Python/Node checks verify architecture and publication controls. Synthetic module tests verify schema/identity/evidence admission and moved model closures. Journal tests execute bounded append/CAS/historical retries, Windows process locking/exit controls and moved runtime, with damaged bytes preserved. They do not prove POSIX/power-loss durability, matching graph reducers, real human identity, OCR quality, receipt-field accuracy, statistical computations, providers, a frontend build, browser persistence, hosted isolation or app acceptance.
 
 Required later evidence includes native HEIC, a lawful real 30-item OCR comparison, browser overlay/correction/restart/stale-tab behavior, module consumer contracts and three-method measured results. Real datasets, applicable terms, human-corrected gold, and a full paid evaluation grant remain prerequisites. Synthetic/replay data cannot satisfy those real-data claims.
 

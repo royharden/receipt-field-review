@@ -1,6 +1,6 @@
 # Schema boundaries — models and pure validators
 
-The four reusable modules implement adopted wire foundations, generated schemas and pure identity/evidence validators. Module READMEs identify their actual copy closures and deferred behavior. Domain resolvers, provider/ledger controllers, OCR, journals, effective-decision reduction and evaluation/statistics engines are not implemented. Schema checks do not establish those capabilities.
+The four reusable modules implement adopted wire foundations, generated schemas and pure identity/evidence validators. Rulings also implements a bounded journal, replay and scalar/pair decision barriers; matching graph reducers remain consumer-owned. Native Windows process controls are tested; POSIX and power-loss recovery remain unverified. Domain resolvers, provider/ledger controllers, OCR and evaluation/statistics engines remain pending. Module READMEs identify actual copy closures and limits; schema checks do not establish runtime capabilities.
 
 | Boundary | Proposed ownership | Required semantics |
 |---|---|---|
