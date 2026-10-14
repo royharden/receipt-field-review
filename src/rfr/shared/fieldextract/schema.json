@@ -1,0 +1,957 @@
+{
+  "module": "fieldextract",
+  "schema_bundle_version": 1,
+  "schemas": {
+    "Candidate": {
+      "$defs": {
+        "BoxPx": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "units": {
+              "const": "px",
+              "default": "px",
+              "title": "Units",
+              "type": "string"
+            },
+            "x0": {
+              "title": "X0",
+              "type": "number"
+            },
+            "x1": {
+              "title": "X1",
+              "type": "number"
+            },
+            "y0": {
+              "title": "Y0",
+              "type": "number"
+            },
+            "y1": {
+              "title": "Y1",
+              "type": "number"
+            }
+          },
+          "required": [
+            "x0",
+            "y0",
+            "x1",
+            "y1"
+          ],
+          "title": "BoxPx",
+          "type": "object"
+        },
+        "DocumentEvidence": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence": {
+              "$ref": "#/$defs/SourceEvidence"
+            },
+            "kind": {
+              "const": "document",
+              "title": "Kind",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "kind",
+            "evidence"
+          ],
+          "title": "DocumentEvidence",
+          "type": "object"
+        },
+        "ExtensionEvidence": {
+          "additionalProperties": false,
+          "description": "Payload must subsequently pass the named consumer-owned evidence validator.",
+          "properties": {
+            "evidence_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Evidence Id",
+              "type": "string"
+            },
+            "kind": {
+              "const": "extension",
+              "title": "Kind",
+              "type": "string"
+            },
+            "payload": {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "title": "Payload",
+              "type": "object"
+            },
+            "profile": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Profile",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "kind",
+            "profile",
+            "evidence_id",
+            "payload"
+          ],
+          "title": "ExtensionEvidence",
+          "type": "object"
+        },
+        "JsonValue": {},
+        "SourceEvidence": {
+          "additionalProperties": false,
+          "description": "Neutral producer evidence; deliberately not the external tagged Pointer union.",
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "document_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Document Id",
+              "type": "string"
+            },
+            "evidence_artifact_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Evidence Artifact Sha256",
+              "type": "string"
+            },
+            "excerpt_sha256": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Excerpt Sha256"
+            },
+            "grid_policy_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Grid Policy Id",
+              "type": "string"
+            },
+            "height_px": {
+              "exclusiveMinimum": 0,
+              "title": "Height Px",
+              "type": "integer"
+            },
+            "line_ids": {
+              "anyOf": [
+                {
+                  "items": {
+                    "maxLength": 512,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Line Ids"
+            },
+            "original_content_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Original Content Sha256",
+              "type": "string"
+            },
+            "page_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Page Id",
+              "type": "string"
+            },
+            "page_index": {
+              "minimum": 0,
+              "title": "Page Index",
+              "type": "integer"
+            },
+            "page_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Page Sha256",
+              "type": "string"
+            },
+            "raw_source_revision": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Raw Source Revision",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "transform_ref": {
+              "anyOf": [
+                {
+                  "maxLength": 512,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Transform Ref"
+            },
+            "width_px": {
+              "exclusiveMinimum": 0,
+              "title": "Width Px",
+              "type": "integer"
+            },
+            "word_ids": {
+              "anyOf": [
+                {
+                  "items": {
+                    "maxLength": 512,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Word Ids"
+            }
+          },
+          "required": [
+            "document_id",
+            "original_content_sha256",
+            "raw_source_revision",
+            "page_id",
+            "page_index",
+            "page_sha256",
+            "grid_policy_id",
+            "width_px",
+            "height_px",
+            "evidence_artifact_sha256",
+            "bbox_px",
+            "word_ids",
+            "line_ids",
+            "excerpt_sha256",
+            "transform_ref"
+          ],
+          "title": "SourceEvidence",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "candidate_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Candidate Id",
+          "type": "string"
+        },
+        "field_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Field Id",
+          "type": "string"
+        },
+        "normalized": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "raw": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "sources": {
+          "items": {
+            "discriminator": {
+              "mapping": {
+                "document": "#/$defs/DocumentEvidence",
+                "extension": "#/$defs/ExtensionEvidence"
+              },
+              "propertyName": "kind"
+            },
+            "oneOf": [
+              {
+                "$ref": "#/$defs/DocumentEvidence"
+              },
+              {
+                "$ref": "#/$defs/ExtensionEvidence"
+              }
+            ]
+          },
+          "title": "Sources",
+          "type": "array"
+        }
+      },
+      "required": [
+        "candidate_id",
+        "field_id",
+        "raw",
+        "normalized",
+        "sources"
+      ],
+      "title": "Candidate",
+      "type": "object"
+    },
+    "CheckIssue": {
+      "additionalProperties": false,
+      "properties": {
+        "field_ids": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Field Ids",
+          "type": "array"
+        },
+        "issue_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Issue Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "severity": {
+          "enum": [
+            "notice",
+            "review",
+            "hard_failure"
+          ],
+          "title": "Severity",
+          "type": "string"
+        }
+      },
+      "required": [
+        "issue_id",
+        "severity",
+        "field_ids"
+      ],
+      "title": "CheckIssue",
+      "type": "object"
+    },
+    "FieldSpec": {
+      "additionalProperties": false,
+      "properties": {
+        "boundary_cases": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Boundary Cases",
+          "type": "array"
+        },
+        "definition": {
+          "title": "Definition",
+          "type": "string"
+        },
+        "field_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Field Id",
+          "type": "string"
+        },
+        "generator": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Generator",
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "text",
+            "number",
+            "boolean",
+            "date",
+            "category",
+            "set",
+            "object"
+          ],
+          "title": "Kind",
+          "type": "string"
+        },
+        "required": {
+          "title": "Required",
+          "type": "boolean"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "field_id",
+        "kind",
+        "required",
+        "definition",
+        "boundary_cases",
+        "generator"
+      ],
+      "title": "FieldSpec",
+      "type": "object"
+    },
+    "FieldValue": {
+      "$defs": {
+        "BoxPx": {
+          "additionalProperties": false,
+          "properties": {
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "units": {
+              "const": "px",
+              "default": "px",
+              "title": "Units",
+              "type": "string"
+            },
+            "x0": {
+              "title": "X0",
+              "type": "number"
+            },
+            "x1": {
+              "title": "X1",
+              "type": "number"
+            },
+            "y0": {
+              "title": "Y0",
+              "type": "number"
+            },
+            "y1": {
+              "title": "Y1",
+              "type": "number"
+            }
+          },
+          "required": [
+            "x0",
+            "y0",
+            "x1",
+            "y1"
+          ],
+          "title": "BoxPx",
+          "type": "object"
+        },
+        "DocumentEvidence": {
+          "additionalProperties": false,
+          "properties": {
+            "evidence": {
+              "$ref": "#/$defs/SourceEvidence"
+            },
+            "kind": {
+              "const": "document",
+              "title": "Kind",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "kind",
+            "evidence"
+          ],
+          "title": "DocumentEvidence",
+          "type": "object"
+        },
+        "ExtensionEvidence": {
+          "additionalProperties": false,
+          "description": "Payload must subsequently pass the named consumer-owned evidence validator.",
+          "properties": {
+            "evidence_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Evidence Id",
+              "type": "string"
+            },
+            "kind": {
+              "const": "extension",
+              "title": "Kind",
+              "type": "string"
+            },
+            "payload": {
+              "additionalProperties": {
+                "$ref": "#/$defs/JsonValue"
+              },
+              "title": "Payload",
+              "type": "object"
+            },
+            "profile": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Profile",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "kind",
+            "profile",
+            "evidence_id",
+            "payload"
+          ],
+          "title": "ExtensionEvidence",
+          "type": "object"
+        },
+        "JsonValue": {},
+        "ScoreComponents": {
+          "additionalProperties": false,
+          "properties": {
+            "native_quality_multiplier": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Native Quality Multiplier"
+            },
+            "native_quality_policy": {
+              "anyOf": [
+                {
+                  "maxLength": 512,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Native Quality Policy"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "selector_probability": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Selector Probability"
+            },
+            "verifier_probability": {
+              "anyOf": [
+                {
+                  "maximum": 1,
+                  "minimum": 0,
+                  "type": "number"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Verifier Probability"
+            }
+          },
+          "required": [
+            "selector_probability",
+            "verifier_probability",
+            "native_quality_multiplier",
+            "native_quality_policy"
+          ],
+          "title": "ScoreComponents",
+          "type": "object"
+        },
+        "SourceEvidence": {
+          "additionalProperties": false,
+          "description": "Neutral producer evidence; deliberately not the external tagged Pointer union.",
+          "properties": {
+            "bbox_px": {
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/BoxPx"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "document_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Document Id",
+              "type": "string"
+            },
+            "evidence_artifact_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Evidence Artifact Sha256",
+              "type": "string"
+            },
+            "excerpt_sha256": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Excerpt Sha256"
+            },
+            "grid_policy_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Grid Policy Id",
+              "type": "string"
+            },
+            "height_px": {
+              "exclusiveMinimum": 0,
+              "title": "Height Px",
+              "type": "integer"
+            },
+            "line_ids": {
+              "anyOf": [
+                {
+                  "items": {
+                    "maxLength": 512,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Line Ids"
+            },
+            "original_content_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Original Content Sha256",
+              "type": "string"
+            },
+            "page_id": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Page Id",
+              "type": "string"
+            },
+            "page_index": {
+              "minimum": 0,
+              "title": "Page Index",
+              "type": "integer"
+            },
+            "page_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Page Sha256",
+              "type": "string"
+            },
+            "raw_source_revision": {
+              "maxLength": 512,
+              "minLength": 1,
+              "title": "Raw Source Revision",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            },
+            "transform_ref": {
+              "anyOf": [
+                {
+                  "maxLength": 512,
+                  "minLength": 1,
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Transform Ref"
+            },
+            "width_px": {
+              "exclusiveMinimum": 0,
+              "title": "Width Px",
+              "type": "integer"
+            },
+            "word_ids": {
+              "anyOf": [
+                {
+                  "items": {
+                    "maxLength": 512,
+                    "minLength": 1,
+                    "type": "string"
+                  },
+                  "type": "array"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "title": "Word Ids"
+            }
+          },
+          "required": [
+            "document_id",
+            "original_content_sha256",
+            "raw_source_revision",
+            "page_id",
+            "page_index",
+            "page_sha256",
+            "grid_policy_id",
+            "width_px",
+            "height_px",
+            "evidence_artifact_sha256",
+            "bbox_px",
+            "word_ids",
+            "line_ids",
+            "excerpt_sha256",
+            "transform_ref"
+          ],
+          "title": "SourceEvidence",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "components": {
+          "$ref": "#/$defs/ScoreComponents"
+        },
+        "confidence": {
+          "anyOf": [
+            {
+              "maximum": 1,
+              "minimum": 0,
+              "type": "number"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Confidence"
+        },
+        "field_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Field Id",
+          "type": "string"
+        },
+        "hard_flags": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Hard Flags",
+          "type": "array"
+        },
+        "human_provenance_ref": {
+          "anyOf": [
+            {
+              "maxLength": 512,
+              "minLength": 1,
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Human Provenance Ref"
+        },
+        "issues": {
+          "items": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string"
+          },
+          "title": "Issues",
+          "type": "array"
+        },
+        "method": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Method",
+          "type": "string"
+        },
+        "proposal": {
+          "$ref": "#/$defs/JsonValue"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "score_version": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Score Version",
+          "type": "string"
+        },
+        "source": {
+          "anyOf": [
+            {
+              "discriminator": {
+                "mapping": {
+                  "document": "#/$defs/DocumentEvidence",
+                  "extension": "#/$defs/ExtensionEvidence"
+                },
+                "propertyName": "kind"
+              },
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/DocumentEvidence"
+                },
+                {
+                  "$ref": "#/$defs/ExtensionEvidence"
+                }
+              ]
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "title": "Source"
+        },
+        "status": {
+          "enum": [
+            "proposed",
+            "absent",
+            "abstained",
+            "needs_review",
+            "human_effective"
+          ],
+          "title": "Status",
+          "type": "string"
+        },
+        "threshold_version": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Threshold Version",
+          "type": "string"
+        },
+        "value": {
+          "$ref": "#/$defs/JsonValue"
+        }
+      },
+      "required": [
+        "field_id",
+        "value",
+        "confidence",
+        "source",
+        "method",
+        "status",
+        "proposal",
+        "human_provenance_ref",
+        "hard_flags",
+        "issues",
+        "components",
+        "score_version",
+        "threshold_version"
+      ],
+      "title": "FieldValue",
+      "type": "object"
+    },
+    "JudgmentDistribution": {
+      "additionalProperties": false,
+      "properties": {
+        "origin": {
+          "enum": [
+            "native_model",
+            "synthetic",
+            "replay"
+          ],
+          "title": "Origin",
+          "type": "string"
+        },
+        "probabilities": {
+          "additionalProperties": {
+            "maximum": 1,
+            "minimum": 0,
+            "type": "number"
+          },
+          "propertyNames": {
+            "maxLength": 512,
+            "minLength": 1
+          },
+          "title": "Probabilities",
+          "type": "object"
+        },
+        "question_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Question Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "question_id",
+        "origin",
+        "probabilities"
+      ],
+      "title": "JudgmentDistribution",
+      "type": "object"
+    }
+  },
+  "stage": "models-only"
+}

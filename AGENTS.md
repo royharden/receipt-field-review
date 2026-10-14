@@ -1,10 +1,10 @@
-# Receipt Field Review agent instructions — version 2
+# Receipt Field Review agent instructions — version 3
 
 Product code, tests and stable product documentation belong in this Git repository. Plans, agent identity registries, private reviews, transcripts, execution receipts and live resource records belong in the designated outer workspace, never here. A moved product repository must not depend on absolute workspace imports.
 
 ## Commands and current state
 
-The repository is a scaffold. Python 3.12 and Node 24 are the declared runtimes.
+The repository has a scaffold plus four models/ports/pure-validation modules. Python 3.12 and Node 24 are the declared runtimes. No OCR, journal, statistical engine or receipt workflow is implemented yet.
 
 ```text
 python -m unittest discover -s tests/contracts -p "test_scaffold.py" -v
@@ -12,6 +12,8 @@ node --test tests/contracts/test_frontend_config.mjs
 ```
 
 Those dependency-free checks install nothing. The assigned setup adds frozen Pydantic/pytest/ruff and React/Vite/TypeScript dependencies; `uv sync --frozen`, `uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`, `npm ci --ignore-scripts`, and `npm run typecheck` verify that setup. Type checking currently covers configuration only. Never claim a scaffold check is extraction accuracy, a frontend build, deployed security or a finished app.
+
+Model checks use the installed environment: `python -m pytest tests/module -q` and `python tools/generate_schemas.py --check`. Generated schemas are module-owned. Models are closed/strict; geometry and provenance cannot be upgraded by shape validation. Consumer models may be moved only with the closure declared in each module README and root LICENSE. Future runtime dependencies or store/statistical behavior require their own implementation and failure-capable checks.
 
 ## Invariants
 
@@ -37,4 +39,4 @@ Use the current workspace's pinned delivery and plan-adoption rules when partici
 
 Skill paths describe the development environment, not runtime imports. Do not copy skills, credentials or coordination history into the product. Claude imports this file; Cursor has a pointer; Grok/Codex read this root instruction file. No separate local skill mirrors are introduced.
 
-Changelog: v1 established bootstrap commands and product invariants. v2 adds frozen scaffold dependencies and setup checks while retaining dependency-free architecture checks and the pending UI/schema/runtime boundaries.
+Changelog: v1 established bootstrap commands/invariants. v2 locked scaffold dependencies. v3 documents implemented models/pure validators/schema parity and moved closures while retaining pending engines, OCR, storage and UI boundaries. Claude/Cursor pointers continue to import this single instruction source; no hook or skill mirror is changed.

@@ -1,6 +1,6 @@
-# Proposed schema boundaries — not adopted wire schemas
+# Schema boundaries — models and pure validators
 
-This is design scaffolding. No shared schema or domain resolver is implemented here. Counterpart adoption and versioned contract vectors precede exported-schema code.
+The four reusable modules implement adopted wire foundations, generated schemas and pure identity/evidence validators. Module READMEs identify their actual copy closures and deferred behavior. Domain resolvers, provider/ledger controllers, OCR, journals, effective-decision reduction and evaluation/statistics engines are not implemented. Schema checks do not establish those capabilities.
 
 | Boundary | Proposed ownership | Required semantics |
 |---|---|---|
@@ -12,4 +12,4 @@ This is design scaffolding. No shared schema or domain resolver is implemented h
 | Gold record / manifest / outcomes | evalkit | present/absent/unlabelled; grouped split/seed/freeze/source provenance; failures kept; zero-denominator NA; human outcomes separate from machine precision |
 | Provider / ledger requests | external provider/ledger owner | discriminated text/typed/image capability; requested/resolved model; provider-reported nullable usage; complete pre-call fan-out/retry reservation; unknown liabilities retained |
 
-Receipt composite schemas belong to the app plugin. Copying a generic module must not require the receipt application. A later PDF/native page source must run the same generic consumer without an invented OCR probability. Readme/schema names are not proof that a canonical external interface has been adopted.
+Receipt composite schemas belong to the app plugin and remain pending. Copying a generic module must not require the receipt application. Synthetic native/text Page tests preserve nullable confidence; they do not prove an installed PDF or OCR engine. External tagged Pointer/provider/controller classes remain owner-supplied adapters and must be verified against actual source releases before integration.

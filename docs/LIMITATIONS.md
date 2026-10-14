@@ -1,8 +1,8 @@
 # Current limitations
 
-The repository currently contains only a bootstrap scaffold. Receipt ingestion, native HEIC conversion, OCR boxes, candidate extraction, model verification, durable review, API/UI and exports are not implemented.
+The repository contains a scaffold plus four reusable models/ports/pure-validation foundations and generated schemas. Receipt ingestion, native HEIC conversion, actual OCR, candidate extraction, model verification, durable review, scoring/statistical engines, API/UI and exports are not implemented.
 
-The Python and Node scaffold checks verify architectural boundaries and publication controls. They do not prove OCR quality, receipt-field accuracy, provider stability, a frontend build, real browser persistence, hosted isolation or app acceptance.
+The Python/Node checks verify architecture and publication controls. Synthetic module tests verify schema/identity/evidence admission and moved model closures. They do not prove OCR quality, receipt-field accuracy, durable append/CAS/reducers, statistical computations, provider stability, a frontend build, browser persistence, hosted isolation or app acceptance.
 
 Required later evidence includes native HEIC, a lawful real 30-item OCR comparison, browser overlay/correction/restart/stale-tab behavior, module consumer contracts and three-method measured results. Real datasets, applicable terms, human-corrected gold, and a full paid evaluation grant remain prerequisites. Synthetic/replay data cannot satisfy those real-data claims.
 

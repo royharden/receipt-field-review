@@ -5,7 +5,7 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "receipt-field-review"
 version = "0.1.0"
-description = "Evidence-preserving receipt extraction and human review (scaffold)"
+description = "Receipt review foundations: evidence, proposals, rulings and evaluation wire models"
 readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = { file = "LICENSE" }
@@ -15,6 +15,9 @@ dependencies = [
 
 [tool.setuptools.packages.find]
 where = ["src"]
+
+[tool.setuptools.package-data]
+"rfr.shared.*" = ["schema.json", "README.md"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -39,5 +42,5 @@ dev = [
     "ruff>=0.17.0",
 ]
 
-# Only scaffold dependencies are installed in WP01. Add adopted module/runtime
-# dependencies through assigned root setup; shared schemas and providers are pending.
+# Core wire models use the locked Pydantic runtime. Decoder, storage, provider,
+# statistical-engine and application dependencies are not installed by this slice.
