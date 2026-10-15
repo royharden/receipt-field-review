@@ -1,0 +1,27 @@
+# Implementation lessons
+
+- Preserve exact retained bytes separately from typed values. Integer-versus-float JSON normalization
+  can change evidence identity even when values compare equal.
+- Serialize source-head updates and decisions under the batch lock before the journal lock. Guard
+  current revision, evidence generation, prior head and prior typed value together; isolated checks
+  leave race windows. Retain exact historical retries even after rerun or deletion.
+- Keep machine proposals and confidence unchanged when projecting corrections. Confirming a corrected
+  value must retain its correction audit history; reopening must not revive an old correction.
+- Tombstones are permanent for an identity. A new upload needs a fresh identity, not a silent restore.
+- Issue waivers must bind current operand values. A corrected number does not automatically resolve
+  arithmetic flags, and a future date can be reviewed while its failed check remains visible.
+- Record local execution origin only at the actual extractor boundary. A queued, refused, stale or
+  unavailable job must not be labeled as executed; preserve completed outcomes during interruption.
+- Canonical JSON sorts opaque item keys. Tests and consumers must not infer chronological order from
+  dictionary insertion order after durable serialization.
+- Validate copied modules in a detached consumer with original app imports, SDKs and network blocked.
+  Keep source/runtime changes distinct from test-only namespace/path adaptation and metadata newline
+  differences. Tested bytes and committed bytes need explicit reconciliation when they differ.
+- Preserve unsuccessful attempts and their fixes. Source/check receipts cannot retroactively prove
+  a baseline that was recorded after an edit, or a check that was still running during mutation.
+- Read and write text explicitly as UTF-8. A Windows default-codepage round trip can corrupt Unicode
+  even when a later diff appears superficially similar.
+- Package metadata, cached wheels and a pure request guard are separate from installed dependencies,
+  native execution and actual HTTP enforcement. Verify each boundary with the relevant runtime.
+- Provisional agent labels, claimed human actors, operational clean exports and synthetic controls
+  do not establish independent human Gold, measured accuracy or calibrated automation.

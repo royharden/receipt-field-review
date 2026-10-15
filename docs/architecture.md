@@ -1,6 +1,6 @@
 # Architecture boundary
 
-Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI. Image ingestion, actual native/model inference, pending/failed job orchestration, API and UI remain pending.
+Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI, durable recognized-item B0 jobs, and pure API DTO/schema/TypeScript contracts with a request-policy guard. Image ingestion, actual native/model inference, image-upload jobs, HTTP transport/worker ownership and UI remain pending. Development is paused; see the [current inventory](../DEVELOPMENT-STATUS.md).
 
 The intended dependency direction is:
 

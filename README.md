@@ -1,5 +1,9 @@
 # Receipt Field Review
 
+Development is paused as of 2026-10-15. See [current development status](DEVELOPMENT-STATUS.md)
+for completed slices, unfinished work, validation limits and the next tasks, and [lessons](LESSONS.md)
+for implementation findings. No runnable image application or frontend build is available yet.
+
 Receipt Field Review proposes fixed receipt scalar/line-cell fields from supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. Image ingestion, actual native/model inference, the API and browser viewer remain under construction.
 
 ## Recognized-bundle review CLI
@@ -46,7 +50,7 @@ node --test tests/contracts/test_frontend_config.mjs
 
 The checks exercise forbidden module dependencies and publication controls with positive and negative cases. They do not start a server, open sockets, install OCR, or call a provider. Native OCR, image-to-receipt integration, real held-out evaluation and frontend build are pending.
 
-The setup also locks Pydantic, pytest/ruff, React/Vite/TypeScript. After the dependencies are installed with `uv sync --frozen` and `npm ci --ignore-scripts`, run `uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`, and `npm run typecheck`. Type checking currently covers configuration only.
+The setup also locks Pydantic, pytest/ruff, React/Vite/TypeScript. After the dependencies are installed with `uv sync --frozen` and `npm ci --ignore-scripts`, run `uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`, and `npm run typecheck`. Type checking currently covers configuration and generated API contracts, not a React viewer.
 
 With the installed Python environment, run `python -m pytest tests/module -q` for synthetic model and moved-copy checks, and `python tools/generate_schemas.py --check` for exact generated-schema parity. Generate schemas with the same helper without `--check` after a versioned model change. These checks use no provider keys, images or human-labelled corpus.
 
@@ -64,7 +68,7 @@ With the installed Python environment, run `python -m pytest tests/module -q` fo
 
 ## Planned workflow
 
-The intended image workflow imports up to100 single-currency JPEG/PNG/HEIC receipts, shows highlighted source regions, supports keyboard review, and exports CSV/JSONL. Provided recognized bundles already support durable corrections, unchanged-evidence reruns, changed-evidence conflicts and audited exports through the CLI. Original image decoding/serving, pending/failed inference jobs and the browser journey remain pending.
+The intended image workflow imports up to100 single-currency JPEG/PNG/HEIC receipts, shows highlighted source regions, supports keyboard review, and exports CSV/JSONL. Provided recognized bundles already support durable corrections, unchanged-evidence reruns, changed-evidence conflicts and audited exports through the CLI. Durable recognized-item jobs execute B0 and retain explicit J1/V2-unavailable outcomes. Original image decoding/serving, image-upload jobs and the browser journey remain pending. API DTOs, generated TypeScript contracts and a pure request-policy guard exist; HTTP transport and actual stream enforcement remain pending.
 
 ## Architecture
 

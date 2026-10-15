@@ -1,6 +1,11 @@
 # Current limitations
 
-The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI and audited private CSV/JSONL exports are implemented. Image ingestion, native HEIC conversion, actual OCR, live model verification, pending/failed inference-job orchestration, receipt-domain evaluation scorers and API/UI remain pending.
+Development is paused as of 2026-10-15; [development status](../DEVELOPMENT-STATUS.md) is the current
+implementation inventory. Durable recognized-item B0 jobs and pure API DTO/schema/TypeScript contracts
+are implemented. HTTP transport, actual request-stream enforcement and the viewer are still absent.
+Native/API dependencies have not been installed; no native image run or live provider call occurred.
+
+The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. Image ingestion, native HEIC conversion, actual OCR, live model verification, image-upload/live-method job integration, receipt-domain evaluation scorers, HTTP transport and UI remain pending.
 
 B0 over-finds candidates from supplied retained recognized lines. It supports basic line amounts and explicitly printed quantity-times-unit-price forms, plus separately printed tip/service/discount adjustments. Missing quantities, unit prices, tax, currency codes and unknown adjustment stages are not guessed. Handwriting, complex/multicolumn layouts, Arabic/localized numeral formats and real OCR quality remain unmeasured. The current presets cover USD/EUR/GBP/CAD/AUD/JPY/KWD; other currency codes are rejected. Diagnostic checks/proposals default to blank review, with no calibrated automation claim.
 
