@@ -3,18 +3,16 @@
 import argparse
 import json
 import sys
-import uuid
-from datetime import UTC, datetime
 from pathlib import Path
 
 from .export.receipt import export_receipts, write_export
+from .pipeline.commands import draft_decision
 from .pipeline.files import BatchError, read
 from .pipeline.models import ReceiptBundle
-from .pipeline.review import NAMESPACE, normalized_value, subject
 from .pipeline.store import BatchStore
 from .receipt.models import MINOR_UNITS, CurrencyPolicy
 from .shared.execution.callledger.models import decode_wire_json
-from .shared.rulings.models import IssueDisposition, RulingIntent, ScalarPayload
+from .shared.rulings.models import RulingIntent
 from .shared.rulings.store import JournalError
 
 
@@ -60,51 +58,20 @@ def parser():
 
 
 def make_draft(store, args):
-    view = store.detail(args.item)
-    bundle = store.bundle(args.item)
-    if bundle.revision != view["revision"]:
-        raise BatchError("source_changed_during_draft")
-    field = view["fields"].get(args.field)
-    if field is None:
-        raise BatchError("unknown_receipt_field")
-    if args.action == "correct":
-        value = normalized_value(args.field, args.value, bundle.receipt.context)
-    elif args.action == "confirm":
-        value = field["decision_old_value"]
-        if value is None:
-            raise BatchError("confirm_missing_requires_explicit_absence_waiver")
-    else:
-        value = None
-    if args.waive_issue and not args.issue_reason:
-        raise BatchError("explicit_issue_reason_required")
-    if args.actor_kind == "human_claimed" and not args.actor_ref:
-        raise BatchError("claimed_human_provenance_reference_required")
-    intent = RulingIntent(
-        event_id=args.event_id or uuid.uuid4().hex,
-        namespace=NAMESPACE,
-        subject=subject(args.item, args.field),
-        generation_identity=bundle.generation,
-        event_kind="scalar_decision",
-        payload=ScalarPayload(
-            action=args.action,
-            old_value=field["decision_old_value"],
-            new_value=value,
-            issue_dispositions=tuple(
-                IssueDisposition(issue_id=issue, disposition="waived", reason=args.issue_reason)
-                for issue in args.waive_issue
-            ),
-        ),
-        expected_source_revision=bundle.document.raw_source_revision,
-        expected_evidence_revision=bundle.generation.evidence_revision,
-        expected_prior_event_id=field["head_event_id"],
-        actor_label=args.actor,
-        actor_provenance="human" if args.actor_kind == "human_claimed" else "agent_provisional",
-        actor_provenance_ref=args.actor_ref,
-        at_utc=datetime.now(UTC).isoformat(),
+    return draft_decision(
+        store,
+        item=args.item,
+        field=args.field,
+        action=args.action,
+        value=args.value,
         reason=args.reason,
-        context_refs=(),
+        actor=args.actor,
+        actor_kind=args.actor_kind,
+        actor_ref=args.actor_ref,
+        event_id=args.event_id,
+        waive_issues=args.waive_issue,
+        issue_reason=args.issue_reason,
     )
-    return {"expected_item_revision": bundle.revision, "intent": intent.model_dump(mode="json")}
 
 
 def execute(args):
