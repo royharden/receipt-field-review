@@ -71,3 +71,17 @@ payload, issues, ledger and provenance. A wholly failed, blocked, stale, unavail
 unexecuted controller cannot manufacture an ok envelope. Generic MethodEvaluation `executed` is
 dispatch metadata, not a complete-success verdict. The consumer must preserve the actual operation
 status as partial in its whole-method report; truthful field counts do not erase partial execution.
+
+`calibration.binary_calibration` computes private typed score-versus-binary-correctness Brier, fixed-bin
+ECE and reliability bins. Score kind/version stay separate; scores must be finite[0,1] and correctness
+strictly boolean. Fixed1–100 bins use[low,high), with1 in the final bin. Empty support/bins remain null
+with support counts, without imputation, clipping or adaptive repair. Calls reject point overflow
+(default100,000, configurable at most1,000,000) instead of silently truncating a cohort.
+
+The consumer owns actual eligible/answered/labelled/confidence-available mapping and missing/error
+coverage, and must use the predicted-class score with exact field correctness. Native probability,
+self-reported confidence and routing diagnostics cannot be pooled or silently reinterpreted. Matching
+typed points do not establish source/label/empirical-calibration/threshold authority. These are tiny
+arithmetic controls only; any actual dev fit/held-out run and public per-bin projection require the
+existing caller authority, frozen policy, privacy allowlists and support rules. Whole-group uncertainty
+reuses the existing paired resampler with the same frozen calibration specification.
