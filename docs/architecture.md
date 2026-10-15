@@ -1,6 +1,11 @@
 # Architecture boundary
 
-Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI, durable recognized-item B0 jobs, and pure API DTO/schema/TypeScript contracts with a request-policy guard. Image ingestion, actual native/model inference, image-upload jobs, HTTP transport/worker ownership and UI remain pending. Development is paused; see the [current inventory](../DEVELOPMENT-STATUS.md).
+Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI, durable recognized-item B0 jobs, a synthetic CLI demo, and pure API DTO/schema/TypeScript contracts with a request-policy guard. Image ingestion, actual native/model inference, image-upload jobs, HTTP transport/worker ownership and UI remain pending. See the [current inventory](../DEVELOPMENT-STATUS.md).
+
+The demo orchestrates existing CLI entrypoints, `BatchStore`, decision drafts and `JobStore`; it owns
+no parallel persistence or extraction implementation. Fresh CLI processes read saved decisions.
+Explicit synthetic issue waivers remain auditable, and original machine values remain unchanged.
+The pinned recognized fixture is product input; demo runtime imports no test helper or agent files.
 
 The intended dependency direction is:
 

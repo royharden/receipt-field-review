@@ -1,0 +1,1604 @@
+{
+  "schema_version": 1,
+  "document": {
+    "schema_version": 1,
+    "document_id": "literal-doc",
+    "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+    "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+    "source_kind": "image",
+    "pages": [
+      {
+        "schema_version": 1,
+        "document_id": "literal-doc",
+        "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+        "page_id": "page:0",
+        "page_index": 0,
+        "width_px": 500,
+        "height_px": 400,
+        "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+        "grid_policy_id": "rgba8-source-grid-v1",
+        "words": [
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:1:1",
+            "text": "Merchant: SYNTHETIC SHOP",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 20.0,
+              "x1": 460.0,
+              "y1": 35.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:2:1",
+            "text": "DATE 2026-10-14",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 40.0,
+              "x1": 460.0,
+              "y1": 55.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:3:1",
+            "text": "CURRENCY USD",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 60.0,
+              "x1": 460.0,
+              "y1": 75.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:4:1",
+            "text": "Coffee 2 x 3.00 6.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 80.0,
+              "x1": 460.0,
+              "y1": 95.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:5:1",
+            "text": "Cake 4.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 100.0,
+              "x1": 460.0,
+              "y1": 115.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:6:1",
+            "text": "SUBTOTAL 10.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 120.0,
+              "x1": 460.0,
+              "y1": 135.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:7:1",
+            "text": "TAX 1.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 140.0,
+              "x1": 460.0,
+              "y1": 155.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:8:1",
+            "text": "TIP 2.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 160.0,
+              "x1": 460.0,
+              "y1": 175.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:9:1",
+            "text": "SERVICE 0.50",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 180.0,
+              "x1": 460.0,
+              "y1": 195.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:10:1",
+            "text": "DISCOUNT 1.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 200.0,
+              "x1": 460.0,
+              "y1": 215.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:11:1",
+            "text": "TOTAL 99.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 220.0,
+              "x1": 460.0,
+              "y1": 235.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:12:1",
+            "text": "VISA",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 240.0,
+              "x1": 460.0,
+              "y1": 255.0
+            },
+            "ocr_confidence": 0.98,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1"
+          }
+        ],
+        "lines": [
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:1",
+            "text": "Merchant: SYNTHETIC SHOP",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 20.0,
+              "x1": 460.0,
+              "y1": 35.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:1:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:2",
+            "text": "DATE 2026-10-14",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 40.0,
+              "x1": 460.0,
+              "y1": 55.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:2:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:3",
+            "text": "CURRENCY USD",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 60.0,
+              "x1": 460.0,
+              "y1": 75.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:3:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:4",
+            "text": "Coffee 2 x 3.00 6.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 80.0,
+              "x1": 460.0,
+              "y1": 95.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:4:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:5",
+            "text": "Cake 4.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 100.0,
+              "x1": 460.0,
+              "y1": 115.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:5:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:6",
+            "text": "SUBTOTAL 10.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 120.0,
+              "x1": 460.0,
+              "y1": 135.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:6:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:7",
+            "text": "TAX 1.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 140.0,
+              "x1": 460.0,
+              "y1": 155.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:7:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:8",
+            "text": "TIP 2.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 160.0,
+              "x1": 460.0,
+              "y1": 175.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:8:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:9",
+            "text": "SERVICE 0.50",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 180.0,
+              "x1": 460.0,
+              "y1": 195.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:9:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:10",
+            "text": "DISCOUNT 1.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 200.0,
+              "x1": 460.0,
+              "y1": 215.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:10:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:11",
+            "text": "TOTAL 99.00",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 220.0,
+              "x1": 460.0,
+              "y1": 235.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:11:1"
+            ]
+          },
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:12",
+            "text": "VISA",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 240.0,
+              "x1": 460.0,
+              "y1": 255.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:w:1:1:12:1"
+            ]
+          }
+        ],
+        "blocks": [
+          {
+            "schema_version": 1,
+            "stable_id": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:b:1",
+            "text": "Merchant: SYNTHETIC SHOP\nDATE 2026-10-14\nCURRENCY USD\nCoffee 2 x 3.00 6.00\nCake 4.00\nSUBTOTAL 10.00\nTAX 1.00\nTIP 2.00\nSERVICE 0.50\nDISCOUNT 1.00\nTOTAL 99.00\nVISA",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 0.0,
+              "y0": 0.0,
+              "x1": 500.0,
+              "y1": 400.0
+            },
+            "ocr_confidence": null,
+            "geometry_provenance": "measured_ocr",
+            "source_engine": "tesseract-tsv",
+            "source_engine_version": "synthetic-format-control/1",
+            "ordered_child_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:1",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:2",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:3",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:4",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:5",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:6",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:7",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:8",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:9",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:10",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:11",
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:12"
+            ]
+          }
+        ],
+        "source_kind": "image",
+        "processing_ref": "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+      }
+    ],
+    "provenance": {
+      "schema_version": 1,
+      "producer": "literal-control",
+      "version": "synthetic/1",
+      "config_sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+      "source_grid_profile": "rgba8-source-grid-v1",
+      "refs": []
+    }
+  },
+  "receipt": {
+    "schema_version": 1,
+    "receipt_id": "receipt1:e571019f7917dbedc0f83300530e7ac83f64aa1b4653d53504edfdc7ed89d9da",
+    "document_id": "literal-doc",
+    "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+    "artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+    "context": {
+      "schema_version": 1,
+      "currency": {
+        "schema_version": 1,
+        "code": "USD",
+        "decimal_separator": ".",
+        "group_separator": ",",
+        "version": "receipt-currency/1"
+      },
+      "reference_date": "2026-10-14",
+      "policy_version": "receipt-checks/1"
+    },
+    "fields": {
+      "merchant_name": {
+        "schema_version": 1,
+        "field_id": "merchant_name",
+        "value": null,
+        "confidence": 0.588,
+        "source": {
+          "schema_version": 1,
+          "kind": "document",
+          "evidence": {
+            "schema_version": 1,
+            "document_id": "literal-doc",
+            "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+            "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+            "page_id": "page:0",
+            "page_index": 0,
+            "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+            "grid_policy_id": "rgba8-source-grid-v1",
+            "width_px": 500,
+            "height_px": 400,
+            "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 20.0,
+              "x1": 460.0,
+              "y1": 35.0
+            },
+            "word_ids": null,
+            "line_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:1"
+            ],
+            "excerpt_sha256": "d835f043b710b985777a12a7e8ba17f045d3805b6080645d207a965c218e95c4",
+            "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+          }
+        },
+        "method": "B0",
+        "status": "needs_review",
+        "proposal": "SYNTHETIC SHOP",
+        "human_provenance_ref": null,
+        "hard_flags": [
+          "ambiguous_candidates"
+        ],
+        "issues": [
+          "verifier_not_run",
+          "uncalibrated",
+          "unknown_stratum"
+        ],
+        "components": {
+          "schema_version": 1,
+          "selector_probability": 0.6,
+          "verifier_probability": null,
+          "native_quality_multiplier": 0.98,
+          "native_quality_policy": "receipt-measured-word-min/1"
+        },
+        "score_version": "min-selector-quality-verifier/1",
+        "threshold_version": "uncalibrated/1"
+      },
+      "date": {
+        "schema_version": 1,
+        "field_id": "date",
+        "value": null,
+        "confidence": 0.882,
+        "source": {
+          "schema_version": 1,
+          "kind": "document",
+          "evidence": {
+            "schema_version": 1,
+            "document_id": "literal-doc",
+            "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+            "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+            "page_id": "page:0",
+            "page_index": 0,
+            "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+            "grid_policy_id": "rgba8-source-grid-v1",
+            "width_px": 500,
+            "height_px": 400,
+            "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 40.0,
+              "x1": 460.0,
+              "y1": 55.0
+            },
+            "word_ids": null,
+            "line_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:2"
+            ],
+            "excerpt_sha256": "dfbbf9eeb481b9bd03502e7b5f82e172b4b3851c1993155683a34c02610ef44e",
+            "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+          }
+        },
+        "method": "B0",
+        "status": "needs_review",
+        "proposal": "2026-10-14",
+        "human_provenance_ref": null,
+        "hard_flags": [],
+        "issues": [
+          "verifier_not_run",
+          "uncalibrated",
+          "unknown_stratum"
+        ],
+        "components": {
+          "schema_version": 1,
+          "selector_probability": 0.9,
+          "verifier_probability": null,
+          "native_quality_multiplier": 0.98,
+          "native_quality_policy": "receipt-measured-word-min/1"
+        },
+        "score_version": "min-selector-quality-verifier/1",
+        "threshold_version": "uncalibrated/1"
+      },
+      "currency": {
+        "schema_version": 1,
+        "field_id": "currency",
+        "value": null,
+        "confidence": 0.882,
+        "source": {
+          "schema_version": 1,
+          "kind": "document",
+          "evidence": {
+            "schema_version": 1,
+            "document_id": "literal-doc",
+            "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+            "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+            "page_id": "page:0",
+            "page_index": 0,
+            "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+            "grid_policy_id": "rgba8-source-grid-v1",
+            "width_px": 500,
+            "height_px": 400,
+            "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 60.0,
+              "x1": 460.0,
+              "y1": 75.0
+            },
+            "word_ids": null,
+            "line_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:3"
+            ],
+            "excerpt_sha256": "d8f710ee24cc1e84c78e76f128037398a8403d993097945c342ddf56885e311a",
+            "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+          }
+        },
+        "method": "B0",
+        "status": "needs_review",
+        "proposal": "USD",
+        "human_provenance_ref": null,
+        "hard_flags": [],
+        "issues": [
+          "verifier_not_run",
+          "uncalibrated",
+          "unknown_stratum"
+        ],
+        "components": {
+          "schema_version": 1,
+          "selector_probability": 0.9,
+          "verifier_probability": null,
+          "native_quality_multiplier": 0.98,
+          "native_quality_policy": "receipt-measured-word-min/1"
+        },
+        "score_version": "min-selector-quality-verifier/1",
+        "threshold_version": "uncalibrated/1"
+      },
+      "subtotal": {
+        "schema_version": 1,
+        "field_id": "subtotal",
+        "value": null,
+        "confidence": 0.882,
+        "source": {
+          "schema_version": 1,
+          "kind": "document",
+          "evidence": {
+            "schema_version": 1,
+            "document_id": "literal-doc",
+            "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+            "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+            "page_id": "page:0",
+            "page_index": 0,
+            "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+            "grid_policy_id": "rgba8-source-grid-v1",
+            "width_px": 500,
+            "height_px": 400,
+            "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 120.0,
+              "x1": 460.0,
+              "y1": 135.0
+            },
+            "word_ids": null,
+            "line_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:6"
+            ],
+            "excerpt_sha256": "0c114b8d63fc69352b28426ad17db5f87f487a91596df831eb0b97a36100ab1b",
+            "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+          }
+        },
+        "method": "B0",
+        "status": "needs_review",
+        "proposal": "10.00",
+        "human_provenance_ref": null,
+        "hard_flags": [
+          "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+        ],
+        "issues": [
+          "verifier_not_run",
+          "uncalibrated",
+          "unknown_stratum",
+          "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+        ],
+        "components": {
+          "schema_version": 1,
+          "selector_probability": 0.9,
+          "verifier_probability": null,
+          "native_quality_multiplier": 0.98,
+          "native_quality_policy": "receipt-measured-word-min/1"
+        },
+        "score_version": "min-selector-quality-verifier/1",
+        "threshold_version": "uncalibrated/1"
+      },
+      "tax": {
+        "schema_version": 1,
+        "field_id": "tax",
+        "value": null,
+        "confidence": 0.882,
+        "source": {
+          "schema_version": 1,
+          "kind": "document",
+          "evidence": {
+            "schema_version": 1,
+            "document_id": "literal-doc",
+            "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+            "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+            "page_id": "page:0",
+            "page_index": 0,
+            "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+            "grid_policy_id": "rgba8-source-grid-v1",
+            "width_px": 500,
+            "height_px": 400,
+            "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 140.0,
+              "x1": 460.0,
+              "y1": 155.0
+            },
+            "word_ids": null,
+            "line_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:7"
+            ],
+            "excerpt_sha256": "4834562df12a22f4d8e5f06048a55337c58f0c421a4b1811ca8191c63a7b0b4e",
+            "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+          }
+        },
+        "method": "B0",
+        "status": "needs_review",
+        "proposal": "1.00",
+        "human_provenance_ref": null,
+        "hard_flags": [
+          "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+        ],
+        "issues": [
+          "verifier_not_run",
+          "uncalibrated",
+          "unknown_stratum",
+          "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+        ],
+        "components": {
+          "schema_version": 1,
+          "selector_probability": 0.9,
+          "verifier_probability": null,
+          "native_quality_multiplier": 0.98,
+          "native_quality_policy": "receipt-measured-word-min/1"
+        },
+        "score_version": "min-selector-quality-verifier/1",
+        "threshold_version": "uncalibrated/1"
+      },
+      "total": {
+        "schema_version": 1,
+        "field_id": "total",
+        "value": null,
+        "confidence": 0.882,
+        "source": {
+          "schema_version": 1,
+          "kind": "document",
+          "evidence": {
+            "schema_version": 1,
+            "document_id": "literal-doc",
+            "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+            "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+            "page_id": "page:0",
+            "page_index": 0,
+            "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+            "grid_policy_id": "rgba8-source-grid-v1",
+            "width_px": 500,
+            "height_px": 400,
+            "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 220.0,
+              "x1": 460.0,
+              "y1": 235.0
+            },
+            "word_ids": null,
+            "line_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:11"
+            ],
+            "excerpt_sha256": "4bf5c0ffa8fffd2c1aed4854b396848f9914055714fe5658509408ba9d20f876",
+            "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+          }
+        },
+        "method": "B0",
+        "status": "needs_review",
+        "proposal": "99.00",
+        "human_provenance_ref": null,
+        "hard_flags": [
+          "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+        ],
+        "issues": [
+          "verifier_not_run",
+          "uncalibrated",
+          "unknown_stratum",
+          "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+        ],
+        "components": {
+          "schema_version": 1,
+          "selector_probability": 0.9,
+          "verifier_probability": null,
+          "native_quality_multiplier": 0.98,
+          "native_quality_policy": "receipt-measured-word-min/1"
+        },
+        "score_version": "min-selector-quality-verifier/1",
+        "threshold_version": "uncalibrated/1"
+      },
+      "payment_method": {
+        "schema_version": 1,
+        "field_id": "payment_method",
+        "value": null,
+        "confidence": 0.882,
+        "source": {
+          "schema_version": 1,
+          "kind": "document",
+          "evidence": {
+            "schema_version": 1,
+            "document_id": "literal-doc",
+            "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+            "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+            "page_id": "page:0",
+            "page_index": 0,
+            "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+            "grid_policy_id": "rgba8-source-grid-v1",
+            "width_px": 500,
+            "height_px": 400,
+            "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+            "bbox_px": {
+              "schema_version": 1,
+              "units": "px",
+              "x0": 10.0,
+              "y0": 240.0,
+              "x1": 460.0,
+              "y1": 255.0
+            },
+            "word_ids": null,
+            "line_ids": [
+              "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:12"
+            ],
+            "excerpt_sha256": "0f6187133c1bd69ea397a03eb9d6364bdea7af2586a7ce84f16bb69814588aa7",
+            "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+          }
+        },
+        "method": "B0",
+        "status": "needs_review",
+        "proposal": "VISA",
+        "human_provenance_ref": null,
+        "hard_flags": [],
+        "issues": [
+          "verifier_not_run",
+          "uncalibrated",
+          "unknown_stratum"
+        ],
+        "components": {
+          "schema_version": 1,
+          "selector_probability": 0.9,
+          "verifier_probability": null,
+          "native_quality_multiplier": 0.98,
+          "native_quality_policy": "receipt-measured-word-min/1"
+        },
+        "score_version": "min-selector-quality-verifier/1",
+        "threshold_version": "uncalibrated/1"
+      }
+    },
+    "line_items": [
+      {
+        "schema_version": 1,
+        "row_key": "0:3",
+        "cells": {
+          "description": {
+            "schema_version": 1,
+            "field_id": "line:0:3:description",
+            "value": null,
+            "confidence": 0.588,
+            "source": {
+              "schema_version": 1,
+              "kind": "document",
+              "evidence": {
+                "schema_version": 1,
+                "document_id": "literal-doc",
+                "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+                "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+                "page_id": "page:0",
+                "page_index": 0,
+                "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+                "grid_policy_id": "rgba8-source-grid-v1",
+                "width_px": 500,
+                "height_px": 400,
+                "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+                "bbox_px": {
+                  "schema_version": 1,
+                  "units": "px",
+                  "x0": 10.0,
+                  "y0": 80.0,
+                  "x1": 460.0,
+                  "y1": 95.0
+                },
+                "word_ids": null,
+                "line_ids": [
+                  "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:4"
+                ],
+                "excerpt_sha256": "ba5d78e24f0c072330bff853f2bd7eae4756cfd0a2b7e63f0c7bf71cb9f94517",
+                "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+              }
+            },
+            "method": "B0",
+            "status": "needs_review",
+            "proposal": "Coffee",
+            "human_provenance_ref": null,
+            "hard_flags": [],
+            "issues": [
+              "verifier_not_run",
+              "uncalibrated",
+              "unknown_stratum"
+            ],
+            "components": {
+              "schema_version": 1,
+              "selector_probability": 0.6,
+              "verifier_probability": null,
+              "native_quality_multiplier": 0.98,
+              "native_quality_policy": "receipt-measured-word-min/1"
+            },
+            "score_version": "min-selector-quality-verifier/1",
+            "threshold_version": "uncalibrated/1"
+          },
+          "quantity": {
+            "schema_version": 1,
+            "field_id": "line:0:3:quantity",
+            "value": null,
+            "confidence": 0.882,
+            "source": {
+              "schema_version": 1,
+              "kind": "document",
+              "evidence": {
+                "schema_version": 1,
+                "document_id": "literal-doc",
+                "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+                "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+                "page_id": "page:0",
+                "page_index": 0,
+                "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+                "grid_policy_id": "rgba8-source-grid-v1",
+                "width_px": 500,
+                "height_px": 400,
+                "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+                "bbox_px": {
+                  "schema_version": 1,
+                  "units": "px",
+                  "x0": 10.0,
+                  "y0": 80.0,
+                  "x1": 460.0,
+                  "y1": 95.0
+                },
+                "word_ids": null,
+                "line_ids": [
+                  "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:4"
+                ],
+                "excerpt_sha256": "ba5d78e24f0c072330bff853f2bd7eae4756cfd0a2b7e63f0c7bf71cb9f94517",
+                "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+              }
+            },
+            "method": "B0",
+            "status": "needs_review",
+            "proposal": "2",
+            "human_provenance_ref": null,
+            "hard_flags": [],
+            "issues": [
+              "verifier_not_run",
+              "uncalibrated",
+              "unknown_stratum"
+            ],
+            "components": {
+              "schema_version": 1,
+              "selector_probability": 0.9,
+              "verifier_probability": null,
+              "native_quality_multiplier": 0.98,
+              "native_quality_policy": "receipt-measured-word-min/1"
+            },
+            "score_version": "min-selector-quality-verifier/1",
+            "threshold_version": "uncalibrated/1"
+          },
+          "unit_price": {
+            "schema_version": 1,
+            "field_id": "line:0:3:unit_price",
+            "value": null,
+            "confidence": 0.882,
+            "source": {
+              "schema_version": 1,
+              "kind": "document",
+              "evidence": {
+                "schema_version": 1,
+                "document_id": "literal-doc",
+                "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+                "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+                "page_id": "page:0",
+                "page_index": 0,
+                "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+                "grid_policy_id": "rgba8-source-grid-v1",
+                "width_px": 500,
+                "height_px": 400,
+                "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+                "bbox_px": {
+                  "schema_version": 1,
+                  "units": "px",
+                  "x0": 10.0,
+                  "y0": 80.0,
+                  "x1": 460.0,
+                  "y1": 95.0
+                },
+                "word_ids": null,
+                "line_ids": [
+                  "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:4"
+                ],
+                "excerpt_sha256": "ba5d78e24f0c072330bff853f2bd7eae4756cfd0a2b7e63f0c7bf71cb9f94517",
+                "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+              }
+            },
+            "method": "B0",
+            "status": "needs_review",
+            "proposal": "3.00",
+            "human_provenance_ref": null,
+            "hard_flags": [],
+            "issues": [
+              "verifier_not_run",
+              "uncalibrated",
+              "unknown_stratum"
+            ],
+            "components": {
+              "schema_version": 1,
+              "selector_probability": 0.9,
+              "verifier_probability": null,
+              "native_quality_multiplier": 0.98,
+              "native_quality_policy": "receipt-measured-word-min/1"
+            },
+            "score_version": "min-selector-quality-verifier/1",
+            "threshold_version": "uncalibrated/1"
+          },
+          "amount": {
+            "schema_version": 1,
+            "field_id": "line:0:3:amount",
+            "value": null,
+            "confidence": 0.588,
+            "source": {
+              "schema_version": 1,
+              "kind": "document",
+              "evidence": {
+                "schema_version": 1,
+                "document_id": "literal-doc",
+                "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+                "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+                "page_id": "page:0",
+                "page_index": 0,
+                "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+                "grid_policy_id": "rgba8-source-grid-v1",
+                "width_px": 500,
+                "height_px": 400,
+                "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+                "bbox_px": {
+                  "schema_version": 1,
+                  "units": "px",
+                  "x0": 10.0,
+                  "y0": 80.0,
+                  "x1": 460.0,
+                  "y1": 95.0
+                },
+                "word_ids": null,
+                "line_ids": [
+                  "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:4"
+                ],
+                "excerpt_sha256": "ba5d78e24f0c072330bff853f2bd7eae4756cfd0a2b7e63f0c7bf71cb9f94517",
+                "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+              }
+            },
+            "method": "B0",
+            "status": "needs_review",
+            "proposal": "6.00",
+            "human_provenance_ref": null,
+            "hard_flags": [],
+            "issues": [
+              "verifier_not_run",
+              "uncalibrated",
+              "unknown_stratum"
+            ],
+            "components": {
+              "schema_version": 1,
+              "selector_probability": 0.6,
+              "verifier_probability": null,
+              "native_quality_multiplier": 0.98,
+              "native_quality_policy": "receipt-measured-word-min/1"
+            },
+            "score_version": "min-selector-quality-verifier/1",
+            "threshold_version": "uncalibrated/1"
+          }
+        }
+      },
+      {
+        "schema_version": 1,
+        "row_key": "0:4",
+        "cells": {
+          "description": {
+            "schema_version": 1,
+            "field_id": "line:0:4:description",
+            "value": null,
+            "confidence": 0.588,
+            "source": {
+              "schema_version": 1,
+              "kind": "document",
+              "evidence": {
+                "schema_version": 1,
+                "document_id": "literal-doc",
+                "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+                "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+                "page_id": "page:0",
+                "page_index": 0,
+                "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+                "grid_policy_id": "rgba8-source-grid-v1",
+                "width_px": 500,
+                "height_px": 400,
+                "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+                "bbox_px": {
+                  "schema_version": 1,
+                  "units": "px",
+                  "x0": 10.0,
+                  "y0": 100.0,
+                  "x1": 460.0,
+                  "y1": 115.0
+                },
+                "word_ids": null,
+                "line_ids": [
+                  "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:5"
+                ],
+                "excerpt_sha256": "e3b6866986dca76cf4bbec764aa5b1cfb8978d00b2d57b44b1b9afd7e7126430",
+                "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+              }
+            },
+            "method": "B0",
+            "status": "needs_review",
+            "proposal": "Cake",
+            "human_provenance_ref": null,
+            "hard_flags": [],
+            "issues": [
+              "verifier_not_run",
+              "uncalibrated",
+              "unknown_stratum"
+            ],
+            "components": {
+              "schema_version": 1,
+              "selector_probability": 0.6,
+              "verifier_probability": null,
+              "native_quality_multiplier": 0.98,
+              "native_quality_policy": "receipt-measured-word-min/1"
+            },
+            "score_version": "min-selector-quality-verifier/1",
+            "threshold_version": "uncalibrated/1"
+          },
+          "quantity": {
+            "schema_version": 1,
+            "field_id": "line:0:4:quantity",
+            "value": null,
+            "confidence": null,
+            "source": null,
+            "method": "B0",
+            "status": "needs_review",
+            "proposal": null,
+            "human_provenance_ref": null,
+            "hard_flags": [],
+            "issues": [
+              "no_candidates",
+              "quantity_times_unit_price:0:4:missing_or_invalid_operand"
+            ],
+            "components": {
+              "schema_version": 1,
+              "selector_probability": null,
+              "verifier_probability": null,
+              "native_quality_multiplier": null,
+              "native_quality_policy": null
+            },
+            "score_version": "min-selector-quality-verifier/1",
+            "threshold_version": "uncalibrated/1"
+          },
+          "unit_price": {
+            "schema_version": 1,
+            "field_id": "line:0:4:unit_price",
+            "value": null,
+            "confidence": null,
+            "source": null,
+            "method": "B0",
+            "status": "needs_review",
+            "proposal": null,
+            "human_provenance_ref": null,
+            "hard_flags": [],
+            "issues": [
+              "no_candidates",
+              "quantity_times_unit_price:0:4:missing_or_invalid_operand"
+            ],
+            "components": {
+              "schema_version": 1,
+              "selector_probability": null,
+              "verifier_probability": null,
+              "native_quality_multiplier": null,
+              "native_quality_policy": null
+            },
+            "score_version": "min-selector-quality-verifier/1",
+            "threshold_version": "uncalibrated/1"
+          },
+          "amount": {
+            "schema_version": 1,
+            "field_id": "line:0:4:amount",
+            "value": null,
+            "confidence": 0.588,
+            "source": {
+              "schema_version": 1,
+              "kind": "document",
+              "evidence": {
+                "schema_version": 1,
+                "document_id": "literal-doc",
+                "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+                "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+                "page_id": "page:0",
+                "page_index": 0,
+                "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+                "grid_policy_id": "rgba8-source-grid-v1",
+                "width_px": 500,
+                "height_px": 400,
+                "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+                "bbox_px": {
+                  "schema_version": 1,
+                  "units": "px",
+                  "x0": 10.0,
+                  "y0": 100.0,
+                  "x1": 460.0,
+                  "y1": 115.0
+                },
+                "word_ids": null,
+                "line_ids": [
+                  "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:5"
+                ],
+                "excerpt_sha256": "e3b6866986dca76cf4bbec764aa5b1cfb8978d00b2d57b44b1b9afd7e7126430",
+                "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+              }
+            },
+            "method": "B0",
+            "status": "needs_review",
+            "proposal": "4.00",
+            "human_provenance_ref": null,
+            "hard_flags": [],
+            "issues": [
+              "verifier_not_run",
+              "uncalibrated",
+              "unknown_stratum",
+              "quantity_times_unit_price:0:4:missing_or_invalid_operand"
+            ],
+            "components": {
+              "schema_version": 1,
+              "selector_probability": 0.6,
+              "verifier_probability": null,
+              "native_quality_multiplier": 0.98,
+              "native_quality_policy": "receipt-measured-word-min/1"
+            },
+            "score_version": "min-selector-quality-verifier/1",
+            "threshold_version": "uncalibrated/1"
+          }
+        }
+      }
+    ],
+    "adjustments": [
+      {
+        "schema_version": 1,
+        "adjustment_id": "0:7:tip",
+        "kind": "tip",
+        "stage": "after_subtotal",
+        "amount": {
+          "schema_version": 1,
+          "field_id": "adjustment:0:7:tip",
+          "value": null,
+          "confidence": 0.882,
+          "source": {
+            "schema_version": 1,
+            "kind": "document",
+            "evidence": {
+              "schema_version": 1,
+              "document_id": "literal-doc",
+              "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+              "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+              "page_id": "page:0",
+              "page_index": 0,
+              "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+              "grid_policy_id": "rgba8-source-grid-v1",
+              "width_px": 500,
+              "height_px": 400,
+              "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+              "bbox_px": {
+                "schema_version": 1,
+                "units": "px",
+                "x0": 10.0,
+                "y0": 160.0,
+                "x1": 460.0,
+                "y1": 175.0
+              },
+              "word_ids": null,
+              "line_ids": [
+                "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:8"
+              ],
+              "excerpt_sha256": "92e8353f63b990dc292c908e9196765ac0b0bd9fdee9f35d0619d8603c4379e1",
+              "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+            }
+          },
+          "method": "B0",
+          "status": "needs_review",
+          "proposal": "2.00",
+          "human_provenance_ref": null,
+          "hard_flags": [
+            "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+          ],
+          "issues": [
+            "verifier_not_run",
+            "uncalibrated",
+            "unknown_stratum",
+            "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+          ],
+          "components": {
+            "schema_version": 1,
+            "selector_probability": 0.9,
+            "verifier_probability": null,
+            "native_quality_multiplier": 0.98,
+            "native_quality_policy": "receipt-measured-word-min/1"
+          },
+          "score_version": "min-selector-quality-verifier/1",
+          "threshold_version": "uncalibrated/1"
+        }
+      },
+      {
+        "schema_version": 1,
+        "adjustment_id": "0:8:service",
+        "kind": "service",
+        "stage": "after_subtotal",
+        "amount": {
+          "schema_version": 1,
+          "field_id": "adjustment:0:8:service",
+          "value": null,
+          "confidence": 0.882,
+          "source": {
+            "schema_version": 1,
+            "kind": "document",
+            "evidence": {
+              "schema_version": 1,
+              "document_id": "literal-doc",
+              "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+              "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+              "page_id": "page:0",
+              "page_index": 0,
+              "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+              "grid_policy_id": "rgba8-source-grid-v1",
+              "width_px": 500,
+              "height_px": 400,
+              "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+              "bbox_px": {
+                "schema_version": 1,
+                "units": "px",
+                "x0": 10.0,
+                "y0": 180.0,
+                "x1": 460.0,
+                "y1": 195.0
+              },
+              "word_ids": null,
+              "line_ids": [
+                "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:9"
+              ],
+              "excerpt_sha256": "c28b5ef0df4349df0e42f011faaffeb58bbd4e73e11fae907a174bd474e7f796",
+              "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+            }
+          },
+          "method": "B0",
+          "status": "needs_review",
+          "proposal": "0.50",
+          "human_provenance_ref": null,
+          "hard_flags": [
+            "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+          ],
+          "issues": [
+            "verifier_not_run",
+            "uncalibrated",
+            "unknown_stratum",
+            "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+          ],
+          "components": {
+            "schema_version": 1,
+            "selector_probability": 0.9,
+            "verifier_probability": null,
+            "native_quality_multiplier": 0.98,
+            "native_quality_policy": "receipt-measured-word-min/1"
+          },
+          "score_version": "min-selector-quality-verifier/1",
+          "threshold_version": "uncalibrated/1"
+        }
+      },
+      {
+        "schema_version": 1,
+        "adjustment_id": "0:9:discount",
+        "kind": "discount",
+        "stage": "after_subtotal",
+        "amount": {
+          "schema_version": 1,
+          "field_id": "adjustment:0:9:discount",
+          "value": null,
+          "confidence": 0.882,
+          "source": {
+            "schema_version": 1,
+            "kind": "document",
+            "evidence": {
+              "schema_version": 1,
+              "document_id": "literal-doc",
+              "original_content_sha256": "3e5cc4f200832aa87e584550d96bc4099ffa918d5f62dd84443985e3800d5b7d",
+              "raw_source_revision": "docraw/1:868ad0c7ef2285e6fe31c7cabb9ebc94f0ec7044b9f0ea8d073d670c1892d93c",
+              "page_id": "page:0",
+              "page_index": 0,
+              "page_sha256": "ce85904ab57f525399f8142c4eec2409415ed9848ca369eaccdf30e9ab6128a8",
+              "grid_policy_id": "rgba8-source-grid-v1",
+              "width_px": 500,
+              "height_px": 400,
+              "evidence_artifact_sha256": "65a0c692cb94f1d63c635cb0ae32cc6573048c78a08cdd7e054ee7179a03d61a",
+              "bbox_px": {
+                "schema_version": 1,
+                "units": "px",
+                "x0": 10.0,
+                "y0": 200.0,
+                "x1": 460.0,
+                "y1": 215.0
+              },
+              "word_ids": null,
+              "line_ids": [
+                "tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4:l:1:1:10"
+              ],
+              "excerpt_sha256": "b7cdde43977c50037beeb18b9cbb293170499ba2d7d378e9a1595c50aec39324",
+              "transform_ref": "transform:tsv2:2f18788c438f50c440eb8bb93b65f5165bce03e53d0dc276da0eec700f005cb4"
+            }
+          },
+          "method": "B0",
+          "status": "needs_review",
+          "proposal": "1.00",
+          "human_provenance_ref": null,
+          "hard_flags": [
+            "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+          ],
+          "issues": [
+            "verifier_not_run",
+            "uncalibrated",
+            "unknown_stratum",
+            "subtotal_tax_adjustments_equal_total:arithmetic_mismatch"
+          ],
+          "components": {
+            "schema_version": 1,
+            "selector_probability": 0.9,
+            "verifier_probability": null,
+            "native_quality_multiplier": 0.98,
+            "native_quality_policy": "receipt-measured-word-min/1"
+          },
+          "score_version": "min-selector-quality-verifier/1",
+          "threshold_version": "uncalibrated/1"
+        }
+      }
+    ],
+    "checks": [
+      {
+        "schema_version": 1,
+        "check_id": "line_amounts_equal_subtotal",
+        "status": "pass",
+        "field_ids": [
+          "subtotal",
+          "line:0:3:amount",
+          "line:0:4:amount"
+        ],
+        "reason": null
+      },
+      {
+        "schema_version": 1,
+        "check_id": "subtotal_tax_adjustments_equal_total",
+        "status": "fail",
+        "field_ids": [
+          "subtotal",
+          "tax",
+          "total",
+          "adjustment:0:7:tip",
+          "adjustment:0:8:service",
+          "adjustment:0:9:discount"
+        ],
+        "reason": "arithmetic_mismatch"
+      },
+      {
+        "schema_version": 1,
+        "check_id": "quantity_times_unit_price:0:3",
+        "status": "pass",
+        "field_ids": [
+          "line:0:3:quantity",
+          "line:0:3:unit_price",
+          "line:0:3:amount"
+        ],
+        "reason": null
+      },
+      {
+        "schema_version": 1,
+        "check_id": "quantity_times_unit_price:0:4",
+        "status": "not_checkable",
+        "field_ids": [
+          "line:0:4:quantity",
+          "line:0:4:unit_price",
+          "line:0:4:amount"
+        ],
+        "reason": "missing_or_invalid_operand"
+      },
+      {
+        "schema_version": 1,
+        "check_id": "valid_nonfuture_date",
+        "status": "pass",
+        "field_ids": [
+          "date"
+        ],
+        "reason": null
+      },
+      {
+        "schema_version": 1,
+        "check_id": "printed_batch_currency",
+        "status": "pass",
+        "field_ids": [
+          "currency"
+        ],
+        "reason": null
+      }
+    ]
+  },
+  "artifact_base64": "eyJhcnRpZmFjdF9pZCI6InRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNCIsImJsb2NrcyI6W3siYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjowLjAsIngxIjo1MDAuMCwieTAiOjAuMCwieTEiOjQwMC4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjpudWxsLCJvcmRlcmVkX2NoaWxkX2lkcyI6WyJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6bDoxOjE6MSIsInRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDpsOjE6MToyIiwidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjMiLCJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6bDoxOjE6NCIsInRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDpsOjE6MTo1IiwidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjYiLCJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6bDoxOjE6NyIsInRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDpsOjE6MTo4IiwidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjkiLCJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6bDoxOjE6MTAiLCJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6bDoxOjE6MTEiLCJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6bDoxOjE6MTIiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6YjoxIiwidGV4dCI6Ik1lcmNoYW50OiBTWU5USEVUSUMgU0hPUFxuREFURSAyMDI2LTEwLTE0XG5DVVJSRU5DWSBVU0RcbkNvZmZlZSAyIHggMy4wMCA2LjAwXG5DYWtlIDQuMDBcblNVQlRPVEFMIDEwLjAwXG5UQVggMS4wMFxuVElQIDIuMDBcblNFUlZJQ0UgMC41MFxuRElTQ09VTlQgMS4wMFxuVE9UQUwgOTkuMDBcblZJU0EifV0sImNvbmZpZ19kaWdlc3QiOiJhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhYWFhIiwiZG9jdW1lbnRfaWQiOiJsaXRlcmFsLWRvYyIsImVuZ2luZSI6InRlc3NlcmFjdC10c3YiLCJlbmdpbmVfdG9fc291cmNlIjp7ImFsZ29yaXRobSI6ImlkZW50aXR5LzEiLCJkaXJlY3Rpb24iOiJlbmdpbmVfdG9fc291cmNlIiwibWF0cml4IjpbWzEuMCwwLjAsMC4wXSxbMC4wLDEuMCwwLjBdLFswLjAsMC4wLDEuMF1dLCJzY2hlbWFfdmVyc2lvbiI6MX0sImVuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJncmlkX3BvbGljeV9pZCI6InJnYmE4LXNvdXJjZS1ncmlkLXYxIiwiaGVpZ2h0X3B4Ijo0MDAsImxpbmVzIjpbeyJiYm94X3B4Ijp7InNjaGVtYV92ZXJzaW9uIjoxLCJ1bml0cyI6InB4IiwieDAiOjEwLjAsIngxIjo0NjAuMCwieTAiOjIwLjAsInkxIjozNS4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjpudWxsLCJvcmRlcmVkX2NoaWxkX2lkcyI6WyJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6MToxIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzb3VyY2VfZW5naW5lIjoidGVzc2VyYWN0LXRzdiIsInNvdXJjZV9lbmdpbmVfdmVyc2lvbiI6InN5bnRoZXRpYy1mb3JtYXQtY29udHJvbC8xIiwic3RhYmxlX2lkIjoidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjEiLCJ0ZXh0IjoiTWVyY2hhbnQ6IFNZTlRIRVRJQyBTSE9QIn0seyJiYm94X3B4Ijp7InNjaGVtYV92ZXJzaW9uIjoxLCJ1bml0cyI6InB4IiwieDAiOjEwLjAsIngxIjo0NjAuMCwieTAiOjQwLjAsInkxIjo1NS4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjpudWxsLCJvcmRlcmVkX2NoaWxkX2lkcyI6WyJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6MjoxIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzb3VyY2VfZW5naW5lIjoidGVzc2VyYWN0LXRzdiIsInNvdXJjZV9lbmdpbmVfdmVyc2lvbiI6InN5bnRoZXRpYy1mb3JtYXQtY29udHJvbC8xIiwic3RhYmxlX2lkIjoidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjIiLCJ0ZXh0IjoiREFURSAyMDI2LTEwLTE0In0seyJiYm94X3B4Ijp7InNjaGVtYV92ZXJzaW9uIjoxLCJ1bml0cyI6InB4IiwieDAiOjEwLjAsIngxIjo0NjAuMCwieTAiOjYwLjAsInkxIjo3NS4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjpudWxsLCJvcmRlcmVkX2NoaWxkX2lkcyI6WyJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6MzoxIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzb3VyY2VfZW5naW5lIjoidGVzc2VyYWN0LXRzdiIsInNvdXJjZV9lbmdpbmVfdmVyc2lvbiI6InN5bnRoZXRpYy1mb3JtYXQtY29udHJvbC8xIiwic3RhYmxlX2lkIjoidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjMiLCJ0ZXh0IjoiQ1VSUkVOQ1kgVVNEIn0seyJiYm94X3B4Ijp7InNjaGVtYV92ZXJzaW9uIjoxLCJ1bml0cyI6InB4IiwieDAiOjEwLjAsIngxIjo0NjAuMCwieTAiOjgwLjAsInkxIjo5NS4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjpudWxsLCJvcmRlcmVkX2NoaWxkX2lkcyI6WyJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6NDoxIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzb3VyY2VfZW5naW5lIjoidGVzc2VyYWN0LXRzdiIsInNvdXJjZV9lbmdpbmVfdmVyc2lvbiI6InN5bnRoZXRpYy1mb3JtYXQtY29udHJvbC8xIiwic3RhYmxlX2lkIjoidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjQiLCJ0ZXh0IjoiQ29mZmVlIDIgeCAzLjAwIDYuMDAifSx7ImJib3hfcHgiOnsic2NoZW1hX3ZlcnNpb24iOjEsInVuaXRzIjoicHgiLCJ4MCI6MTAuMCwieDEiOjQ2MC4wLCJ5MCI6MTAwLjAsInkxIjoxMTUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6bnVsbCwib3JkZXJlZF9jaGlsZF9pZHMiOlsidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Onc6MToxOjU6MSJdLCJzY2hlbWFfdmVyc2lvbiI6MSwic291cmNlX2VuZ2luZSI6InRlc3NlcmFjdC10c3YiLCJzb3VyY2VfZW5naW5lX3ZlcnNpb24iOiJzeW50aGV0aWMtZm9ybWF0LWNvbnRyb2wvMSIsInN0YWJsZV9pZCI6InRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDpsOjE6MTo1IiwidGV4dCI6IkNha2UgNC4wMCJ9LHsiYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjoxMC4wLCJ4MSI6NDYwLjAsInkwIjoxMjAuMCwieTEiOjEzNS4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjpudWxsLCJvcmRlcmVkX2NoaWxkX2lkcyI6WyJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6NjoxIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzb3VyY2VfZW5naW5lIjoidGVzc2VyYWN0LXRzdiIsInNvdXJjZV9lbmdpbmVfdmVyc2lvbiI6InN5bnRoZXRpYy1mb3JtYXQtY29udHJvbC8xIiwic3RhYmxlX2lkIjoidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjYiLCJ0ZXh0IjoiU1VCVE9UQUwgMTAuMDAifSx7ImJib3hfcHgiOnsic2NoZW1hX3ZlcnNpb24iOjEsInVuaXRzIjoicHgiLCJ4MCI6MTAuMCwieDEiOjQ2MC4wLCJ5MCI6MTQwLjAsInkxIjoxNTUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6bnVsbCwib3JkZXJlZF9jaGlsZF9pZHMiOlsidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Onc6MToxOjc6MSJdLCJzY2hlbWFfdmVyc2lvbiI6MSwic291cmNlX2VuZ2luZSI6InRlc3NlcmFjdC10c3YiLCJzb3VyY2VfZW5naW5lX3ZlcnNpb24iOiJzeW50aGV0aWMtZm9ybWF0LWNvbnRyb2wvMSIsInN0YWJsZV9pZCI6InRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDpsOjE6MTo3IiwidGV4dCI6IlRBWCAxLjAwIn0seyJiYm94X3B4Ijp7InNjaGVtYV92ZXJzaW9uIjoxLCJ1bml0cyI6InB4IiwieDAiOjEwLjAsIngxIjo0NjAuMCwieTAiOjE2MC4wLCJ5MSI6MTc1LjB9LCJnZW9tZXRyeV9wcm92ZW5hbmNlIjoibWVhc3VyZWRfb2NyIiwib2NyX2NvbmZpZGVuY2UiOm51bGwsIm9yZGVyZWRfY2hpbGRfaWRzIjpbInRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDp3OjE6MTo4OjEiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6bDoxOjE6OCIsInRleHQiOiJUSVAgMi4wMCJ9LHsiYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjoxMC4wLCJ4MSI6NDYwLjAsInkwIjoxODAuMCwieTEiOjE5NS4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjpudWxsLCJvcmRlcmVkX2NoaWxkX2lkcyI6WyJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6OToxIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzb3VyY2VfZW5naW5lIjoidGVzc2VyYWN0LXRzdiIsInNvdXJjZV9lbmdpbmVfdmVyc2lvbiI6InN5bnRoZXRpYy1mb3JtYXQtY29udHJvbC8xIiwic3RhYmxlX2lkIjoidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjkiLCJ0ZXh0IjoiU0VSVklDRSAwLjUwIn0seyJiYm94X3B4Ijp7InNjaGVtYV92ZXJzaW9uIjoxLCJ1bml0cyI6InB4IiwieDAiOjEwLjAsIngxIjo0NjAuMCwieTAiOjIwMC4wLCJ5MSI6MjE1LjB9LCJnZW9tZXRyeV9wcm92ZW5hbmNlIjoibWVhc3VyZWRfb2NyIiwib2NyX2NvbmZpZGVuY2UiOm51bGwsIm9yZGVyZWRfY2hpbGRfaWRzIjpbInRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDp3OjE6MToxMDoxIl0sInNjaGVtYV92ZXJzaW9uIjoxLCJzb3VyY2VfZW5naW5lIjoidGVzc2VyYWN0LXRzdiIsInNvdXJjZV9lbmdpbmVfdmVyc2lvbiI6InN5bnRoZXRpYy1mb3JtYXQtY29udHJvbC8xIiwic3RhYmxlX2lkIjoidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Omw6MToxOjEwIiwidGV4dCI6IkRJU0NPVU5UIDEuMDAifSx7ImJib3hfcHgiOnsic2NoZW1hX3ZlcnNpb24iOjEsInVuaXRzIjoicHgiLCJ4MCI6MTAuMCwieDEiOjQ2MC4wLCJ5MCI6MjIwLjAsInkxIjoyMzUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6bnVsbCwib3JkZXJlZF9jaGlsZF9pZHMiOlsidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Onc6MToxOjExOjEiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6bDoxOjE6MTEiLCJ0ZXh0IjoiVE9UQUwgOTkuMDAifSx7ImJib3hfcHgiOnsic2NoZW1hX3ZlcnNpb24iOjEsInVuaXRzIjoicHgiLCJ4MCI6MTAuMCwieDEiOjQ2MC4wLCJ5MCI6MjQwLjAsInkxIjoyNTUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6bnVsbCwib3JkZXJlZF9jaGlsZF9pZHMiOlsidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Onc6MToxOjEyOjEiXSwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6bDoxOjE6MTIiLCJ0ZXh0IjoiVklTQSJ9XSwicGFnZV9pZCI6InBhZ2U6MCIsInBhZ2VfaW5kZXgiOjAsInBhZ2Vfc2hhMjU2IjoiY2U4NTkwNGFiNTdmNTI1Mzk5ZjgxNDJjNGVlYzI0MDk0MTVlZDk4NDhjYTM2OWVhY2NkZjMwZTlhYjYxMjhhOCIsInJhd19zb3VyY2VfcmV2aXNpb24iOiJkb2NyYXcvMTo4NjhhZDBjN2VmMjI4NWU2ZmUzMWM3Y2FiYjllYmM5NGYwZWM3MDQ0YjlmMGVhOGQwNzNkNjcwYzE4OTJkOTNjIiwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV90b19lbmdpbmUiOnsiYWxnb3JpdGhtIjoiaWRlbnRpdHkvMSIsImRpcmVjdGlvbiI6InNvdXJjZV90b19lbmdpbmUiLCJtYXRyaXgiOltbMS4wLDAuMCwwLjBdLFswLjAsMS4wLDAuMF0sWzAuMCwwLjAsMS4wXV0sInNjaGVtYV92ZXJzaW9uIjoxfSwidGV4dF9vcmRlcl9wb2xpY3kiOiJkb2Npby10ZXh0LzEiLCJ3aWR0aF9weCI6NTAwLCJ3b3JkcyI6W3siYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjoxMC4wLCJ4MSI6NDYwLjAsInkwIjoyMC4wLCJ5MSI6MzUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6MC45OCwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6MToxIiwidGV4dCI6Ik1lcmNoYW50OiBTWU5USEVUSUMgU0hPUCJ9LHsiYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjoxMC4wLCJ4MSI6NDYwLjAsInkwIjo0MC4wLCJ5MSI6NTUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6MC45OCwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6MjoxIiwidGV4dCI6IkRBVEUgMjAyNi0xMC0xNCJ9LHsiYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjoxMC4wLCJ4MSI6NDYwLjAsInkwIjo2MC4wLCJ5MSI6NzUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6MC45OCwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6MzoxIiwidGV4dCI6IkNVUlJFTkNZIFVTRCJ9LHsiYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjoxMC4wLCJ4MSI6NDYwLjAsInkwIjo4MC4wLCJ5MSI6OTUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6MC45OCwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6NDoxIiwidGV4dCI6IkNvZmZlZSAyIHggMy4wMCA2LjAwIn0seyJiYm94X3B4Ijp7InNjaGVtYV92ZXJzaW9uIjoxLCJ1bml0cyI6InB4IiwieDAiOjEwLjAsIngxIjo0NjAuMCwieTAiOjEwMC4wLCJ5MSI6MTE1LjB9LCJnZW9tZXRyeV9wcm92ZW5hbmNlIjoibWVhc3VyZWRfb2NyIiwib2NyX2NvbmZpZGVuY2UiOjAuOTgsInNjaGVtYV92ZXJzaW9uIjoxLCJzb3VyY2VfZW5naW5lIjoidGVzc2VyYWN0LXRzdiIsInNvdXJjZV9lbmdpbmVfdmVyc2lvbiI6InN5bnRoZXRpYy1mb3JtYXQtY29udHJvbC8xIiwic3RhYmxlX2lkIjoidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Onc6MToxOjU6MSIsInRleHQiOiJDYWtlIDQuMDAifSx7ImJib3hfcHgiOnsic2NoZW1hX3ZlcnNpb24iOjEsInVuaXRzIjoicHgiLCJ4MCI6MTAuMCwieDEiOjQ2MC4wLCJ5MCI6MTIwLjAsInkxIjoxMzUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6MC45OCwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6NjoxIiwidGV4dCI6IlNVQlRPVEFMIDEwLjAwIn0seyJiYm94X3B4Ijp7InNjaGVtYV92ZXJzaW9uIjoxLCJ1bml0cyI6InB4IiwieDAiOjEwLjAsIngxIjo0NjAuMCwieTAiOjE0MC4wLCJ5MSI6MTU1LjB9LCJnZW9tZXRyeV9wcm92ZW5hbmNlIjoibWVhc3VyZWRfb2NyIiwib2NyX2NvbmZpZGVuY2UiOjAuOTgsInNjaGVtYV92ZXJzaW9uIjoxLCJzb3VyY2VfZW5naW5lIjoidGVzc2VyYWN0LXRzdiIsInNvdXJjZV9lbmdpbmVfdmVyc2lvbiI6InN5bnRoZXRpYy1mb3JtYXQtY29udHJvbC8xIiwic3RhYmxlX2lkIjoidHN2MjoyZjE4Nzg4YzQzOGY1MGM0NDBlYjhiYjkzYjY1ZjUxNjViY2UwM2U1M2QwZGMyNzZkYTBlZWM3MDBmMDA1Y2I0Onc6MToxOjc6MSIsInRleHQiOiJUQVggMS4wMCJ9LHsiYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjoxMC4wLCJ4MSI6NDYwLjAsInkwIjoxNjAuMCwieTEiOjE3NS4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjowLjk4LCJzY2hlbWFfdmVyc2lvbiI6MSwic291cmNlX2VuZ2luZSI6InRlc3NlcmFjdC10c3YiLCJzb3VyY2VfZW5naW5lX3ZlcnNpb24iOiJzeW50aGV0aWMtZm9ybWF0LWNvbnRyb2wvMSIsInN0YWJsZV9pZCI6InRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDp3OjE6MTo4OjEiLCJ0ZXh0IjoiVElQIDIuMDAifSx7ImJib3hfcHgiOnsic2NoZW1hX3ZlcnNpb24iOjEsInVuaXRzIjoicHgiLCJ4MCI6MTAuMCwieDEiOjQ2MC4wLCJ5MCI6MTgwLjAsInkxIjoxOTUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6MC45OCwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6OToxIiwidGV4dCI6IlNFUlZJQ0UgMC41MCJ9LHsiYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjoxMC4wLCJ4MSI6NDYwLjAsInkwIjoyMDAuMCwieTEiOjIxNS4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjowLjk4LCJzY2hlbWFfdmVyc2lvbiI6MSwic291cmNlX2VuZ2luZSI6InRlc3NlcmFjdC10c3YiLCJzb3VyY2VfZW5naW5lX3ZlcnNpb24iOiJzeW50aGV0aWMtZm9ybWF0LWNvbnRyb2wvMSIsInN0YWJsZV9pZCI6InRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDp3OjE6MToxMDoxIiwidGV4dCI6IkRJU0NPVU5UIDEuMDAifSx7ImJib3hfcHgiOnsic2NoZW1hX3ZlcnNpb24iOjEsInVuaXRzIjoicHgiLCJ4MCI6MTAuMCwieDEiOjQ2MC4wLCJ5MCI6MjIwLjAsInkxIjoyMzUuMH0sImdlb21ldHJ5X3Byb3ZlbmFuY2UiOiJtZWFzdXJlZF9vY3IiLCJvY3JfY29uZmlkZW5jZSI6MC45OCwic2NoZW1hX3ZlcnNpb24iOjEsInNvdXJjZV9lbmdpbmUiOiJ0ZXNzZXJhY3QtdHN2Iiwic291cmNlX2VuZ2luZV92ZXJzaW9uIjoic3ludGhldGljLWZvcm1hdC1jb250cm9sLzEiLCJzdGFibGVfaWQiOiJ0c3YyOjJmMTg3ODhjNDM4ZjUwYzQ0MGViOGJiOTNiNjVmNTE2NWJjZTAzZTUzZDBkYzI3NmRhMGVlYzcwMGYwMDVjYjQ6dzoxOjE6MTE6MSIsInRleHQiOiJUT1RBTCA5OS4wMCJ9LHsiYmJveF9weCI6eyJzY2hlbWFfdmVyc2lvbiI6MSwidW5pdHMiOiJweCIsIngwIjoxMC4wLCJ4MSI6NDYwLjAsInkwIjoyNDAuMCwieTEiOjI1NS4wfSwiZ2VvbWV0cnlfcHJvdmVuYW5jZSI6Im1lYXN1cmVkX29jciIsIm9jcl9jb25maWRlbmNlIjowLjk4LCJzY2hlbWFfdmVyc2lvbiI6MSwic291cmNlX2VuZ2luZSI6InRlc3NlcmFjdC10c3YiLCJzb3VyY2VfZW5naW5lX3ZlcnNpb24iOiJzeW50aGV0aWMtZm9ybWF0LWNvbnRyb2wvMSIsInN0YWJsZV9pZCI6InRzdjI6MmYxODc4OGM0MzhmNTBjNDQwZWI4YmI5M2I2NWY1MTY1YmNlMDNlNTNkMGRjMjc2ZGEwZWVjNzAwZjAwNWNiNDp3OjE6MToxMjoxIiwidGV4dCI6IlZJU0EifV19"
+}

@@ -1,9 +1,21 @@
 # Current limitations
 
-Development is paused as of 2026-10-15; [development status](../DEVELOPMENT-STATUS.md) is the current
+The synthetic recognized-bundle demo is available as of 2026-10-15; [development status](../DEVELOPMENT-STATUS.md) is the current
 implementation inventory. Durable recognized-item B0 jobs and pure API DTO/schema/TypeScript contracts
 are implemented. HTTP transport, actual request-stream enforcement and the viewer are still absent.
 Native/API dependencies have not been installed; no native image run or live provider call occurred.
+
+The demo's deliberate arithmetic mismatch remains review-only until explicit synthetic issue waivers
+are recorded. Its final clean export means operationally resolved, including waived conflicts, not
+arithmetically verified. All decisions remain agent-provisional, and missing quantity/unit-price
+values are explicitly waived as absent rather than guessed. The shipped fixture's geometry and
+confidence values are authored controls, despite valid source-bound schema tags. No original image
+exists for this demo. See [fixture provenance](../examples/README.md).
+
+Combined-suite verification currently has an unresolved same-head CAS process-start barrier failure.
+The unchanged process controls passed in isolation, but the barrier failed again in a second combined
+run. This is not an established contention diagnosis or a passing full-suite result; acceptance
+remains blocked. See [development status](../DEVELOPMENT-STATUS.md) for the observed check outcomes.
 
 The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. Image ingestion, native HEIC conversion, actual OCR, live model verification, image-upload/live-method job integration, receipt-domain evaluation scorers, HTTP transport and UI remain pending.
 

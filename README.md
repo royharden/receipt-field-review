@@ -1,10 +1,40 @@
 # Receipt Field Review
 
-Development is paused as of 2026-10-15. See [current development status](DEVELOPMENT-STATUS.md)
-for completed slices, unfinished work, validation limits and the next tasks, and [lessons](LESSONS.md)
-for implementation findings. No runnable image application or frontend build is available yet.
-
 Receipt Field Review proposes fixed receipt scalar/line-cell fields from supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. Image ingestion, actual native/model inference, the API and browser viewer remain under construction.
+
+## Keyless local demo
+
+From the repository root with Python 3.12 and uv:
+
+```text
+uv sync --frozen
+mkdir data
+uv run --no-sync python scripts/demo.py --mode mock --out data/recognized-demo
+```
+
+The demo itself uses the installed environment without network, keys, image decoders or provider
+SDKs. It imports the shipped [synthetic recognized bundle](examples/README.md), records a merchant
+correction, proves clean export still refuses unresolved fields, explicitly reviews every field and
+waives the deliberately conflicting arithmetic for this synthetic demonstration. Fresh CLI processes
+and an actual local B0 rerun replay the saved correction. CSV, line-item CSV and complete JSONL exports
+retain original machine evidence/confidence and provisional decision audit metadata.
+
+A successful command prints `synthetic_recognized_bundle_demo_complete` and the private clean-export
+path. `data/recognized-demo/DEMO.json` records the fixture hash, refusal reports, explicit issue waivers,
+rerun outcome and file digests. Review the initial `review_export` and `clean_refusals` entries beside
+the final export: clean means operationally reviewed, including explicit waivers; arithmetic issues
+are never silently fixed. All decisions are `agent_provisional`, with no human Gold claim.
+
+Output must be a new directory under an existing owner-controlled local parent. Repeated runs refuse
+to overwrite it; choose a new name. Interrupted output is preserved without a success marker. After
+the demo exits, use its `data_root`, `batch_id` and `item_id` with the CLI below to inspect durable state.
+Only the pinned authored fixture is used; arbitrary receipts belong in the validated bundle CLI.
+The fixture has no original image: its text, geometry and confidence are authored controls, with
+provenance documented beside it. This demonstrates local workflow construction, not image OCR,
+measured extraction quality or finished-app acceptance.
+
+See [development status](DEVELOPMENT-STATUS.md), [lessons](LESSONS.md) and
+[the portability handoff](BOLT-HANDOFF.md) for completed behavior and remaining integration work.
 
 ## Recognized-bundle review CLI
 
@@ -82,6 +112,6 @@ Receipt accuracy, abstention, auto-accept precision, OCR quality, latency and mo
 
 ## Limits and portability
 
-This is a recognized-bundle review foundation, not a finished image application. See [limitations](docs/LIMITATIONS.md), [architecture](docs/architecture.md), and the [schema boundaries](docs/schema-design.md). Python/native OCR requires a local or separately hosted runtime; an eventual static JavaScript viewer does not supply that backend. A product demo, UI build, live integration, hosted deployment and public release remain pending.
+This is a recognized-bundle review foundation with a runnable synthetic demo. See [limitations](docs/LIMITATIONS.md), [architecture](docs/architecture.md), and the [schema boundaries](docs/schema-design.md). Python/native OCR requires a local or separately hosted runtime; an eventual static JavaScript viewer does not supply that backend. Image workflow, UI build, live integration, hosted deployment and public release remain pending.
 
 Coding agents wrote the scaffold. Its dependency-free checks are reproducible above; those checks do not establish product acceptance.
