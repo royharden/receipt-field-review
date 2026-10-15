@@ -123,7 +123,7 @@
               "title": "Answered N",
               "type": "integer"
             },
-            "class_name": {
+            "class": {
               "anyOf": [
                 {
                   "maxLength": 512,
@@ -134,7 +134,7 @@
                   "type": "null"
                 }
               ],
-              "title": "Class Name"
+              "title": "Class"
             },
             "comparable_N": {
               "minimum": 0,
@@ -325,7 +325,7 @@
             "method",
             "config_ref",
             "field",
-            "class_name",
+            "class",
             "metric",
             "statistic_version",
             "measurement_status",
@@ -1767,7 +1767,7 @@
           "title": "Answered N",
           "type": "integer"
         },
-        "class_name": {
+        "class": {
           "anyOf": [
             {
               "maxLength": 512,
@@ -1778,7 +1778,7 @@
               "type": "null"
             }
           ],
-          "title": "Class Name"
+          "title": "Class"
         },
         "comparable_N": {
           "minimum": 0,
@@ -1969,7 +1969,7 @@
         "method",
         "config_ref",
         "field",
-        "class_name",
+        "class",
         "metric",
         "statistic_version",
         "measurement_status",
@@ -2062,7 +2062,7 @@
       },
       "additionalProperties": false,
       "properties": {
-        "class_name": {
+        "class": {
           "anyOf": [
             {
               "maxLength": 512,
@@ -2073,7 +2073,7 @@
               "type": "null"
             }
           ],
-          "title": "Class Name"
+          "title": "Class"
         },
         "correct": {
           "anyOf": [
@@ -2207,7 +2207,7 @@
         "split",
         "method",
         "field",
-        "class_name",
+        "class",
         "eligibility",
         "status",
         "correct",

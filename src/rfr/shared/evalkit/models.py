@@ -337,13 +337,16 @@ class ManifestEnrichmentResult(Wire):
 
 
 class Outcome(Wire):
+    model_config = ConfigDict(
+        serialize_by_alias=True, validate_by_name=False, validate_by_alias=True
+    )
     item_id: OpaqueId
     group_id: OpaqueId
     dataset: OpaqueId
     split: Split
     method: OpaqueId
     field: OpaqueId | None
-    class_name: OpaqueId | None
+    class_name: OpaqueId | None = Field(alias="class")
     eligibility: Literal["eligible", "ineligible", "unlabelled"]
     status: Status
     correct: bool | None
@@ -398,12 +401,15 @@ class Interval(Wire):
 
 
 class MetricRow(Wire):
+    model_config = ConfigDict(
+        serialize_by_alias=True, validate_by_name=False, validate_by_alias=True
+    )
     dataset_alias: OpaqueId
     split: Split
     method: OpaqueId
     config_ref: OpaqueId
     field: OpaqueId | None
-    class_name: OpaqueId | None
+    class_name: OpaqueId | None = Field(alias="class")
     metric: OpaqueId
     statistic_version: OpaqueId
     measurement_status: Literal["measured", "unsupported", "not_measured"]

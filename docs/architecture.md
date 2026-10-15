@@ -1,6 +1,6 @@
 # Architecture boundary
 
-Current implementation: the `rfr` package initializer, root build-tool configuration and scaffold checks. Shared schema implementation, receipt extraction, storage, API and UI remain pending.
+Current implementation: four reusable models/ports with module-owned schemas, a bounded decision journal/projection and an injected evaluation/statistics engine. Receipt extraction, app storage, API and UI remain pending.
 
 The intended dependency direction is:
 

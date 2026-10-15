@@ -1,6 +1,8 @@
 # Schema boundaries — models and pure validators
 
-The four reusable modules implement adopted wire foundations, generated schemas and pure identity/evidence validators. Rulings also implements a bounded journal, replay and scalar/pair decision barriers; matching graph reducers remain consumer-owned. Native Windows process controls are tested; POSIX and power-loss recovery remain unverified. Domain resolvers, provider/ledger controllers, OCR and evaluation/statistics engines remain pending. Module READMEs identify actual copy closures and limits; schema checks do not establish runtime capabilities.
+The four reusable modules implement adopted wire foundations, generated schemas and pure identity/evidence validators. Rulings also implements a bounded journal, replay and scalar/pair decision barriers; matching graph reducers remain consumer-owned. Native Windows process controls are tested; POSIX and power-loss recovery remain unverified. Evalkit executes generic statistics and injected fixed-ID corpus/comparison/reporting controls. Domain resolvers, provider/ledger controllers, OCR and receipt-domain scorers remain pending. Module READMEs identify actual copy closures and limits; schema checks do not establish runtime capabilities.
+
+Evalkit Outcome and MetricRow use the adopted JSON key `class`; Python exposes `class_name` internally. JSON rejects the unadopted `class_name` key. Human-effective predictions remain separate from raw machine scoring. Typed manifest admission hashes include declared defaults and do not substitute for an original retained-file digest, actual independent seal or durable authorized history.
 
 | Boundary | Proposed ownership | Required semantics |
 |---|---|---|

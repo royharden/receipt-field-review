@@ -297,3 +297,13 @@ def test_not_run_human_effective_fiction_and_public_fractional_counts_reject():
     for value in (-1, 0.5, None):
         with pytest.raises(ValueError):
             validate_public_projection({"eligible_N": value}, policy)
+
+
+def test_adopted_class_wire_alias_retains_private_python_attribute_and_rejects_old_key():
+    metric = MetricRow.model_validate(metric_wire() | {"class": "false"})
+    assert metric.class_name == "false" and metric.model_dump()["class"] == "false"
+    assert "class_name" not in metric.model_dump()
+    bad = metric_wire()
+    bad["class_name"] = bad.pop("class")
+    with pytest.raises(ValidationError):
+        MetricRow.model_validate(bad)

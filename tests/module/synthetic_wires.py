@@ -254,7 +254,7 @@ def metric_wire():
         "method": "baseline",
         "config_ref": "fixture",
         "field": None,
-        "class_name": None,
+        "class": None,
         "metric": "accuracy",
         "statistic_version": "fixture/1",
         "measurement_status": "measured",
