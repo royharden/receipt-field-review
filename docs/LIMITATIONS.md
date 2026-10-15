@@ -10,4 +10,6 @@ Required later evidence includes native HEIC, a lawful real 30-item OCR comparis
 
 The declared default for 100 phone receipts is 60 dev / 40 held-out with review-only fields when the strict lower-95%-Wilson precision gate cannot be met. No measured automation or accuracy result exists yet.
 
+Docio can parse bounded retained Tesseract-format TSV and assemble an exactly bound Page. Tests execute literal synthetic controls and a complete moved parser suite. There is no actual native execution, decoded image, HEIC conversion or lawful 30-item OCR comparison behind those parser results; caller-supplied engine/version metadata is not authentication.
+
 Python/native OCR is an external runtime boundary for the eventual static viewer. No hosted database, GitHub remote, Bolt import, backend provisioning or public release is established by this scaffold.
