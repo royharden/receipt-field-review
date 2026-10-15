@@ -32,5 +32,20 @@ audit metadata, with a separate line-items CSV. JSONL preserves exact machine/so
 sets use exclusive generated directories and a final completion marker; no public upload occurs.
 
 This slice accepts supplied recognized bundles. Image ingestion, actual native OCR, original image
-serving, pending/failed inference-job orchestration, CLI/API/browser flows and real model methods are
-still separate integration work. Literal synthetic controls do not measure OCR or receipt accuracy.
+serving, original-image inference-job orchestration, API/browser flows and real model methods are
+still separate integration work. The recognized-bundle CLI is available from `python -m rfr.cli`.
+Literal synthetic controls do not measure OCR or receipt accuracy.
+
+`JobStore` now records bounded1–100 requested recognized-item revisions with stable request-key
+idempotency, one active job per batch, atomic progress and explicit errors/stale/unavailable states.
+Its actual B0 rerun uses the existing retained-document extractor and the public revision-guarded
+batch store. J1/V2 remain unavailable, with no substitute output, executed-model label or measured cost.
+Configuration fingerprints bind the actual local source closure and Python/Pydantic versions;
+changed execution configuration refuses dispatch. Canonical JSON sorts opaque item keys, giving a
+stable key order. Reports retain every requested item rather than reporting only successes.
+
+After independently establishing that an old worker is gone, explicit interruption recovery preserves
+completed outcomes, marks an unacknowledged running item unknown and the remaining queue not_run.
+It never resumes inference or resets a budget. A repeated request/run returns the same historical
+record. Job state is operational metadata, not spending authority or canonical ledger settlement.
+Original image upload jobs, live method adapters and API worker-lifetime ownership remain pending.
