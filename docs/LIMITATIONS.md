@@ -16,4 +16,6 @@ The declared default for 100 phone receipts is 60 dev / 40 held-out with review-
 
 Docio can parse bounded retained Tesseract-format TSV and assemble an exactly bound Page. Tests execute literal synthetic controls and a complete moved parser suite. There is no actual native execution, decoded image, HEIC conversion or lawful 30-item OCR comparison behind those parser results; caller-supplied engine/version metadata is not authentication.
 
+The app's ReplayOcr accepts only explicitly supplied bounded frames under an expected engine/config profile. A replay hit is not actual native execution or source/capture authority; misses cannot fall back to a paid/native operation. File loading, lawful capture handling and complete image-to-workflow integration remain pending. Model/provider strict replay will use the canonical provider owner, rather than this OCR-specific adapter.
+
 Python/native OCR is an external runtime boundary for the eventual static viewer. No hosted database, GitHub remote, Bolt import, backend provisioning or public release is established by this scaffold.
