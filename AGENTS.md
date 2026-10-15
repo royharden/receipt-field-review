@@ -1,4 +1,4 @@
-# Receipt Field Review agent instructions — version 6
+# Receipt Field Review agent instructions — version 7
 
 Product code, tests and stable product documentation belong in this Git repository. Plans, agent identity registries, private reviews, transcripts, execution receipts and live resource records belong in the designated outer workspace, never here. A moved product repository must not depend on absolute workspace imports.
 
@@ -20,6 +20,8 @@ Journal checks use `python -m pytest tests/rulings -q`. They cover bounded owner
 Evaluation checks use `python -m pytest tests/evalkit -q`: tiny authored synthetic controls for fixed corpus/order/hash, source failures, private/public inputs, hand-counted rates, Wilson uncertainty, paired 2,000 whole-group draws, explicit not-run reports and actual detached runtime. Human provenance, lawful source rights, independent seals and durable authorized exposure history remain caller gates. These controls do not establish actual held-out performance or calibration.
 
 Extraction checks use `python -m pytest tests/fieldextract -q`: bounded candidate/question/answer admission, source preflight, diagnostic score tables, default review/calibration/hard gates, a fake native-PDF source and actual moved sibling closure. Injected ports do not supply budget authority, source authenticity, actual model transport or calibration proof. Never replace independent verifier questions with one exclusive hazard distribution.
+
+Receipt checks use `python -m pytest tests/receipt -q`: fixed complete scalar/line-cell schema, source-bound overfinding/B0, Decimal minor-unit checks, explicit adjustment stages, conservative dates/currency and review-only defaults. Missing quantity/operands remain unknown; never guess one/zero. Locale/currency/reference date must be explicit. Raw recognized artifacts and candidate banks remain separate retained inputs; no real image accuracy or automation result is established by literal controls.
 
 ## Invariants
 
@@ -45,4 +47,4 @@ Use the current workspace's pinned delivery and plan-adoption rules when partici
 
 Skill paths describe the development environment, not runtime imports. Do not copy skills, credentials or coordination history into the product. Claude imports this file; Cursor has a pointer; Grok/Codex read this root instruction file. No separate local skill mirrors are introduced.
 
-Changelog: v1 established bootstrap commands/invariants. v2 locked scaffold dependencies. v3 added models/schema parity/moved closures. v4 added journal commands and durability/provenance limits. v5 added evaluation/statistics controls. v6 adds generic extraction commands and actual caller obligations; native OCR/app workflow/real-data evidence remain pending. Claude/Cursor pointers continue to import this single instruction source; no policy, hook or skill mirror is changed.
+Changelog: v1 established bootstrap commands/invariants. v2 locked scaffold dependencies. v3 added models/schema parity/moved closures. v4 added journal commands and durability/provenance limits. v5 added evaluation/statistics controls. v6 added generic extraction. v7 adds actual receipt-plugin commands and conservative code checks; native OCR/app workflow/real-data evidence remain pending. Claude/Cursor pointers continue to import this single instruction source; no policy, hook or skill mirror is changed.

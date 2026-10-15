@@ -1,6 +1,8 @@
 # Current limitations
 
-The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, an injected generic evaluation/statistics engine and generic candidate selection/check/routing. Receipt ingestion, native HEIC conversion, actual OCR, receipt candidate generation, live model verification, app review workflow, receipt-domain scorers, API/UI and receipt exports are not implemented.
+The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. Image ingestion, native HEIC conversion, actual OCR, live model verification, app review workflow, receipt-domain evaluation scorers, API/UI and receipt exports are not implemented.
+
+B0 over-finds candidates from supplied retained recognized lines. It supports basic line amounts and explicitly printed quantity-times-unit-price forms, plus separately printed tip/service/discount adjustments. Missing quantities, unit prices, tax, currency codes and unknown adjustment stages are not guessed. Handwriting, complex/multicolumn layouts, Arabic/localized numeral formats and real OCR quality remain unmeasured. The current presets cover USD/EUR/GBP/CAD/AUD/JPY/KWD; other currency codes are rejected. Diagnostic checks/proposals default to blank review, with no calibrated automation claim.
 
 Fieldextract computes diagnostic scores through injected evidence/judgment/check ports and defaults to blank review values. It contains no actual source resolver, calibration authority, screen, provider SDK, budget/retry/fan-out controller or human provenance authority. Synthetic routing controls cannot authorize real automation. Raw candidate banks remain caller-owned retained inputs; normalized selected proposals alone do not preserve all raw OCR/model signals.
 

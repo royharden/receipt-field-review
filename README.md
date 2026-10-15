@@ -1,6 +1,6 @@
 # Receipt Field Review
 
-Receipt Field Review is being built to extract receipt fields with source evidence, leave uncertain values for review, and preserve human corrections across reruns. The repository currently contains four reusable foundations, a bounded local decision journal and an injected evaluation/statistics engine. It does not yet extract or review receipts.
+Receipt Field Review is being built to extract receipt fields with source evidence, leave uncertain values for review, and preserve human corrections across reruns. It can propose the fixed receipt scalar/line-cell schema from supplied recognized pages, using four reusable foundations, a bounded decision journal and an injected evaluator. Image ingestion and the review workflow remain under construction.
 
 ## Check the scaffold without keys or dependencies
 
@@ -21,13 +21,15 @@ With the installed Python environment, run `python -m pytest tests/module -q` fo
 
 `python -m pytest tests/fieldextract -q` checks generic candidate selection, binary verifier bindings, score/routing gates, domain-check application and the actual moved Fieldextract/Docio pair. Ports are synthetic controls, including a fake native-PDF source; real transport, source authority, calibration and receipt-specific extraction remain pending.
 
+`python -m pytest tests/receipt -q` checks source-bound B0 candidates, all scalar/line-cell metadata, printed adjustments, exact Decimal arithmetic, ambiguous/future dates, printed currency and review-only defaults. Its literal recognized-page controls are implementation evidence; they do not measure accuracy on real receipt images. Currency parsing uses seven explicitly supported presets, with factual minor units checked against the [SIX currency list](https://www.six-group.com/dam/download/financial-information/data-center/iso-currrency/lists/list-one.xml) published 2026-09-17.
+
 `python -m pytest tests/rulings -q` exercises the bounded local journal, historical retries, CAS, damaged-tail refusal, scalar projection and moved-runtime closure. Windows process races, lock deadlines and process exit after fsync are tested with owned temporary files. POSIX and power-loss recovery remain unverified.
 
 `python -m pytest tests/evalkit -q` exercises actual corpus hash/order checks, injected fixed-ID comparisons, hand-counted classification/set/agreement statistics, Wilson intervals, paired 2,000 whole-group bootstrap draws, separate failure populations and closed public aggregates. Tests use tiny authored synthetic controls, including a detached runtime with original app/provider imports and network disabled. They do not supply real receipts, independent human gold or performance results.
 
 ## Planned workflow
 
-Import a single-currency batch of up to 100 JPEG/PNG/HEIC receipts. Inspect fields alongside highlighted source regions, correct or confirm values with the keyboard, save and move to the next item, then export CSV/JSONL. Extraction reruns preserve decisions; changed evidence requires conflict resolution. This workflow is not implemented yet.
+Import a single-currency batch of up to 100 JPEG/PNG/HEIC receipts. Inspect fields alongside highlighted source regions, correct or confirm values with the keyboard, save and move to the next item, then export CSV/JSONL. Extraction reruns preserve decisions; changed evidence requires conflict resolution. This complete image-to-review workflow is not implemented yet.
 
 ## Architecture
 

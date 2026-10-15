@@ -1,6 +1,6 @@
 # Architecture boundary
 
-Current implementation: four reusable models/ports with module-owned schemas, a bounded decision journal/projection and an injected evaluation/statistics engine. Receipt extraction, app storage, API and UI remain pending.
+Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator and a receipt-specific B0 candidate/normalization/check adapter over supplied recognized pages. Image ingestion, app workflow storage, API and UI remain pending.
 
 The intended dependency direction is:
 
