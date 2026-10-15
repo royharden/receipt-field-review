@@ -7,6 +7,7 @@ from collections.abc import Callable, Mapping
 from dataclasses import dataclass
 from typing import Literal
 
+from .axis_status import AxisStatusPort, prediction_digest, validate_binding
 from .corpus import FrozenCorpusError, validate_records
 from .identity import canonical_bytes
 from .interfaces import DomainAdapter, MethodRunner
@@ -116,6 +117,10 @@ def _status_metadata(
     )
 
 
+def _copy_prediction(prediction: Prediction) -> Prediction:
+    return Prediction.model_validate_json(canonical_bytes(prediction.model_dump(mode="json")))
+
+
 def compare(
     methods: Mapping[str, MethodConfig],
     manifest: Manifest,
@@ -128,6 +133,7 @@ def compare(
     allow_live_dispatch: bool = False,
     heldout_admission: HeldoutAdmission | None = None,
     heldout_history: HeldoutHistory | None = None,
+    axis_status_port: AxisStatusPort | None = None,
 ) -> Comparison:
     """The caller's trusted policy/S3 controller owns any actual effect authority and accounting.
 
@@ -179,6 +185,7 @@ def compare(
         actual = []
         all_outcomes = []
         for gold in records:
+            axis_statuses = None
             view = views[gold.item_id]
             if view.status != "available":
                 metadata = _status_metadata(
@@ -210,7 +217,7 @@ def compare(
                     if prediction.origin != config.origin or prediction.status == "not_run":
                         raise FrozenCorpusError("prediction_origin_changed")
                     try:
-                        adapter.validate_prediction(prediction)
+                        adapter.validate_prediction(_copy_prediction(prediction))
                     except Exception:
                         # Preserve charged/invalid output accounting from the actual response.
                         prediction = Prediction.model_validate_json(
@@ -223,7 +230,17 @@ def compare(
                             )
                         )
                     actual.append(prediction)
-            outcomes = adapter.to_outcomes(prediction, gold, policy)
+            if axis_status_port is not None and prediction.status == "ok":
+                supplied = _copy_prediction(prediction)
+                before = prediction_digest(supplied)
+                try:
+                    binding = axis_status_port.bind(supplied)
+                    if prediction_digest(supplied) != before:
+                        raise ValueError("axis_status_port_mutated_prediction")
+                    axis_statuses = validate_binding(binding, prediction)
+                except Exception:
+                    raise FrozenCorpusError("invalid_axis_status_binding") from None
+            outcomes = adapter.to_outcomes(_copy_prediction(prediction), gold, policy)
             if not outcomes or any(
                 not isinstance(row, Outcome)
                 or (row.item_id, row.method, row.dataset, row.group_id, row.split)
@@ -231,8 +248,15 @@ def compare(
                 for row in outcomes
             ):
                 raise FrozenCorpusError("missing_or_wrong_expected_outcomes")
-            if any(row.status != prediction.status for row in outcomes):
-                raise FrozenCorpusError("adapter_status_mismatch")
+            if axis_statuses is None:
+                if any(row.status != prediction.status for row in outcomes):
+                    raise FrozenCorpusError("adapter_status_mismatch")
+            else:
+                case_axes = [(row.field, row.class_name) for row in outcomes]
+                if len(set(case_axes)) != len(case_axes) or set(case_axes) != set(axis_statuses):
+                    raise FrozenCorpusError("axis_status_population_mismatch")
+                if any(row.status != axis_statuses[row.field, row.class_name] for row in outcomes):
+                    raise FrozenCorpusError("axis_status_mismatch")
             if any(
                 row.evidence_origin != prediction.origin
                 or row.human_touched_prediction != (prediction.human_effective_output is not None)

@@ -34,3 +34,9 @@ Supplying a valid engine name/version/digest or a synthetic TSV does not authent
 `page_from_artifact` checks exact input/transform binding before assembly. Neither function installs
 or invokes an engine, decodes images, stores a source, implements an OCR adapter or measures quality.
 Literal parser controls and their complete moved namespace suite are separate from native OCR tests.
+
+New derived TSV identities use `docio-tsv/2` and prefix `tsv2:`. Their input preimage excludes only
+the transient `execution_ref`; all immutable original/grid/page/source-kind/transform/schema fields
+remain bound with exact TSV/engine/config/dimensions. A different execution handle alone therefore
+preserves the full artifact/child identities. Existing `tsv1:` artifacts and raw/grid/artifact-byte
+codecs are retained without rewriting; consumers upgrade only to an explicitly published source.

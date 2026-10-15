@@ -28,7 +28,7 @@ def test_entire_moved_runtime_controls_without_original_app_or_provider(tmp_path
         content = content.replace('ROOT / "src/rfr/shared/evalkit"', 'ROOT / "portable_evalkit"')
         (target / source.name).write_text(content, encoding="utf-8")
         moved.append(source.name)
-    assert len(moved) == 8  # Seven test files and their explicit no-network conftest.
+    assert len(moved) == 9  # Eight control files and their explicit no-network conftest.
     script = f"""
 import importlib,importlib.abc,json,socket,sys
 from pathlib import Path
@@ -71,7 +71,7 @@ raise SystemExit(code)
     proof = json.loads(run.stdout.strip().splitlines()[-1])
     assert proof["pytest_exit"] == 0
     suites = list(ET.parse(tmp_path / "moved.xml").getroot().iter("testsuite"))
-    assert sum(int(s.attrib["tests"]) for s in suites) == 53
+    assert sum(int(s.attrib["tests"]) for s in suites) == 76
     assert all(
         int(s.attrib.get(k, 0)) == 0 for s in suites for k in ["failures", "errors", "skipped"]
     )

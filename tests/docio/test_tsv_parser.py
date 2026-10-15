@@ -216,3 +216,40 @@ def test_engine_metadata_is_closed_and_not_authenticated_by_valid_shape():
                 engine_version=version,
                 config_sha256=digest,
             )
+
+
+def test_transient_execution_handle_does_not_change_retained_content_or_child_identity():
+    first = parse()
+    another = page().model_copy(update={"execution_ref": "different-transient-execution-handle"})
+    second = parse(inp=another)
+    assert artifact_bytes(first) == artifact_bytes(second)
+    assert first.artifact_id.startswith("tsv2:")
+    assert first.words == second.words and first.lines == second.lines
+
+
+@pytest.mark.parametrize(
+    "change",
+    [
+        {"page_sha256": "c" * 64},
+        {"page_id": "different-page"},
+        {
+            "original_content_sha256": "c" * 64,
+            "raw_source_revision": raw_revision("synthetic-doc", "c" * 64),
+        },
+    ],
+    ids=["retained-grid", "page-id", "original-raw"],
+)
+def test_actual_immutable_input_changes_still_change_derived_identity(change):
+    original = parse()
+    different = parse(inp=PageInput.model_validate(page().model_dump() | change))
+    assert original.artifact_id != different.artifact_id
+    changed_config = parse_tsv_artifact(
+        payload(),
+        page(),
+        bounds(),
+        engine_width_px=160,
+        engine_height_px=80,
+        engine_version="synthetic-tsv/1",
+        config_sha256="c" * 64,
+    )
+    assert original.artifact_id != changed_config.artifact_id

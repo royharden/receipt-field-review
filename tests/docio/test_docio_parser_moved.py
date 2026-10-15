@@ -56,7 +56,7 @@ raise SystemExit(code)
     )
     assert run.returncode == 0, run.stdout + run.stderr
     suites = list(ET.parse(tmp_path / "moved.xml").getroot().iter("testsuite"))
-    assert sum(int(s.attrib["tests"]) for s in suites) == 18
+    assert sum(int(s.attrib["tests"]) for s in suites) == 22
     assert all(
         int(s.attrib.get(key, 0)) == 0 for s in suites for key in ["failures", "errors", "skipped"]
     )

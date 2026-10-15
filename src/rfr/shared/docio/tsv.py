@@ -96,8 +96,8 @@ def parse_tsv_artifact(
     if len(rows) > 1 + 1 + bounds.max_blocks + bounds.max_lines * 2 + bounds.max_words:
         raise TsvError("tsv_row_limit", "limit_exceeded")
     preimage = {
-        "algorithm": "docio-tsv/1",
-        "input": page_input.model_dump(mode="json"),
+        "algorithm": "docio-tsv/2",
+        "input": page_input.model_dump(mode="json", exclude={"execution_ref"}),
         "retained_tsv_sha256": hashlib.sha256(retained_tsv).hexdigest(),
         "engine": "tesseract-tsv",
         "engine_version": engine_version,
@@ -105,7 +105,7 @@ def parse_tsv_artifact(
         "engine_height_px": engine_height_px,
         "config_sha256": config_sha256,
     }
-    artifact_id = "tsv1:" + hashlib.sha256(canonical_bytes(preimage)).hexdigest()
+    artifact_id = "tsv2:" + hashlib.sha256(canonical_bytes(preimage)).hexdigest()
     base = {
         "geometry_provenance": "measured_ocr",
         "source_engine": "tesseract-tsv",

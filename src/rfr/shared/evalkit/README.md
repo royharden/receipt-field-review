@@ -50,3 +50,24 @@ corpus, eligible, answered, comparable, stale, errors and abstentions are separa
 values stay null with reasons. Public projection is not general de-identification: private per-case
 records are excluded, while named synthetic examples need separately approved retained references.
 No split generator, human labelling workflow, domain scorer or file report writer is implemented.
+
+`compare(..., axis_status_port=None)` retains the ordinary whole-prediction status guard by default.
+An explicitly trusted consumer AxisStatusPort may bind independent field/class statuses only for a
+validated actual ok envelope. Its AxisStatusBinding carries response/raw-machine causal digests and
+all predeclared domain axes; missing/extra/duplicate axes or mismatched statuses refuse before scoring.
+Whole errors/stale/unavailable/invalid and never-run branches cannot be promoted to field successes.
+Per-axis not_run is not admitted as a denominator escape. Config/source/origin/human guards and raw
+machine scoring remain; callback copies protect the retained actual response from mutation.
+
+The consumer must implement and prove its actual complete domain schema/profile and derive statuses
+from raw machine/controller output, not Gold, correctness, human-effective values or only successful
+response keys. A matching digest or binding shape is not authority. The owner controls use four literal
+synthetic axes; they do not prove a consumer's37-field schema, SDK calls or actual domain scoring.
+
+Prediction.status `ok` denotes an adapter-validated domain envelope, not success of all child operations.
+A genuine partial controller operation may use that envelope only when the actual trusted consumer
+validates every fixed domain key and retains original partial operation/child statuses, raw machine
+payload, issues, ledger and provenance. A wholly failed, blocked, stale, unavailable, invalid or
+unexecuted controller cannot manufacture an ok envelope. Generic MethodEvaluation `executed` is
+dispatch metadata, not a complete-success verdict. The consumer must preserve the actual operation
+status as partial in its whole-method report; truthful field counts do not erase partial execution.
