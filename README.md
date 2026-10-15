@@ -19,6 +19,8 @@ With the installed Python environment, run `python -m pytest tests/module -q` fo
 
 `python -m pytest tests/docio -q` checks the bounded TSV parser, hierarchy/confidence/coordinate assembly and its moved runtime. Literal native-format controls do not establish a native OCR installation or receipt-image accuracy.
 
+`python -m pytest tests/fieldextract -q` checks generic candidate selection, binary verifier bindings, score/routing gates, domain-check application and the actual moved Fieldextract/Docio pair. Ports are synthetic controls, including a fake native-PDF source; real transport, source authority, calibration and receipt-specific extraction remain pending.
+
 `python -m pytest tests/rulings -q` exercises the bounded local journal, historical retries, CAS, damaged-tail refusal, scalar projection and moved-runtime closure. Windows process races, lock deadlines and process exit after fsync are tested with owned temporary files. POSIX and power-loss recovery remain unverified.
 
 `python -m pytest tests/evalkit -q` exercises actual corpus hash/order checks, injected fixed-ID comparisons, hand-counted classification/set/agreement statistics, Wilson intervals, paired 2,000 whole-group bootstrap draws, separate failure populations and closed public aggregates. Tests use tiny authored synthetic controls, including a detached runtime with original app/provider imports and network disabled. They do not supply real receipts, independent human gold or performance results.

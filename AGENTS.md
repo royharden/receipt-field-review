@@ -1,10 +1,10 @@
-# Receipt Field Review agent instructions — version 5
+# Receipt Field Review agent instructions — version 6
 
 Product code, tests and stable product documentation belong in this Git repository. Plans, agent identity registries, private reviews, transcripts, execution receipts and live resource records belong in the designated outer workspace, never here. A moved product repository must not depend on absolute workspace imports.
 
 ## Commands and current state
 
-The repository has four reusable models/ports, a bounded rulings journal/projection and an injected evaluation/statistics engine. Python 3.12 and Node 24 are the declared runtimes. Native OCR, real held-out results and the receipt workflow remain pending.
+The repository has four reusable foundations, a bounded rulings journal/projection, an injected evaluation/statistics engine and generic candidate selection/check/routing. Python 3.12 and Node 24 are the declared runtimes. Native OCR, real held-out results and the receipt workflow remain pending.
 
 ```text
 python -m unittest discover -s tests/contracts -p "test_scaffold.py" -v
@@ -18,6 +18,8 @@ Model checks use the installed environment: `python -m pytest tests/module -q` a
 Journal checks use `python -m pytest tests/rulings -q`. They cover bounded owner-private paths, full-intent historical retry before stale CAS, native Windows process locks/deadlines, fsync before success, damaged-tail preservation/read-only refusal, recorded scalar/pair barriers and detached runtime. POSIX/power-loss behavior is not verified. Never convert actor/ref syntax or provisional annotations into actual human/gold evidence. Repair is a separate explicit policy; never truncate a damaged journal automatically.
 
 Evaluation checks use `python -m pytest tests/evalkit -q`: tiny authored synthetic controls for fixed corpus/order/hash, source failures, private/public inputs, hand-counted rates, Wilson uncertainty, paired 2,000 whole-group draws, explicit not-run reports and actual detached runtime. Human provenance, lawful source rights, independent seals and durable authorized exposure history remain caller gates. These controls do not establish actual held-out performance or calibration.
+
+Extraction checks use `python -m pytest tests/fieldextract -q`: bounded candidate/question/answer admission, source preflight, diagnostic score tables, default review/calibration/hard gates, a fake native-PDF source and actual moved sibling closure. Injected ports do not supply budget authority, source authenticity, actual model transport or calibration proof. Never replace independent verifier questions with one exclusive hazard distribution.
 
 ## Invariants
 
@@ -43,4 +45,4 @@ Use the current workspace's pinned delivery and plan-adoption rules when partici
 
 Skill paths describe the development environment, not runtime imports. Do not copy skills, credentials or coordination history into the product. Claude imports this file; Cursor has a pointer; Grok/Codex read this root instruction file. No separate local skill mirrors are introduced.
 
-Changelog: v1 established bootstrap commands/invariants. v2 locked scaffold dependencies. v3 added models/schema parity/moved closures. v4 added journal commands and durability/provenance limits. v5 adds actual evaluation/statistics controls while retaining pending native OCR/app workflow/real-data evidence. Claude/Cursor pointers continue to import this single instruction source; no policy, hook or skill mirror is changed.
+Changelog: v1 established bootstrap commands/invariants. v2 locked scaffold dependencies. v3 added models/schema parity/moved closures. v4 added journal commands and durability/provenance limits. v5 added evaluation/statistics controls. v6 adds generic extraction commands and actual caller obligations; native OCR/app workflow/real-data evidence remain pending. Claude/Cursor pointers continue to import this single instruction source; no policy, hook or skill mirror is changed.
