@@ -1,6 +1,6 @@
 # Current limitations
 
-The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. Image ingestion, native HEIC conversion, actual OCR, live model verification, app review workflow, receipt-domain evaluation scorers, API/UI and receipt exports are not implemented.
+The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI and audited private CSV/JSONL exports are implemented. Image ingestion, native HEIC conversion, actual OCR, live model verification, pending/failed inference-job orchestration, receipt-domain evaluation scorers and API/UI remain pending.
 
 B0 over-finds candidates from supplied retained recognized lines. It supports basic line amounts and explicitly printed quantity-times-unit-price forms, plus separately printed tip/service/discount adjustments. Missing quantities, unit prices, tax, currency codes and unknown adjustment stages are not guessed. Handwriting, complex/multicolumn layouts, Arabic/localized numeral formats and real OCR quality remain unmeasured. The current presets cover USD/EUR/GBP/CAD/AUD/JPY/KWD; other currency codes are rejected. Diagnostic checks/proposals default to blank review, with no calibrated automation claim.
 
@@ -19,3 +19,5 @@ Docio can parse bounded retained Tesseract-format TSV and assemble an exactly bo
 The app's ReplayOcr accepts only explicitly supplied bounded frames under an expected engine/config profile. A replay hit is not actual native execution or source/capture authority; misses cannot fall back to a paid/native operation. File loading, lawful capture handling and complete image-to-workflow integration remain pending. Model/provider strict replay will use the canonical provider owner, rather than this OCR-specific adapter.
 
 Python/native OCR is an external runtime boundary for the eventual static viewer. No hosted database, GitHub remote, Bolt import, backend provisioning or public release is established by this scaffold.
+
+Canonical S3/S6 offline components are vendored unchanged and pass actual moved public controls with original apps, SDKs and network blocked. They are not yet connected to receipt methods or a live transport. Recognized-bundle workflow tests use literal synthetic sources; operational clean exports, provisional decisions and unverified human claims do not establish human Gold or measured model quality.

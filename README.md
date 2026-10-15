@@ -1,6 +1,39 @@
 # Receipt Field Review
 
-Receipt Field Review is being built to extract receipt fields with source evidence, leave uncertain values for review, and preserve human corrections across reruns. It can propose the fixed receipt scalar/line-cell schema from supplied recognized pages, using four reusable foundations, a bounded decision journal and an injected evaluator. Image ingestion and the review workflow remain under construction.
+Receipt Field Review proposes fixed receipt scalar/line-cell fields from supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. Image ingestion, actual native/model inference, the API and browser viewer remain under construction.
+
+## Recognized-bundle review CLI
+
+Use Python3.12 in the installed environment. `python -m rfr.cli --help` exposes batch creation,
+bounded recognized-bundle import, list/detail, stable decision drafts, exact draft application and
+exports. It accepts a validated `rfr.pipeline.models.ReceiptBundle`; it does not read images or invent OCR.
+
+```text
+python -m rfr.cli --root <existing-private-batch-directory> new --currency USD
+python -m rfr.cli --root <directory> import-bundle --batch <batch-id> --bundle <provided-bundle.json>
+python -m rfr.cli --root <directory> list --batch <batch-id>
+python -m rfr.cli --root <directory> show --batch <batch-id> --item <item-id>
+python -m rfr.cli --root <directory> draft --batch <batch-id> --item <item-id> --field merchant_name --action correct --value "Corrected Shop" --actor "local reviewer" --reason "Checked source"
+python -m rfr.cli --root <directory> apply --batch <batch-id> --draft <saved-draft.json>
+python -m rfr.cli --root <directory> export --batch <batch-id> --out <existing-private-export-directory>
+```
+
+Save the complete draft JSON unchanged before applying it. An exact retry uses that same file;
+generating another draft changes timestamp/event identity. The default actor is agent-provisional.
+An explicitly claimed human actor requires a reference but remains `unverified_human` in label exports.
+Operational review does not certify independent human Gold.
+
+`--mode clean` includes only resolved items and lists every omission. If no clean item exists, the CLI
+writes an omission report and exits3 with `clean_export_empty`. Correcting a value alone does not waive
+hard issues. Use `draft --waive-issue <current-issue-id> --issue-reason <explicit-reason>` for a recorded
+disposition. Review exports include all registered items, including unresolved/deleted entries,
+scalar/line-cell audit data and retained source metadata. CSV formula-leading text is escaped; JSONL
+keeps original values.
+
+`python -m pytest tests/pipeline tests/export tests/cli -q` exercises actual provided-bundle review,
+restart/rerun, native process CAS, stale conflicts, clean refusal, exports and real CLI entrypoints.
+Literal synthetic recognized pages and blocked network/provider imports are implementation controls,
+not image OCR or real receipt accuracy measurements.
 
 ## Check the scaffold without keys or dependencies
 
@@ -11,7 +44,7 @@ python -m unittest discover -s tests/contracts -p "test_scaffold.py" -v
 node --test tests/contracts/test_frontend_config.mjs
 ```
 
-The checks exercise forbidden module dependencies and publication controls with positive and negative cases. They do not start a server, open sockets, install OCR, or call a provider. Native OCR, receipt extraction, real held-out evaluation and frontend build are pending.
+The checks exercise forbidden module dependencies and publication controls with positive and negative cases. They do not start a server, open sockets, install OCR, or call a provider. Native OCR, image-to-receipt integration, real held-out evaluation and frontend build are pending.
 
 The setup also locks Pydantic, pytest/ruff, React/Vite/TypeScript. After the dependencies are installed with `uv sync --frozen` and `npm ci --ignore-scripts`, run `uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`, and `npm run typecheck`. Type checking currently covers configuration only.
 
@@ -31,11 +64,11 @@ With the installed Python environment, run `python -m pytest tests/module -q` fo
 
 ## Planned workflow
 
-Import a single-currency batch of up to 100 JPEG/PNG/HEIC receipts. Inspect fields alongside highlighted source regions, correct or confirm values with the keyboard, save and move to the next item, then export CSV/JSONL. Extraction reruns preserve decisions; changed evidence requires conflict resolution. This complete image-to-review workflow is not implemented yet.
+The intended image workflow imports up to100 single-currency JPEG/PNG/HEIC receipts, shows highlighted source regions, supports keyboard review, and exports CSV/JSONL. Provided recognized bundles already support durable corrections, unchanged-evidence reruns, changed-evidence conflicts and audited exports through the CLI. Original image decoding/serving, pending/failed inference jobs and the browser journey remain pending.
 
 ## Architecture
 
-The Python `rfr` core contains reusable [docio](src/rfr/shared/docio/README.md), [fieldextract](src/rfr/shared/fieldextract/README.md), [rulings](src/rfr/shared/rulings/README.md) and [evalkit](src/rfr/shared/evalkit/README.md) foundations. Each owns generated JSON schemas and declares its copy closure. Rulings includes a bounded owner-private journal and recorded-decision projection; its actor metadata does not authenticate a human. Evalkit executes generic statistics and injected comparisons; source rights, label provenance, independent held-out seals and authorized durable history remain caller responsibilities. Runtime decoders, receipt scorers, providers, app storage/API and the review viewer remain pending.
+The Python `rfr` core contains reusable [docio](src/rfr/shared/docio/README.md), [fieldextract](src/rfr/shared/fieldextract/README.md), [rulings](src/rfr/shared/rulings/README.md) and [evalkit](src/rfr/shared/evalkit/README.md) foundations. Each owns generated JSON schemas and declares its copy closure. Rulings includes a bounded owner-private journal and recorded-decision projection; its actor metadata does not authenticate a human. Evalkit executes generic statistics and injected comparisons; source rights, label provenance, independent held-out seals and authorized durable history remain caller responsibilities. Runtime decoders, receipt-domain scorers, live providers, API and the review viewer remain pending. The [file workflow](src/rfr/pipeline/README.md) and [canonical offline execution components](docs/vendor/execution/README.md) are implemented; mock/replay controls establish component behavior, not paid model quality.
 
 Frozen lockfiles describe the installed scaffold dependencies. FastAPI/native OCR/provider SDKs and the actual review UI are deferred to their assigned work packages. There is no frontend `build` script yet, so scaffold green cannot be mistaken for an application build.
 
@@ -45,6 +78,6 @@ Receipt accuracy, abstention, auto-accept precision, OCR quality, latency and mo
 
 ## Limits and portability
 
-This is a foundation slice, not a finished application. See [limitations](docs/LIMITATIONS.md), [architecture](docs/architecture.md), and the [schema boundaries](docs/schema-design.md). Python/native OCR requires a local or separately hosted runtime; an eventual static JavaScript viewer does not supply that backend. A product demo, UI build, live integration, hosted deployment and public release remain pending.
+This is a recognized-bundle review foundation, not a finished image application. See [limitations](docs/LIMITATIONS.md), [architecture](docs/architecture.md), and the [schema boundaries](docs/schema-design.md). Python/native OCR requires a local or separately hosted runtime; an eventual static JavaScript viewer does not supply that backend. A product demo, UI build, live integration, hosted deployment and public release remain pending.
 
 Coding agents wrote the scaffold. Its dependency-free checks are reproducible above; those checks do not establish product acceptance.
