@@ -1,0 +1,695 @@
+{
+  "component": "Canonical offline provider, call ledger and screening closure",
+  "runtime_bytes": "Unchanged exact committed Git blobs; imports relative to one execution package",
+  "licences": [
+    "src/rfr/shared/execution/LICENSE.S3",
+    "src/rfr/shared/execution/LICENSE.S6"
+  ],
+  "files": [
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/__init__.py",
+      "sha256": "60913c6d12caa4ba9139d870ad493d4a68738580c996662d7ad7b8d71622e1b8",
+      "git_blob": "d54c1da1c6df701267a3ccc931aca3852992f333",
+      "target": "src/rfr/shared/execution/__init__.py",
+      "bytes": 72
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/callledger/README.md",
+      "sha256": "bdc63ddb26832750654cdbffc09fca33d46b9e5ef2e0b7b1a34cac4e1cea0c50",
+      "git_blob": "4eb6cce7d1bc853da62db8ce048247375caf0916",
+      "target": "src/rfr/shared/execution/callledger/README.md",
+      "bytes": 7634
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/callledger/__init__.py",
+      "sha256": "0fe1e2b6e2b49e170e5e483d1406b8c36d1ce8e2b446845aad2bb741b7806571",
+      "git_blob": "6bb50990aee74ddaffdfd45933d87eb53d040be8",
+      "target": "src/rfr/shared/execution/callledger/__init__.py",
+      "bytes": 234
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/callledger/ledger.py",
+      "sha256": "ca38e0776e8b13d95e6ac31087431d45b8c984a40a33f8f8212d7c7bcf16eecb",
+      "git_blob": "e3760ba9efbb6cf140a03c412d66b7ff888c7f1c",
+      "target": "src/rfr/shared/execution/callledger/ledger.py",
+      "bytes": 49969
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/callledger/models.py",
+      "sha256": "7274d1eebed5370460d83af6e4187cc74037d0ab600889219423dbcdd81277e7",
+      "git_blob": "ad215ff2bbe06472295b06b66487f526cde59eb9",
+      "target": "src/rfr/shared/execution/callledger/models.py",
+      "bytes": 12351
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/callledger/pricing.py",
+      "sha256": "daf38f487eeb70b48cc4025c54a19eea581a2d5d00084f534d9f2b9a55056c74",
+      "git_blob": "f8d63558e6238f3cabaf2c52611ab3e632dd29c9",
+      "target": "src/rfr/shared/execution/callledger/pricing.py",
+      "bytes": 9444
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/callledger/projection.py",
+      "sha256": "5c0194e299b2c58f85e745ac093063dcb89689ea162ba378a37afc48a0f4dc69",
+      "git_blob": "7d20500102b07471caec6362f3b71099ff92df10",
+      "target": "src/rfr/shared/execution/callledger/projection.py",
+      "bytes": 1310
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/providers/__init__.py",
+      "sha256": "5294e9e9a55d6f645ba1fae741f467accdf3aae0caf9e9094a46784bff57421f",
+      "git_blob": "67b42aa73e0e5cfa72f83c0669198f354ca4ed4a",
+      "target": "src/rfr/shared/execution/providers/__init__.py",
+      "bytes": 450
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/providers/adapters.py",
+      "sha256": "0f04a7f3231c2a22c36541b9cdaeb53214899d4da111f264eab73278847a3023",
+      "git_blob": "6baa3035f8bd7a04e54281833ff2fd144ed3f02b",
+      "target": "src/rfr/shared/execution/providers/adapters.py",
+      "bytes": 15650
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/providers/captures.py",
+      "sha256": "0c91934a090d5f1481fd1116c4ee74a073e0cc8b6ee9c1c8d19cacdce2ebde00",
+      "git_blob": "a632ff56ae51d0a416c0d08bf3a2090aeddfcbe8",
+      "target": "src/rfr/shared/execution/providers/captures.py",
+      "bytes": 7673
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/providers/controller.py",
+      "sha256": "7e607e319bafe93354d04571f82e7fae35365e21fec8d5ce393843f4d41366ac",
+      "git_blob": "a82937f5c363b5b069b918c490e8f385e5e65c52",
+      "target": "src/rfr/shared/execution/providers/controller.py",
+      "bytes": 28270
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/providers/images.py",
+      "sha256": "d847124ef8dc76461f3257df2586075f7ca9602bebe4a15009c6a48aefa6aa13",
+      "git_blob": "9ff512f336a219cb7b4dedad400b523b4de1447e",
+      "target": "src/rfr/shared/execution/providers/images.py",
+      "bytes": 3614
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/providers/models.py",
+      "sha256": "7d00a646f583aec1b77abd8c956f1b0c830726be3c17ce37737ac05841060ea2",
+      "git_blob": "a2c2f478b881e1d172085355f9ee347bba919f9f",
+      "target": "src/rfr/shared/execution/providers/models.py",
+      "bytes": 18364
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "src/llm_router_eval/shared/providers/schema.py",
+      "sha256": "a0c4a84b14a95d2834a150e8fa16224ccec03e1a84325b359b92868a61613391",
+      "git_blob": "0d84ca157fa6bbd1fac3b7cbc0aba75751f552c3",
+      "target": "src/rfr/shared/execution/providers/schema.py",
+      "bytes": 5605
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/allocation.schema.json",
+      "sha256": "5a00f2b0002f56a0e0c6eddc7174f27303dc2fd1feef9eb232a98c33fa42dab4",
+      "git_blob": "e0c125e16c47ea91e1b2b934aebc6d1b1324b115",
+      "target": "tests/consumers/s3/assets/docs/schemas/allocation.schema.json",
+      "bytes": 953
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/billing-policy.schema.json",
+      "sha256": "48c2b0b75d6b2e8c004cdab781e4e230792175948ebe40c2e4f9c8f18720d483",
+      "git_blob": "5e2ef7c13078b38ca3f6282fc4ba23c762ad6b06",
+      "target": "tests/consumers/s3/assets/docs/schemas/billing-policy.schema.json",
+      "bytes": 887
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/budget-authority.schema.json",
+      "sha256": "f514326beda95a6de71084ef67f117a28dae4302df27b7f72f757808b2f2cdd9",
+      "git_blob": "0454dc30a3e382e99d7098d231a5036f098ee2fd",
+      "target": "tests/consumers/s3/assets/docs/schemas/budget-authority.schema.json",
+      "bytes": 1304
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/call-context.schema.json",
+      "sha256": "bd5ea2932394d21aed2384d6d3559c672cd82f7458d13ba5bdff218a53482d0b",
+      "git_blob": "f9c5ffc1eeb918defec3f1c745f188775a873104",
+      "target": "tests/consumers/s3/assets/docs/schemas/call-context.schema.json",
+      "bytes": 2909
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/capabilities.schema.json",
+      "sha256": "8f07c6595016d591a23c010a77699c61e77aac9bf45efb863d9f8cf662c2ef02",
+      "git_blob": "6ee85cfa85f2dd3f9bbe027f5f8780873edf5472",
+      "target": "tests/consumers/s3/assets/docs/schemas/capabilities.schema.json",
+      "bytes": 1465
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/cost-observation.schema.json",
+      "sha256": "e2c2ac6bc804caeb524e388951684ecec5f4bc9de7628dfabd739468018aeb60",
+      "git_blob": "15dbbfca0c0e9a865178be87e83c6841302357fe",
+      "target": "tests/consumers/s3/assets/docs/schemas/cost-observation.schema.json",
+      "bytes": 3875
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/execution-envelope.schema.json",
+      "sha256": "9213ae4ea207c5b38bdacab28281e29ab785beb1a8413cbd9658e466d2cc57f4",
+      "git_blob": "1852f4ac6b0414105433c3d6a10a2ac98ed5609b",
+      "target": "tests/consumers/s3/assets/docs/schemas/execution-envelope.schema.json",
+      "bytes": 23937
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/funding-declaration.schema.json",
+      "sha256": "badc0575ac98f301300d26a6fe7f112cd6a87958858007d151afe483df895f96",
+      "git_blob": "29d0915a7a41848c74dab9b878421a930b5c3886",
+      "target": "tests/consumers/s3/assets/docs/schemas/funding-declaration.schema.json",
+      "bytes": 7772
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/generate-request.schema.json",
+      "sha256": "e21af31fb0a59ab2f7dc962910416477bee5a8126f08d967d9bba20c4b484641",
+      "git_blob": "36caad500a5fdcf33851b6468c96c740efa116b9",
+      "target": "tests/consumers/s3/assets/docs/schemas/generate-request.schema.json",
+      "bytes": 5091
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/image-part.schema.json",
+      "sha256": "b4e8131099cac1cac4d81e064a59ee2d1ff30579accc5d93a67501f05f3be8a4",
+      "git_blob": "88ce6273d830d6a1ad996ff20c1445c367b5d9e3",
+      "target": "tests/consumers/s3/assets/docs/schemas/image-part.schema.json",
+      "bytes": 1756
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/limits.schema.json",
+      "sha256": "756f32c1a6506190e583c05c1f308958744cd1ddec832a8cf0a684d3c3a63cfa",
+      "git_blob": "5c728119e269c4fcee64759f91537c20a3c9b0d5",
+      "target": "tests/consumers/s3/assets/docs/schemas/limits.schema.json",
+      "bytes": 2760
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/metadata-record.schema.json",
+      "sha256": "58f5317609cb5c603ba4ee3f540cd7365dd5a589f97a4d6e3f8a599c36d47988",
+      "git_blob": "101b785eed4abb51f7117b8963fd1ac9afe709dc",
+      "target": "tests/consumers/s3/assets/docs/schemas/metadata-record.schema.json",
+      "bytes": 9543
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/non-model-span.schema.json",
+      "sha256": "7e6af9f0bd414d199a544867a2e29585e07b4e58299d5c74e9c60220ceecab20",
+      "git_blob": "209a3816f2f0d23dbec0b3459944af9b355da80b",
+      "target": "tests/consumers/s3/assets/docs/schemas/non-model-span.schema.json",
+      "bytes": 4693
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/normalized-usage.schema.json",
+      "sha256": "c5fd7231623fc982faa04a8d18083b2c6b33a7e3d4e561696bca2cbcf5beca46",
+      "git_blob": "9940ec451cded2f0bf0ef9ead03556dd2f37451b",
+      "target": "tests/consumers/s3/assets/docs/schemas/normalized-usage.schema.json",
+      "bytes": 1308
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/operation-plan.schema.json",
+      "sha256": "ac490890f5f69d4f3abe29be618c7ea9810cf218465d4924834e552f6e5389a2",
+      "git_blob": "d461cdfd0012d23eca77fa4423178979647876d6",
+      "target": "tests/consumers/s3/assets/docs/schemas/operation-plan.schema.json",
+      "bytes": 3699
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/result.schema.json",
+      "sha256": "bb97564c9664f42af979e54063a573b21a35c73c6511802dd3d08bdd84ee6fe5",
+      "git_blob": "e20d8b9f9185904fb59720123dfd4e701935a25b",
+      "target": "tests/consumers/s3/assets/docs/schemas/result.schema.json",
+      "bytes": 14160
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/typed-request.schema.json",
+      "sha256": "73a29c169b7f827aa72b65437ea49423dcb21a8d459c15c5133fbad87630ed5e",
+      "git_blob": "884d9d876dcb520821db5447f56f6969a071f01c",
+      "target": "tests/consumers/s3/assets/docs/schemas/typed-request.schema.json",
+      "bytes": 6921
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/schemas/typed-result.schema.json",
+      "sha256": "2f7cd1368f79c02e13bc6d7dfab1897217be43bc6ad11cbcfb0d998786342241",
+      "git_blob": "886652a01195cec9e4c9f421d7030f5755cad694",
+      "target": "tests/consumers/s3/assets/docs/schemas/typed-result.schema.json",
+      "bytes": 3976
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "tests/callledger/conftest.py",
+      "sha256": "28e43e5bf02fee49f0f6b33b17f80ba21d0223c6cd16de03bcb5ee2c3e605c1e",
+      "git_blob": "a98d1f4c0921f1fa6d6ec1cdcc4090bd5e3daf2c",
+      "target": "tests/consumers/s3/assets/tests/callledger/conftest.py.txt",
+      "bytes": 6894
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/callledger/fixtures/wp02-schema-v1-case.json",
+      "sha256": "49313d66b9f4a5f27e847fd2058c2aad7ecd66e1020283b6c7582a6ef1a5c54d",
+      "git_blob": "b96dde87996773b5f9283e61db5dea3f3f188ebe",
+      "target": "tests/consumers/s3/assets/tests/callledger/fixtures/wp02-schema-v1-case.json",
+      "bytes": 6915
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/callledger/fixtures/wp02-schema-v1.sql",
+      "sha256": "d0f223301262223bb84e977de5da3394f7f4f575c19491ad6d3031102a2a3656",
+      "git_blob": "debf4904e660772747c9a335958b6b6b2d2f4513",
+      "target": "tests/consumers/s3/assets/tests/callledger/fixtures/wp02-schema-v1.sql",
+      "bytes": 9118
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/callledger/test_accounting.py",
+      "sha256": "74495852b116984ea04e74ada5cf44a59507e494373ebe2c62bc5583f28dea62",
+      "git_blob": "5165e42cb080ca4ac311d161b97da4a755e3faee",
+      "target": "tests/consumers/s3/assets/tests/callledger/test_accounting.py.txt",
+      "bytes": 12036
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/callledger/test_boundaries.py",
+      "sha256": "f9d5ee02eb8cb1b144c3c694b34bccde2889cf20b83dbaf82eec9d9e7f58ee07",
+      "git_blob": "bf2ea1eafe312a3562dfc59e3a734cbf9082ad19",
+      "target": "tests/consumers/s3/assets/tests/callledger/test_boundaries.py.txt",
+      "bytes": 7458
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/callledger/test_caller_limits.py",
+      "sha256": "11eb58ee756469c6f46f4e14be3c119403c2687d014d772e785f1c4b05168947",
+      "git_blob": "619d95fadb75e6ac0e647bfc87ff11ebfcd1a173",
+      "target": "tests/consumers/s3/assets/tests/callledger/test_caller_limits.py.txt",
+      "bytes": 5314
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/callledger/test_durability.py",
+      "sha256": "1755613e99dd303cd190044e1ac77a4f354702284ce950eed36ff4c699afb6a0",
+      "git_blob": "045968cad94c7c7f8e6a3359af49c4e7f5df6595",
+      "target": "tests/consumers/s3/assets/tests/callledger/test_durability.py.txt",
+      "bytes": 7998
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/callledger/test_privacy.py",
+      "sha256": "c47ab433a9889945fb634b9f634e7c41681d5cf0e11b8983b88e051f0a12f152",
+      "git_blob": "e691077f9987a2bfa64e8e2c63edfaa4f92ca3ca",
+      "target": "tests/consumers/s3/assets/tests/callledger/test_privacy.py.txt",
+      "bytes": 3906
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/callledger/test_v1_migration.py",
+      "sha256": "4cf04018b8acf42ffd9c6f1163acb7e5dfaf730b8780a1b8a89a09c628a019ac",
+      "git_blob": "09638d237a5da42e7c0ac56f7c0bd7c95a0ab937",
+      "target": "tests/consumers/s3/assets/tests/callledger/test_v1_migration.py.txt",
+      "bytes": 2200
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/contracts/conftest.py",
+      "sha256": "6eabce3377c93d21aa91129b3d6f2e9b8f3e5844db657d60f267f6565f0e24bf",
+      "git_blob": "bc73284bdb619b13da69f3a98e2b8683408064e5",
+      "target": "tests/consumers/s3/assets/tests/contracts/conftest.py.txt",
+      "bytes": 3863
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/contracts/test_accounting_models.py",
+      "sha256": "8cb644a365c514722bfc9d8905b1366294751ffb737f3e27af0bfe9eafaab951",
+      "git_blob": "e24b9ab6b7dbd95c550d6d210e7e433ba0e8ffa8",
+      "target": "tests/consumers/s3/assets/tests/contracts/test_accounting_models.py.txt",
+      "bytes": 7984
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/contracts/test_context_identity.py",
+      "sha256": "288d43073eeb74133b2477fb36cd0aec22f651ea9d11434cd948bea52acf45be",
+      "git_blob": "71d120cf068630f6c276749b97a334b04a49a587",
+      "target": "tests/consumers/s3/assets/tests/contracts/test_context_identity.py.txt",
+      "bytes": 4499
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/contracts/test_result_provenance.py",
+      "sha256": "692a3c10d5f6798045ce84cb85ca6f097fb716059121ee0f7a878315e0075c60",
+      "git_blob": "1e870e10ffe8534a27878873ace9400146079076",
+      "target": "tests/consumers/s3/assets/tests/contracts/test_result_provenance.py.txt",
+      "bytes": 1670
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/contracts/test_results_and_copy.py",
+      "sha256": "046b4e0400339ec151df94b4a7afcac684533d8557094222c4b9af1631c4603c",
+      "git_blob": "f87b7e2a77739e987ab1c7f8311b5388e5e04a95",
+      "target": "tests/consumers/s3/assets/tests/contracts/test_results_and_copy.py.txt",
+      "bytes": 6057
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/contracts/test_typed_wire.py",
+      "sha256": "94ea8bc5cec8bde47a6a7fbc8c748de8c52dadf5b30a7c067bfef6a7239dac59",
+      "git_blob": "3fc4a3cace1df1ab78e93413f0bb66cef110f0f8",
+      "target": "tests/consumers/s3/assets/tests/contracts/test_typed_wire.py.txt",
+      "bytes": 8550
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/prices/test_pricing.py",
+      "sha256": "0cb5d1348a8220513f5943af474416370a6e986a540e3376b25df38ecb2d241a",
+      "git_blob": "1caa9dfd5b0c4e85878fbc118b29cbc2e878e5d5",
+      "target": "tests/consumers/s3/assets/tests/prices/test_pricing.py.txt",
+      "bytes": 7299
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/provider_payloads/README.md",
+      "sha256": "e90582e778189592456155d6c3a8951a7b31e2f525039a0a1e3d35be5c13700f",
+      "git_blob": "602e55f8018d396a4f95b779a90e6393d4dde3f0",
+      "target": "tests/consumers/s3/assets/tests/provider_payloads/README.md",
+      "bytes": 640
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/provider_payloads/foundation-cases.v1.json",
+      "sha256": "516b49c863b27130b9a18ee3e058e5738d3c4286d6c4753abb74a03ad05fbf42",
+      "git_blob": "149db5dbad0088b500fe946d09cddd5318bae1a0",
+      "target": "tests/consumers/s3/assets/tests/provider_payloads/foundation-cases.v1.json",
+      "bytes": 21993
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "tests/providers/conftest.py",
+      "sha256": "b9dd0c50f8c8d07a4fc5c4e8e3c7b6740ef6ea405bf53dcee31ddbff26f64125",
+      "git_blob": "b6755a1acadb3b0ebafc7ba5e3d8c02cb59c2b3e",
+      "target": "tests/consumers/s3/assets/tests/providers/conftest.py.txt",
+      "bytes": 13452
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/providers/test_controller.py",
+      "sha256": "0892e7e455a32253d057c70e4b099c62c6a901f586df7728f8d35b147f90e609",
+      "git_blob": "c3eb6934209b9eb86ccf291d772fbe6edb6db18d",
+      "target": "tests/consumers/s3/assets/tests/providers/test_controller.py.txt",
+      "bytes": 14185
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/providers/test_foundation_cases.py",
+      "sha256": "7eecdff85bb4be9d033ade622931a6a3bdce0ea5154cc4302031263973705add",
+      "git_blob": "873221f7ff81f96e5d38b8b2ec405bf14476a123",
+      "target": "tests/consumers/s3/assets/tests/providers/test_foundation_cases.py.txt",
+      "bytes": 1732
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/providers/test_images.py",
+      "sha256": "1e14384e7199bec5842974b2b696ceefe8adc9c69331913c3bcf0028a3cf731a",
+      "git_blob": "359f2aa19bec7c582634dfb9c2305e0b3f3acc31",
+      "target": "tests/consumers/s3/assets/tests/providers/test_images.py.txt",
+      "bytes": 3903
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/providers/test_payloads.py",
+      "sha256": "68134acb018c237337d10194f53739d412e4ed4dfc6aa45d4a97380625030b86",
+      "git_blob": "01db2ddf318daaca5abfe24e4e3cf59ddf4e1cf7",
+      "target": "tests/consumers/s3/assets/tests/providers/test_payloads.py.txt",
+      "bytes": 6971
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "tests/providers/test_provider_privacy.py",
+      "sha256": "140d38f72198402bb20c96f61a026d67b486ec675c54b5a886156adf036e575d",
+      "git_blob": "a59b25b4cae4054ea01f70e8e25de9df89ac5e17",
+      "target": "tests/consumers/s3/assets/tests/providers/test_provider_privacy.py.txt",
+      "bytes": 4362
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/provider-contracts.md",
+      "sha256": "23e3560e3b4cf108e8029217a6fc012ec40d969429fc272f356f5d0badd0a71a",
+      "git_blob": "817fb52770fb09dc69be9cf2a2c462ba4743479e",
+      "target": "tests/consumers/s3/assets/docs/provider-contracts.md",
+      "bytes": 7715
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/INTERFACE.md",
+      "sha256": "52f17a1b1e31d3ecee30d03a8feab6884e71d4ca762f67251f7be93b76e7516f",
+      "git_blob": "2cc07908d0649dc3cb67badc802febc38139b5d3",
+      "target": "tests/consumers/s3/assets/docs/INTERFACE.md",
+      "bytes": 5518
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "docs/LIMITATIONS.md",
+      "sha256": "e4ee289a4d9332cf87ec7826a1941e7b74f71b6c890a3d27b8507995307e24f2",
+      "git_blob": "bf587ae34299d7e2528a00b37388b978f0a03171",
+      "target": "tests/consumers/s3/assets/docs/LIMITATIONS.md",
+      "bytes": 1660
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "scripts/generate_schemas.py",
+      "sha256": "5309750f2f171146461a3a1bd66e3a39d442b6e78867e85fe86bc87f56c2adfc",
+      "git_blob": "3c256cf05b1565f977a296fd41c9a16fe2f97e75",
+      "target": "tests/consumers/s3/assets/scripts/generate_schemas.py.txt",
+      "bytes": 2482
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "scripts/update_prices.py",
+      "sha256": "0cac5ca6afa4b6e4af2d21176dada595fcfbce2b33e92ef4b35408b036eeca0a",
+      "git_blob": "86fbaa07053ad0d6b90a13a982a31f086782b5b7",
+      "target": "tests/consumers/s3/assets/scripts/update_prices.py.txt",
+      "bytes": 1012
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "prices/synthetic-unit-v1.json",
+      "sha256": "9cec5acd6b2e2de720df07b90ddb0cdd049866146a2f33c7577a7dd7f345b91f",
+      "git_blob": "4b94ef22e4b4b8cb3fa9a3db34de145ffa786e25",
+      "target": "tests/consumers/s3/assets/prices/synthetic-unit-v1.json",
+      "bytes": 726
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "tests/callledger/test_child_purpose_reuse.py",
+      "sha256": "3b791b254c6b0cde835c1c1ae0fe6c983ba6e70911bb5a974ec5d2715b4593ba",
+      "git_blob": "c16cb1027d16cc63ebb800dfcbac094196f825af",
+      "target": "tests/consumers/s3/assets/tests/callledger/test_child_purpose_reuse.py.txt",
+      "bytes": 4026
+    },
+    {
+      "owner": "S3",
+      "source_commit": "2671816d4f4fc46b9a650fc4c05ae4389dada326",
+      "source_path": "tests/providers/test_child_purpose_controller.py",
+      "sha256": "5fab62021f0d4cea121994c39b5f9fd3930fc3f17594d49f16205c3987e8fcad",
+      "git_blob": "a020658c1abc113bef66e50676544ad0f3e7ba3a",
+      "target": "tests/consumers/s3/assets/tests/providers/test_child_purpose_controller.py.txt",
+      "bytes": 5481
+    },
+    {
+      "owner": "S3",
+      "source_commit": "c7a03a8a5aa91a3881782621d8a5f09c6b82520d",
+      "source_path": "LICENSE",
+      "sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6",
+      "git_blob": "024bbc5e5a3503b3f719ccb4e68c773e4d840e2a",
+      "target": "src/rfr/shared/execution/LICENSE.S3",
+      "bytes": 1067
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "contracts/screen/README.md",
+      "sha256": "6cfab6bf40465458763a307b66a8ba6e0bc754e3c4389f396985f5259703aaa4",
+      "git_blob": "f870d23124f068a573326e6232653184277431a6",
+      "target": "src/rfr/shared/execution/screen/README.md",
+      "bytes": 7844
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/__init__.py",
+      "sha256": "847da0a534d478e8be45e2de1eef47613bc3f1058ed85e6b5c5f9e99b222e42b",
+      "git_blob": "0b1c299659558c561bba53118a64031020aae62e",
+      "target": "src/rfr/shared/execution/screen/__init__.py",
+      "bytes": 788
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/models.py",
+      "sha256": "1d33ba786df2cdbd81bd944ad69c11108d220fa268eca4960b4c51dcf1bab252",
+      "git_blob": "891d6491df803b945aecd30cfe887d546ee5306c",
+      "target": "src/rfr/shared/execution/screen/models.py",
+      "bytes": 11342
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/prepare.py",
+      "sha256": "955e21a840cf00e56b7d431e3d0cf5aa2a5cd66de3e61433a054f31249bdb9dc",
+      "git_blob": "0c09c41c7a235926054a953ab3062ccbf8c71b66",
+      "target": "src/rfr/shared/execution/screen/prepare.py",
+      "bytes": 5389
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/questions.py",
+      "sha256": "663ad1437f6abc709caa5b0115051f6eee41debfd41a74e213895651fd47aec8",
+      "git_blob": "6259493d681c5fdfd916f7b244b2d284318c6dad",
+      "target": "src/rfr/shared/execution/screen/questions.py",
+      "bytes": 1488
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/rules.py",
+      "sha256": "c0b8920063f0eb3157d44cc76995a459e40267c78d9a5feab3c706ae85357a9b",
+      "git_blob": "e8b158e66dbb4d1cc128a82e0dcf61b44f8747dd",
+      "target": "src/rfr/shared/execution/screen/rules.py",
+      "bytes": 3537
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/s3_adapter.py",
+      "sha256": "fb5956b91fab5cf4fc992926b9f35b9c44f9bcfac61ec013126adc5d7495ae60",
+      "git_blob": "4c3f890ceeb3668a90f2480b41274d859569de1f",
+      "target": "src/rfr/shared/execution/screen/s3_adapter.py",
+      "bytes": 7114
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "src/issue_triage/shared/screen/typed.py",
+      "sha256": "50a40aeb850693c4f10d3ea8a4a1e263819e9bd3a5c9a1681d9ec58be14f4bfb",
+      "git_blob": "9e5abe31aabe89180c93abf3af41cc92a24b458e",
+      "target": "src/rfr/shared/execution/screen/typed.py",
+      "bytes": 10526
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/screen/test_s3_native.py",
+      "sha256": "cbb76dee8fe6840c50f0833be65bb1eecdd760a0fed66adc5d30470f3e242e0d",
+      "git_blob": "a83a6b5ac0aa65243006d98bd55f507a8b7e74d5",
+      "target": "tests/consumers/s6/assets/tests/screen/test_s3_native.py.txt",
+      "bytes": 15962
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "tests/screen/test_screen.py",
+      "sha256": "3c2ba42b14a8909135a8a9bd5f0079a7fb50294c9b2fdf7176c55f1b709eee47",
+      "git_blob": "a0207b74b87760f64b9d00d314e379d552fe1479",
+      "target": "tests/consumers/s6/assets/tests/screen/test_screen.py.txt",
+      "bytes": 18089
+    },
+    {
+      "owner": "S6",
+      "source_commit": "8f8bb88ffc4148611dd6180b6f01d264c367cce3",
+      "source_path": "LICENSE",
+      "sha256": "431665582156c442d0448d1f5cd2e45663ab96e6cf098711ffa58c4bb01b69e6",
+      "git_blob": "024bbc5e5a3503b3f719ccb4e68c773e4d840e2a",
+      "target": "src/rfr/shared/execution/LICENSE.S6",
+      "bytes": 1067
+    }
+  ],
+  "limits": "Mock/strict replay/injected simulation only. Source publication does not authorize live SDKs, paid effects, actual source/label/quality or production calibration. Synthetic captures remain mock. S6 legacy c7 ledger is not duplicated; all callers use purpose-fixed267 ledger."
+}
