@@ -36,6 +36,35 @@ measured extraction quality or finished-app acceptance.
 See [development status](DEVELOPMENT-STATUS.md), [lessons](LESSONS.md) and
 [the portability handoff](BOLT-HANDOFF.md) for completed behavior and remaining integration work.
 
+## Optional local image staging
+
+Install the frozen `images` extra for PNG/JPEG, or `heic` for PNG/JPEG/HEIC. Then stage one
+image under an existing owner-private directory:
+
+```text
+uv sync --frozen --extra heic
+uv run --no-sync python -m rfr.ingest --source <local-image> --out <existing-private-staging-parent>
+```
+
+The command retains exact original bytes and writes a normalized RGB PNG plus a hash-bound
+manifest. It limits inputs to 20 MiB, 25 million declared/delivered pixels and one image; GIF,
+animated PNG and multi-image HEIC are refused. Metadata is stripped from the derivative; the
+private original still contains its original metadata. JPEG/PNG EXIF orientation is applied once,
+transparent pixels use a white background, and forward/inverse pixel-boundary transforms are
+recorded. For HEIC the starting grid is the libheif-delivered raster after container transforms;
+the manifest does not claim an affine mapping to raw container pixels.
+
+The content-addressed staging artifact contains `original.bin`, `page.png` and a final
+`manifest.json`. Exact retries reuse it. Changed or incomplete artifacts fail closed without
+overwriting or repairing retained bytes. The source and output parent must be plain local files
+and directories; the operator supplies and controls these paths.
+
+This local codec boundary has no OCR, receipt import, HTTP upload, worker, browser overlay or
+model fallback. It does not sandbox native codecs or enforce a process deadline for an untrusted
+public upload service. Keep staged images private. Actual HEIC codec controls use authored pixels;
+they do not establish receipt extraction accuracy or the required real-dev OCR comparison.
+See [image staging](src/rfr/ingest/README.md) for the exact grid and verification boundaries.
+
 ## Recognized-bundle review CLI
 
 Use Python3.12 in the installed environment. `python -m rfr.cli --help` exposes batch creation,

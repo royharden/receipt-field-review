@@ -4,7 +4,8 @@ The synthetic recognized-bundle demo is available as of 2026-10-15; [development
 implementation inventory. Durable recognized-item B0 jobs and pure API DTO/schema/TypeScript contracts
 are implemented. A recognized-bundle FastAPI adapter now enforces admission and actual stream limits in process.
 FastAPI/Uvicorn/httpx are installed; recognized-bundle viewer/listener are implemented; worker control and source images remain absent. No native
-image run or live provider call occurred.
+OCR run or live provider call occurred. A separate local staging command now exercises actual
+PNG/JPEG/HEIC codecs on authored pixels; it does not supply an image-to-receipt journey.
 
 The demo's deliberate arithmetic mismatch remains review-only until explicit synthetic issue waivers
 are recorded. Its final clean export means operationally resolved, including waived conflicts, not
@@ -19,7 +20,7 @@ and the narrow local slice/current gate were accepted with notes. This is not an
 or stable timing-reliability claim. The HTTP continuation changes source/dependencies and requires
 its own checks and independent disposition; whole-app acceptance remains outstanding.
 
-The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. Image ingestion, native HEIC conversion, actual OCR, live model verification, image-upload/live-method job integration, receipt-domain evaluation scorers, worker/image integration and original-image UI remain pending.
+The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. Image-to-receipt ingestion, actual OCR, live model verification, image-upload/live-method job integration, receipt-domain evaluation scorers, worker/image integration and original-image UI remain pending.
 
 B0 over-finds candidates from supplied retained recognized lines. It supports basic line amounts and explicitly printed quantity-times-unit-price forms, plus separately printed tip/service/discount adjustments. Missing quantities, unit prices, tax, currency codes and unknown adjustment stages are not guessed. Handwriting, complex/multicolumn layouts, Arabic/localized numeral formats and real OCR quality remain unmeasured. The current presets cover USD/EUR/GBP/CAD/AUD/JPY/KWD; other currency codes are rejected. Diagnostic checks/proposals default to blank review, with no calibrated automation claim.
 
@@ -29,11 +30,12 @@ The Python/Node checks verify architecture and publication controls. Synthetic m
 
 Evalkit source lookup, domain adapters and callbacks are injected trusted code. Frozen bytes do not prove lawful rights or genuine human provenance; matching held-out admission references do not authenticate an independent author/seal. The caller must provide durable exposure history and actual approval. No persistent held-out history, split generator, human-label interface or live cost collector is implemented. Corpus lookup assumes an owner-controlled local directory and does not provide hostile multiuser filesystem isolation.
 
-Required later evidence includes native HEIC, a lawful real 30-item OCR comparison, browser overlay/correction/restart/stale-tab behavior, module consumer contracts and three-method measured results. Real datasets, applicable terms, human-corrected gold, and a full paid evaluation grant remain prerequisites. Synthetic/replay data cannot satisfy those real-data claims.
+Authored native HEIC decode/staging is exercised separately. Required later evidence includes
+a lawful real 30-item OCR comparison, browser overlay/correction/restart/stale-tab behavior, module consumer contracts and three-method measured results. Real datasets, applicable terms, human-corrected gold, and a full paid evaluation grant remain prerequisites. Synthetic/replay data cannot satisfy those real-data claims.
 
 The declared default for 100 phone receipts is 60 dev / 40 held-out with review-only fields when the strict lower-95%-Wilson precision gate cannot be met. No measured automation or accuracy result exists yet.
 
-Docio can parse bounded retained Tesseract-format TSV and assemble an exactly bound Page. Tests execute literal synthetic controls and a complete moved parser suite. There is no actual native execution, decoded image, HEIC conversion or lawful 30-item OCR comparison behind those parser results; caller-supplied engine/version metadata is not authentication.
+Docio can parse bounded retained Tesseract-format TSV and assemble an exactly bound Page. Tests execute literal synthetic controls and a complete moved parser suite. Those parser results alone contain no actual OCR execution or lawful 30-item OCR comparison; caller-supplied engine/version metadata is not authentication. New image staging has actual codec execution but no OCR engine or recognized geometry.
 
 The app's ReplayOcr accepts only explicitly supplied bounded frames under an expected engine/config profile. A replay hit is not actual native execution or source/capture authority; misses cannot fall back to a paid/native operation. File loading, lawful capture handling and complete image-to-workflow integration remain pending. Model/provider strict replay will use the canonical provider owner, rather than this OCR-specific adapter.
 
@@ -51,3 +53,10 @@ The prior viewer was not accepted after a keyboard/pending-intent source finding
 controller repair and actual React/canonical-service regression checks are separate from native
 keyboard/browser loss/save observations, which remain UNKNOWN until a qualified independent scope
 runs them. Earlier author-native download files do not become independent reviewer evidence.
+
+The optional local image stager bounds encoded bytes, declared/delivered pixel counts, frame count
+and normalized output. It retains metadata in the private original and strips it from the RGB PNG.
+It does not sandbox native codec internals, enforce a decoder process deadline, calibrate color
+conversion or provide hostile multiuser filesystem isolation. HEIC matrices start at libheif
+delivered pixels; they do not recover raw container transforms. Linux codec CI and whole-app
+acceptance remain unverified. Changed or partial staging output is preserved and refused.

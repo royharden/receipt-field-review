@@ -20,6 +20,7 @@
 | Setup | `uv sync --frozen`; existing npm scaffold uses `npm ci --ignore-scripts` |
 | Keyless demo | Create an owner-controlled `data/` parent, then `uv run --no-sync python scripts/demo.py --mode mock --out data/recognized-demo` |
 | Bundle CLI | `python -m rfr.cli --help`; validates recognized bundles, saves decisions and exports private CSV/JSONL |
+| Optional image staging | `uv sync --frozen --extra heic`; `python -m rfr.ingest --source <image> --out <existing-private-parent>` retains original/normalized PNG/manifest; no OCR or receipt import |
 | Core | `src/rfr/shared/{docio,fieldextract,rulings,evalkit}`; receipt plugin and `src/rfr/pipeline` |
 | HTTP/frontend | `rfr.api.app.create_app`: recognized-bundle FastAPI factory, bounded actual ASGI requests and durable review/export; recognized-bundle React viewer and optional bounded public shell |
 | HTTP checks | `python -m pytest tests/api -q`; actual in-process requests, no source images or live methods |
@@ -43,8 +44,20 @@ reuse the retained draft/event identity; normal save cannot generate a replaceme
 is pending. `npm run test:review` runs actual React rendering with synthetic DOM events and a real
 canonical file/journal test port, including an explicit acknowledgement fault after a real commit.
 It preserves genuine stale refusal and cancel behavior. This is not a native browser/lost-response
-or OS file-save gate; the earlier viewer candidate was not accepted, and independent review of the
-repair plus remaining native evidence are still required. No cloud readiness follows from it.
+or OS file-save gate. Independent review qualified the bounded pending-intent construction repair;
+the earlier viewer candidate remains unaccepted, and required native UI, real HTTP committed-response
+loss and native save evidence remain open. No cloud readiness follows from the construction result.
+
+## Image staging boundary
+
+Optional Pillow 12.3.0 and pillow-heif 1.8.1 are pinned in the portable uv lock. A separate local
+command now stages bounded PNG/JPEG/HEIC into a private content-addressed directory, retaining
+original bytes and a metadata-stripped normalized PNG. It records hashes, dimensions and explicit
+orientation/grid provenance; malformed, oversized, multi-image and changed/partial output refuse.
+Real Windows codec controls use authored pixels. No native OCR engine, batch/image job, image API
+or viewer overlay is joined by this slice. The default recognized-only installation is unchanged.
+The new optional Linux CI job is configured but has not run remotely. Python/native dependencies
+still require a local or separately hosted backend; Bolt import/provisioning is unperformed.
 
 ## Infrastructure inventory
 
@@ -64,7 +77,7 @@ Local demo tests exercise fresh subprocess correction replay, actual B0 rerun, p
 machine-evidence preservation, explicit conflict waivers, malformed-bundle refusal and no-overwrite
 behavior with provider/native imports and sockets blocked. See the reproducible commands above.
 The later viewer has actual root TypeScript/Vite build and synthetic Chromium correction/stale/refusal
-controls through real loopback HTTP. Native HEIC/OCR, original-image and live receipt methods remain
+controls through real loopback HTTP. Image-to-OCR, original-image overlays and live receipt methods remain
 separate. Browser evidence is scoped to the exact built artifact, host and authored input.
 
 The HTTP factory's exact loopback Host/token/Origin policy, actual streamed-byte/message limits,

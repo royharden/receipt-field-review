@@ -58,3 +58,9 @@
 - npm lock-only setup can rewrite node_modules hidden lock metadata. Record that delta separately
   from installed package code, and run isolated lock generation in the isolated runtime when exact
   preservation of the original environment metadata is required.
+- Native decoders can refine dimensions while loading. Check the declared header before decoding
+  and the delivered raster again before normalization; never infer raw HEIC container transforms
+  from an already oriented decoder grid. Keep optional codec execution separate from OCR evidence.
+- The HEIF fixture helper `from_pillow` can pre-rotate EXIF-bearing pixels before save. For a
+  single container-orientation control, use the direct documented Pillow writer and inspect real
+  decoded pixels; retain a failed fixture oracle rather than changing product behavior to match it.

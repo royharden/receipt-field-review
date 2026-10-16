@@ -15,6 +15,10 @@ dependencies = [
     "uvicorn==0.54.0",
 ]
 
+[project.optional-dependencies]
+images = ["pillow==12.3.0"]
+heic = ["pillow==12.3.0", "pillow-heif==1.8.1"]
+
 [tool.setuptools.packages.find]
 where = ["src"]
 

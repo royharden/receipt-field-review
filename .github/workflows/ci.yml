@@ -22,6 +22,20 @@ jobs:
       - run: python tools/check_wheel.py dist
       # This workflow intentionally makes no receipt/product/build acceptance claim.
       # Runtime/frontend/real-evaluation gates are added when those slices exist.
+  image-decoder:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install uv==0.11.19
+      - run: uv sync --frozen --extra heic
+      - run: uv run --no-sync python -c "import PIL, pillow_heif"
+      - run: uv run --no-sync pytest tests/ingest/test_images.py
+      # Codec conformance on authored images does not qualify OCR or native UI.
   frontend-config:
     runs-on: ubuntu-latest
     steps:

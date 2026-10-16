@@ -42,3 +42,18 @@ without auto-mounting the app or inventing a parallel state controller. The cons
 only draft/apply/item; production uses HttpReviewApi. Synthetic DOM events and an explicit after-commit
 acknowledgement fault cross a real canonical service/journal boundary, without claiming live HTTP or
 native browser behavior. A retained pending intent is the only allowed retry payload.
+
+## Optional image staging boundary
+
+`rfr.ingest` is app-local preliminary image staging, separate from canonical recognized Docio wires
+and the authoritative BatchStore/journal. It keeps original.bin, normalized page.png and a final
+closed image manifest under a content-addressed private folder. There is no OCR dispatch, receipt
+batch creation, HTTP upload or UI source endpoint in this boundary. Future OCR must bind its
+source-page grid to the normalized PNG digest/dimensions and keep the original identity separately.
+
+Optional pinned Pillow/HEIF codecs enforce encoded/header/delivered/frame/output limits. EXIF
+normalization records forward/inverse pixel-boundary matrices. HEIC starts with libheif-delivered
+pixels after container transforms, with no asserted affine back to encoded container coordinates.
+Fresh RGB output strips copied metadata and uses white alpha compositing; original metadata stays
+private. Partial/changed output fails closed. Native codec sandbox/deadline/worker lifecycle, image
+job/storage integration and source overlays remain required integration work.

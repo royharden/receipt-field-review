@@ -65,7 +65,7 @@ A bounded immutable public shell is separated from capability-protected receipt 
 type packages are pinned. Targeted repair setup used a separate installed runtime; the lock-only
 command rewrote the original node_modules hidden lock metadata. Retained package code files and
 Python/prior viewer runtime hashes remain unchanged; the setup metadata delta is recorded separately.
-Pillow/HEIF/native OCR integration remains pending. The demo still uses authored geometry and
+The optional image-staging command now decodes PNG/JPEG/HEIC locally; image-to-OCR/API/UI integration remains pending. The demo still uses authored geometry and
 confidence; explicit provisional waivers do not establish verified receipt arithmetic or human Gold.
 
 The viewer continuation passed the actual TypeScript/Vite build, six client controls, three frontend
@@ -86,11 +86,21 @@ Actual React/synthetic-DOM controls use a real canonical commit with an explicit
 acknowledgement, plus stale/busy/cancel/replay cases. These checks do not supply independent native
 UI/keyboard, browser response-loss or OS-save evidence. Fresh review and remaining native gates are
 still required; earlier author browser files and accepted HTTP evidence remain separate editions.
+Independent review later qualified the bounded pending-policy construction repair and closed that
+defect only. Native UI/real HTTP committed-response-loss/native save acceptance remains blocked.
+
+A separate optional image-staging command now retains exact originals, normalized RGB PNGs and a
+closed manifest under private content-addressed directories. Actual Windows Pillow/HEIF codec
+controls use authored pixels, including all eight JPEG orientations and HEIC container orientation.
+Limits, malformed/multipage refusal, metadata stripping, hash binding and no-overwrite staging are
+checked. A failed HEIC orientation fixture was corrected at the test writer boundary; failed runs
+are retained. This does not run native OCR, import a receipt, provide a hostile upload sandbox or
+resolve any native browser acceptance gate. Optional Linux CI is configured, not remotely executed.
 
 ## Outstanding work
 
-1. Complete bounded dependency setup and actual PNG/JPEG/HEIC ingestion/OCR integration, with source
-   artifacts, coordinates, failures and retained image handling verified end to end.
+1. Join the new bounded private PNG/JPEG/HEIC staging boundary to actual OCR and receipt jobs, with
+   source artifacts, coordinates, failures and retained image handling verified end to end.
 2. Add actual listener/worker lifecycle and HTTP job integration. The recognized-bundle adapter
    covers in-process request policy and durable review/export; native upload/job paths remain absent.
 3. Add original-image overlays and complete native/image job integration in the viewer. The current
