@@ -1,8 +1,9 @@
-"""Private recognized-bundle review CLI. No model, native decoder, listener or live fallback."""
+"""Private review CLI; explicit local image import, no provider, listener or live fallback."""
 
 import argparse
 import json
 import sys
+from datetime import date
 from pathlib import Path
 
 from .export.receipt import export_receipts, write_export
@@ -24,6 +25,17 @@ def parser():
     commands = root.add_subparsers(dest="command", required=True)
     create = commands.add_parser("new", help="Create a generated single-currency batch")
     create.add_argument("--currency", choices=tuple(MINOR_UNITS), default="USD")
+    native = commands.add_parser("import-image", help="Stage and recognize one local receipt image")
+    native.add_argument("--batch", required=True)
+    native.add_argument("--source", type=Path, required=True)
+    native.add_argument(
+        "--tesseract", type=Path, required=True, help="Trusted installed executable"
+    )
+    native.add_argument(
+        "--tessdata", type=Path, required=True, help="Installed English model directory"
+    )
+    native.add_argument("--reference-date", type=date.fromisoformat, required=True)
+    native.add_argument("--expected-revision")
     for name in ("import-bundle", "list", "show", "draft", "apply", "export"):
         command = commands.add_parser(name)
         command.add_argument("--batch", required=True)
@@ -79,6 +91,24 @@ def execute(args):
         store = BatchStore.create(args.root, CurrencyPolicy(code=args.currency))
         return {"batch_id": store.batch_id, "currency": args.currency}, 0
     store = BatchStore(args.root, args.batch)
+    if args.command == "import-image":
+        # Ordinary provided-bundle/demo commands keep working without optional native codecs.
+        from .ingest.images import ImageInputError
+        from .ingest.native import import_image
+        from .ports.tesseract import NativeOcrError
+
+        try:
+            result = import_image(
+                store,
+                args.source,
+                args.tesseract,
+                args.tessdata,
+                args.reference_date,
+                expected_revision=args.expected_revision,
+            )
+        except ImageInputError as error:
+            raise NativeOcrError(str(error)) from None
+        return result, 0
     if args.command == "import-bundle":
         supplied = decode_wire_json(
             read(args.bundle, 8 * 1024 * 1024).decode("utf-8"), max_bytes=8 * 1024 * 1024

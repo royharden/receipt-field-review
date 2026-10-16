@@ -34,8 +34,9 @@ jobs:
       - run: python -m pip install uv==0.11.19
       - run: uv sync --frozen --extra heic
       - run: uv run --no-sync python -c "import PIL, pillow_heif"
-      - run: uv run --no-sync pytest tests/ingest/test_images.py
-      # Codec conformance on authored images does not qualify OCR or native UI.
+      - run: uv run --no-sync pytest tests/ingest tests/ports/test_tesseract_process.py
+      # Codec and injected native-boundary controls use authored inputs.
+      # The installed-engine functional case needs explicit local paths and is not qualified here.
   frontend-config:
     runs-on: ubuntu-latest
     steps:

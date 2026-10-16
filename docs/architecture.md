@@ -1,6 +1,6 @@
 # Architecture boundary
 
-Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI, durable recognized-item B0 jobs, a synthetic CLI demo, API DTO/schema/TypeScript contracts and a recognized-bundle FastAPI adapter. Image ingestion, actual native/model inference, image-upload jobs, worker ownership and original-image UI remain pending; the recognized-bundle viewer and loopback launcher are implemented. See the [current inventory](../DEVELOPMENT-STATUS.md).
+Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI, durable recognized-item B0 jobs, a synthetic CLI demo, API DTO/schema/TypeScript contracts and a recognized-bundle FastAPI adapter. An optional installed-engine CLI now joins staged images through Tesseract/Docio/B0 into the same review workflow. Live model methods, image-upload jobs, worker ownership and original-image UI remain pending; the recognized-bundle viewer and loopback launcher are implemented. See the [current inventory](../DEVELOPMENT-STATUS.md).
 
 The demo orchestrates existing CLI entrypoints, `BatchStore`, decision drafts and `JobStore`; it owns
 no parallel persistence or extraction implementation. Fresh CLI processes read saved decisions.
@@ -57,3 +57,17 @@ pixels after container transforms, with no asserted affine back to encoded conta
 Fresh RGB output strips copied metadata and uses white alpha compositing; original metadata stays
 private. Partial/changed output fails closed. Native codec sandbox/deadline/worker lifecycle, image
 job/storage integration and source overlays remain required integration work.
+
+## Installed-engine consumer join
+
+`ports.tesseract.TesseractOcr` implements the existing injected Docio OCR protocol for one normalized
+image. `ingest.native.import_image` assembles canonical Page/Document/ReceiptBundle objects and calls
+the existing B0 extractor and BatchStore. The displayed RGBA8 digest and identity transforms bind
+the normalized input; original-image orientation is retained separately and never applied twice.
+Actual TSV and native execution provenance live in private per-attempt directories. Failed native
+stages cannot supply a successful blank page. No parallel receipt database or decision journal exists.
+
+The explicit CLI path uses a read-only installed executable/model, bounded child capture/deadlines,
+and conservative review-only extraction. It performs no provider call or automatic restart retry.
+Native executable qualification, model provenance, codec allocation isolation, broader preprocessing,
+HTTP image-job integration and original-image overlays remain distinct from this local consumer join.

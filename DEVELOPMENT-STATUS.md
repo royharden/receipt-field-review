@@ -31,6 +31,11 @@ The accepted local HTTP baseline is `0fc71bb31078e30746f4b718c8efe18d94333d18`.
   correction drafts, initial review exports and clean-export refusals, records explicit provisional
   decisions/issue waivers, and verifies restart plus a real local B0 rerun before audited CSV/JSONL
   export. The shipped fixture contains authored text/geometry/confidence and no original image.
+- An optional local image-to-fields CLI through an explicitly installed English Tesseract engine.
+  It retains original/normalized pixels and actual TSV, pins engine/model/configuration and grid
+  identity, uses canonical Docio/B0/ReceiptBundle and registers through the existing review store.
+  Bounded child failures and known batch refusal paths preserve existing data. Repeated identical
+  machine evidence replays recorded corrections; changed evidence retains source conflicts.
 
 ## Worked on / incomplete
 
@@ -65,7 +70,8 @@ A bounded immutable public shell is separated from capability-protected receipt 
 type packages are pinned. Targeted repair setup used a separate installed runtime; the lock-only
 command rewrote the original node_modules hidden lock metadata. Retained package code files and
 Python/prior viewer runtime hashes remain unchanged; the setup metadata delta is recorded separately.
-The optional image-staging command now decodes PNG/JPEG/HEIC locally; image-to-OCR/API/UI integration remains pending. The demo still uses authored geometry and
+The optional image-staging command now decodes PNG/JPEG/HEIC locally; a separate installed-Tesseract
+CLI joins images through OCR/B0 and review. HTTP image jobs and original-image UI integration remain pending. The demo still uses authored geometry and
 confidence; explicit provisional waivers do not establish verified receipt arithmetic or human Gold.
 
 The viewer continuation passed the actual TypeScript/Vite build, six client controls, three frontend
@@ -97,10 +103,31 @@ checked. A failed HEIC orientation fixture was corrected at the test writer boun
 are retained. This does not run native OCR, import a receipt, provide a hostile upload sandbox or
 resolve any native browser acceptance gate. Optional Linux CI is configured, not remotely executed.
 
+The new native bridge's authored Windows functional control runs the public CLI on generated pixels,
+then exercises correction, exact decision retry, another actual OCR import, reopen and CSV/JSONL
+export. It retains measured word boxes/confidences and provisional review audit state. The first
+native version probe timed out before OCR; later focused controls passed, with no cause or stable
+startup-reliability claim. An earlier broad Python run recorded failures before its wrapper timed
+out; that combined gate remains unresolved. Focused checks and native functional execution are
+not independent finished-application acceptance, real-receipt accuracy or a real-dev engine comparison.
+The app-local adapter is not yet a separately published reusable native Docio export closure.
+
+The subsequent joined core/CLI/adapter check recorded 137 ordinary passes, 15 successful subtests
+and two failures: a native version-probe timeout and the unchanged two-process review test's
+20-second child timeout. Removing the extra 10-second probe cap keeps one overall 30-second
+native budget; regression controls verify slow startup and no OCR dispatch after budget exhaustion.
+A fresh frozen environment and exact moved source then recorded four targeted passes and one
+native CLI failure. Both engine commands exited successfully and were reaped, but the full native
+operation exhausted its total budget before TSV assembly. The two-process case passed only in
+that moved context. Neither result resolves the earlier failures or establishes their cause.
+Static/schema checks and wheel build/install/import pass; native timing, the joined gate and
+independent acceptance remain open. No timeout was widened and no failed run was discarded.
+
 ## Outstanding work
 
-1. Join the new bounded private PNG/JPEG/HEIC staging boundary to actual OCR and receipt jobs, with
-   source artifacts, coordinates, failures and retained image handling verified end to end.
+1. Qualify preprocessing and native engine selection on lawful real dev data, and connect the local
+   native CLI boundary to durable image jobs. The basic actual image/OCR/B0/review CLI join is now
+   implemented; real-data quality, reusable native-adapter export and broad acceptance remain open.
 2. Add actual listener/worker lifecycle and HTTP job integration. The recognized-bundle adapter
    covers in-process request policy and durable review/export; native upload/job paths remain absent.
 3. Add original-image overlays and complete native/image job integration in the viewer. The current

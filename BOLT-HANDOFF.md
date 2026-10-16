@@ -3,7 +3,7 @@
 ## Target and readiness
 
 - App root: this product repository; branch `main`.
-- Status: recognized-bundle CLI, HTTP adapter, browser viewer and synthetic local demo implemented; image application incomplete.
+- Status: recognized-bundle CLI/HTTP/viewer and synthetic demo implemented; optional installed-engine image-to-B0/review CLI joined; image HTTP/worker/UI application incomplete.
 - Database: **No database required** for the local MVP. Private files, an append-only JSONL rulings
   journal and a rebuildable projection hold app state. Vendored provider-ledger code may independently
   use SQLite; it is not connected to live receipt inference.
@@ -21,6 +21,7 @@
 | Keyless demo | Create an owner-controlled `data/` parent, then `uv run --no-sync python scripts/demo.py --mode mock --out data/recognized-demo` |
 | Bundle CLI | `python -m rfr.cli --help`; validates recognized bundles, saves decisions and exports private CSV/JSONL |
 | Optional image staging | `uv sync --frozen --extra heic`; `python -m rfr.ingest --source <image> --out <existing-private-parent>` retains original/normalized PNG/manifest; no OCR or receipt import |
+| Local native import | `python -m rfr.cli --root <private-root> import-image --batch <id> --source <image> --tesseract <installed-executable> --tessdata <model-directory> --reference-date <ISO-date>`; existing review CLI then corrects/exports the imported item |
 | Core | `src/rfr/shared/{docio,fieldextract,rulings,evalkit}`; receipt plugin and `src/rfr/pipeline` |
 | HTTP/frontend | `rfr.api.app.create_app`: recognized-bundle FastAPI factory, bounded actual ASGI requests and durable review/export; recognized-bundle React viewer and optional bounded public shell |
 | HTTP checks | `python -m pytest tests/api -q`; actual in-process requests, no source images or live methods |
@@ -54,10 +55,27 @@ Optional Pillow 12.3.0 and pillow-heif 1.8.1 are pinned in the portable uv lock.
 command now stages bounded PNG/JPEG/HEIC into a private content-addressed directory, retaining
 original bytes and a metadata-stripped normalized PNG. It records hashes, dimensions and explicit
 orientation/grid provenance; malformed, oversized, multi-image and changed/partial output refuse.
-Real Windows codec controls use authored pixels. No native OCR engine, batch/image job, image API
-or viewer overlay is joined by this slice. The default recognized-only installation is unchanged.
+Real Windows codec controls use authored pixels. A separate explicit `import-image` CLI now runs
+an installed English Tesseract engine and joins actual retained TSV through canonical Docio/B0,
+ReceiptBundle and existing review storage. The default recognized-only installation is unchanged.
+The native run records binary/model/configuration/source/grid hashes, process limits and failures.
+Authored native functional controls exercise correction, exact retry, repeated OCR, reopen and
+exports. A first version probe timed out; stable startup and the broad Python gate remain
+unresolved. Native functional evidence does not establish receipt accuracy or engine selection.
+Image HTTP jobs, worker control and viewer overlays remain pending.
+The later joined check retained two failures (native startup and a 20-second review child wait).
+A moved-runtime comparison passed four cases but native import still exhausted its total
+30-second operation budget after successful engine commands. Native timing and the combined gate
+remain open; packaging checks do not qualify this boundary for deployment.
 The new optional Linux CI job is configured but has not run remotely. Python/native dependencies
 still require a local or separately hosted backend; Bolt import/provisioning is unperformed.
+
+The installed engine and model are read-only external requirements, not bundled repository assets.
+Preserve [third-party provenance](docs/THIRD-PARTY.md): the optional HEIC wrapper metadata says
+BSD-3-Clause, while the inspected Windows binary wheel's bundled notice says GPLv2 due to base
+libraries. The installed Tesseract notice and actual model/library fingerprints are retained
+separately; model source/licence provenance and distribution qualification remain unverified.
+No compatibility or clean-distribution verdict is supplied by local execution.
 
 ## Infrastructure inventory
 
@@ -77,8 +95,9 @@ Local demo tests exercise fresh subprocess correction replay, actual B0 rerun, p
 machine-evidence preservation, explicit conflict waivers, malformed-bundle refusal and no-overwrite
 behavior with provider/native imports and sockets blocked. See the reproducible commands above.
 The later viewer has actual root TypeScript/Vite build and synthetic Chromium correction/stale/refusal
-controls through real loopback HTTP. Image-to-OCR, original-image overlays and live receipt methods remain
-separate. Browser evidence is scoped to the exact built artifact, host and authored input.
+controls through real loopback HTTP. The separate native CLI image-to-OCR/B0 join does not supply
+original-image browser overlays or live receipt methods. Browser evidence remains scoped to its
+exact built artifact, host and authored input.
 
 The HTTP factory's exact loopback Host/token/Origin policy, actual streamed-byte/message limits,
 body deadline, closed errors and private download headers are exercised in process. FastAPI,
@@ -86,14 +105,14 @@ Uvicorn and httpx are installed from the portable public-registry lock; the view
 The host must supply a fresh capability and existing private root. See the README for the route
 inventory and body bounds. HTTP job control, image endpoints and source-image bytes remain absent.
 
-Complete image decoding/preprocessing/OCR, actual listener/worker ownership, original-image source overlays, canonical live method integration and required independent evaluation before presenting
+Complete the remaining preprocessing/engine qualification, actual listener/worker ownership, original-image source overlays, canonical live method integration and required independent evaluation before presenting
 the full app as ready. Rights, genuine human labels, frozen held-out data and applicable spend grants
 remain separate prerequisites. [Development status](DEVELOPMENT-STATUS.md) tracks those product gaps.
 
 ## Inspection prompt after an authorized import
 
 > Read BOLT-HANDOFF.md and inspect this product repository at the intended revision. Identify the
-> runnable recognized-bundle demo and the implemented recognized-bundle viewer and incomplete image/job/native boundaries. Prepare a concrete
+> runnable recognized-bundle demo, explicit local Tesseract import, recognized-bundle viewer and incomplete image/job/hosting boundaries. Prepare a concrete
 > deployment-gap inventory while preserving the local files/JSONL architecture and existing code.
 > Do not infer a hosted Python/OCR runtime from a static viewer or add an unnecessary database.
 > Do not create/change cloud resources, apply migrations, deploy functions, enter secrets, enable

@@ -1,6 +1,6 @@
 # Receipt Field Review
 
-Receipt Field Review proposes fixed receipt scalar/line-cell fields from supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. A local recognized-bundle HTTP adapter and browser review viewer are implemented. Image ingestion, actual native/model inference, HTTP jobs and original-image overlays remain under construction.
+Receipt Field Review imports local receipt images through an optional installed Tesseract engine or accepts supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. A local recognized-bundle HTTP adapter and browser review viewer are implemented. HTTP image jobs, live model methods and original-image overlays remain under construction.
 
 ## Keyless local demo
 
@@ -65,11 +65,44 @@ public upload service. Keep staged images private. Actual HEIC codec controls us
 they do not establish receipt extraction accuracy or the required real-dev OCR comparison.
 See [image staging](src/rfr/ingest/README.md) for the exact grid and verification boundaries.
 
+## Local image import and review
+
+Install the image extra and a trusted local Tesseract executable with its English model. Supply an
+existing private batch parent; the `new` command returns the generated batch ID:
+
+```text
+uv sync --frozen --extra heic
+python -m rfr.cli --root <private-parent> new --currency USD
+python -m rfr.cli --root <private-parent> import-image --batch <batch-id> --source <local-image> --tesseract <installed-executable> --tessdata <installed-model-directory> --reference-date 2026-10-16
+python -m rfr.cli --root <private-parent> list --batch <batch-id>
+python -m rfr.cli --root <private-parent> show --batch <batch-id> --item <returned-item-id>
+```
+
+Choose the reference date for the current review. The command stages the original and normalized
+image, executes English Tesseract with a fixed single-block configuration, retains actual TSV and
+engine/model/configuration hashes, and uses the existing Docio, B0 and review storage code. Fields
+remain review-only. Use the correction, draft application and export commands below for the returned
+item. The native adapter and its [limits](src/rfr/ports/README.md) are app-local consumers of the
+shared modules; their native dependencies are separate from the dependency-light Docio export.
+
+A repeat explicitly runs OCR again. Identical machine evidence/context replays saved decisions;
+different results require `--expected-revision` and retain review conflicts. Native failure does
+not register a successful or fabricated blank receipt. Private `ocr/native-*/` records retain
+execution outputs; incomplete attempts stay available for diagnosis. No automatic native retry or
+provider fallback occurs. Original-image HTTP serving and overlays are still absent.
+
+Actual Windows functional controls use authored pixels through the public CLI, correction/retry,
+repeat OCR, reopen and exports. A first version probe timed out; later controls passed without a
+timing-cause or startup-reliability claim. These controls do not establish receipt accuracy, the
+required real-dev engine comparison or finished-app acceptance. See [native dependency
+provenance](docs/THIRD-PARTY.md), including the distinction between the HEIC wrapper and binary wheel.
+
 ## Recognized-bundle review CLI
 
 Use Python3.12 in the installed environment. `python -m rfr.cli --help` exposes batch creation,
 bounded recognized-bundle import, list/detail, stable decision drafts, exact draft application and
-exports. It accepts a validated `rfr.pipeline.models.ReceiptBundle`; it does not read images or invent OCR.
+exports. `import-bundle` accepts a validated `rfr.pipeline.models.ReceiptBundle` without loading native
+codecs. The separate `import-image` command executes the explicit local path above.
 
 ```text
 python -m rfr.cli --root <existing-private-batch-directory> new --currency USD
@@ -128,7 +161,8 @@ the page before saving: unsaved text, capability and pending drafts are memory-o
 remembers only the batch identity. Saved decisions live in the server journal and replay on restart.
 
 The recognized source preview uses supplied line text/geometry, with the selected field region.
-It is clearly labelled **Image unavailable**; it does not supply an original image or measured OCR.
+It is clearly labelled **Image unavailable**; it does not supply an original image. Imported native
+items retain measured OCR geometry, while supplied bundles carry their own declared provenance.
 No image upload, job execution, live method, static unsaved demo mode or hosted backend is added.
 The static snapshot accepts only bounded index/hashed JS/CSS files and refuses private-root overlap,
 links, unexpected files/directories and oversized artifacts. Responses carry a restrictive CSP.
@@ -211,13 +245,13 @@ With the installed Python environment, run `python -m pytest tests/module -q` fo
 
 ## Planned workflow
 
-The intended image workflow imports up to100 single-currency JPEG/PNG/HEIC receipts, shows highlighted source regions, supports keyboard review, and exports CSV/JSONL. Provided recognized bundles already support durable corrections, unchanged-evidence reruns, changed-evidence conflicts and audited exports through the CLI. Durable recognized-item jobs execute B0 and retain explicit J1/V2-unavailable outcomes. Original image decoding/serving, image-upload jobs and the browser journey remain pending. API DTOs, generated TypeScript contracts and a pure request-policy guard exist; HTTP transport and actual stream enforcement remain pending.
+The intended image workflow imports up to100 single-currency JPEG/PNG/HEIC receipts, shows highlighted source regions, supports keyboard review, and exports CSV/JSONL. Provided recognized bundles support durable corrections, unchanged-evidence reruns, changed-evidence conflicts and audited exports through the CLI and local HTTP viewer. Durable recognized-item jobs execute B0 and retain explicit J1/V2-unavailable outcomes. Optional local decoding and installed-engine OCR now have CLI entrypoints. Image serving, image-upload jobs and original-image browser overlays remain pending. The FastAPI adapter enforces bounded streaming and request policy for the recognized-bundle workflow.
 
 ## Architecture
 
-The Python `rfr` core contains reusable [docio](src/rfr/shared/docio/README.md), [fieldextract](src/rfr/shared/fieldextract/README.md), [rulings](src/rfr/shared/rulings/README.md) and [evalkit](src/rfr/shared/evalkit/README.md) foundations. Each owns generated JSON schemas and declares its copy closure. Rulings includes a bounded owner-private journal and recorded-decision projection; its actor metadata does not authenticate a human. Evalkit executes generic statistics and injected comparisons; source rights, label provenance, independent held-out seals and authorized durable history remain caller responsibilities. Runtime decoders, receipt-domain scorers, live providers, API and the review viewer remain pending. The [file workflow](src/rfr/pipeline/README.md) and [canonical offline execution components](docs/vendor/execution/README.md) are implemented; mock/replay controls establish component behavior, not paid model quality.
+The Python `rfr` core contains reusable [docio](src/rfr/shared/docio/README.md), [fieldextract](src/rfr/shared/fieldextract/README.md), [rulings](src/rfr/shared/rulings/README.md) and [evalkit](src/rfr/shared/evalkit/README.md) foundations. Each owns generated JSON schemas and declares its copy closure. Rulings includes a bounded owner-private journal and recorded-decision projection; its actor metadata does not authenticate a human. Evalkit executes generic statistics and injected comparisons; source rights, label provenance, independent held-out seals and authorized durable history remain caller responsibilities. The app-local image decoder/native adapter, receipt B0 scorer, local API and recognized-text viewer consume these foundations. Live providers and complete image-job/viewer integration remain pending. The [file workflow](src/rfr/pipeline/README.md) and [canonical offline execution components](docs/vendor/execution/README.md) are implemented; mock/replay controls establish component behavior, not paid model quality.
 
-Frozen lockfiles describe the installed scaffold dependencies. FastAPI/native OCR/provider SDKs and the actual review UI are deferred to their assigned work packages. There is no frontend `build` script yet, so scaffold green cannot be mistaken for an application build.
+Frozen lockfiles describe the Python and frontend dependencies. The recognized-bundle viewer has an actual TypeScript/Vite build and local Python launcher. Native OCR requires an explicitly installed engine and English model; provider methods remain unavailable. The native CLI still has unresolved timing and joined-check failures, detailed in [development status](DEVELOPMENT-STATUS.md). Packaging success does not resolve those gates.
 
 ## Results and cost
 
@@ -225,6 +259,6 @@ Receipt accuracy, abstention, auto-accept precision, OCR quality, latency and mo
 
 ## Limits and portability
 
-This is a recognized-bundle review foundation with a runnable synthetic demo. See [limitations](docs/LIMITATIONS.md), [architecture](docs/architecture.md), and the [schema boundaries](docs/schema-design.md). Python/native OCR requires a local or separately hosted runtime; an eventual static JavaScript viewer does not supply that backend. Image workflow, UI build, live integration, hosted deployment and public release remain pending.
+This is a recognized-bundle review foundation with a runnable synthetic demo, local viewer and optional image/OCR CLI. See [limitations](docs/LIMITATIONS.md), [architecture](docs/architecture.md), and the [schema boundaries](docs/schema-design.md). Python/native OCR requires a local or separately hosted runtime; the static JavaScript viewer does not supply that backend. Complete image workflow, native/browser acceptance, live providers, hosted deployment and public release remain pending.
 
 Coding agents wrote the scaffold. Its dependency-free checks are reproducible above; those checks do not establish product acceptance.

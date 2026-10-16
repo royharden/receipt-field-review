@@ -43,9 +43,10 @@ The optional CI job imports both codecs explicitly before running these checks. 
 execution does not prove Linux CI or a Bolt-hosted Python runtime.
 
 This artifact is preliminary image staging, not a recognized `ReceiptBundle` or a new canonical
-Docio wire. The existing recognized-bundle workflow remains unchanged. Native OCR, actual image
-geometry, image-to-B0/jobs/API/UI integration, held-out evaluation and independent app acceptance
-remain separate required work.
+Docio wire. `rfr.cli import-image` now joins this boundary to an installed native Tesseract adapter,
+canonical Docio/B0 and the existing review store. The standalone staging command still performs no
+OCR. HTTP image jobs, source-image UI integration, real-data evaluation and independent app
+acceptance remain separate required work. See the [native adapter](../ports/README.md).
 
 Decoder references: [Pillow file lifecycle](https://pillow.readthedocs.io/en/stable/reference/open_files.html),
 [Pillow image bounds](https://pillow.readthedocs.io/en/stable/reference/Image.html), and

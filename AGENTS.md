@@ -1,17 +1,17 @@
-# Receipt Field Review agent instructions — version 7
+# Receipt Field Review agent instructions — version 8
 
 Product code, tests and stable product documentation belong in this Git repository. Plans, agent identity registries, private reviews, transcripts, execution receipts and live resource records belong in the designated outer workspace, never here. A moved product repository must not depend on absolute workspace imports.
 
 ## Commands and current state
 
-The repository has four reusable foundations, a bounded rulings journal/projection, an injected evaluation/statistics engine and generic candidate selection/check/routing. Python 3.12 and Node 24 are the declared runtimes. Native OCR, real held-out results and the receipt workflow remain pending.
+The repository has four reusable foundations, a bounded rulings journal/projection, an injected evaluation/statistics engine and generic candidate selection/check/routing. Python 3.12 and Node 24 are the declared runtimes. An optional installed-Tesseract CLI now joins staged images to canonical Docio/B0 and the existing review workflow. Real held-out results, live methods and the image HTTP/worker/UI join remain pending.
 
 ```text
 python -m unittest discover -s tests/contracts -p "test_scaffold.py" -v
 node --test tests/contracts/test_frontend_config.mjs
 ```
 
-Those dependency-free checks install nothing. The assigned setup adds frozen Pydantic/pytest/ruff and React/Vite/TypeScript dependencies; `uv sync --frozen`, `uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`, `npm ci --ignore-scripts`, and `npm run typecheck` verify that setup. Type checking currently covers configuration only. Never claim a scaffold check is extraction accuracy, a frontend build, deployed security or a finished app.
+Those dependency-free checks install nothing. The assigned setup adds frozen Pydantic/pytest/ruff and React/Vite/TypeScript dependencies; `uv sync --frozen`, `uv run pytest`, `uv run ruff check .`, `uv run ruff format --check .`, `npm ci --ignore-scripts`, and `npm run typecheck` verify that setup. See package.json and README for current frontend check/build coverage. Never claim a scaffold check is extraction accuracy, a frontend build, deployed security or a finished app.
 
 Model checks use the installed environment: `python -m pytest tests/module -q` and `python tools/generate_schemas.py --check`. Generated schemas are module-owned. Models are closed/strict; geometry and provenance cannot be upgraded by shape validation. Consumer modules may be moved only with the closure declared in each module README and root LICENSE. New runtime behavior requires its own implementation and failure-capable checks.
 
@@ -22,6 +22,8 @@ Evaluation checks use `python -m pytest tests/evalkit -q`: tiny authored synthet
 Extraction checks use `python -m pytest tests/fieldextract -q`: bounded candidate/question/answer admission, source preflight, diagnostic score tables, default review/calibration/hard gates, a fake native-PDF source and actual moved sibling closure. Injected ports do not supply budget authority, source authenticity, actual model transport or calibration proof. Never replace independent verifier questions with one exclusive hazard distribution.
 
 Receipt checks use `python -m pytest tests/receipt -q`: fixed complete scalar/line-cell schema, source-bound overfinding/B0, Decimal minor-unit checks, explicit adjustment stages, conservative dates/currency and review-only defaults. Missing quantity/operands remain unknown; never guess one/zero. Locale/currency/reference date must be explicit. Raw recognized artifacts and candidate banks remain separate retained inputs; no real image accuracy or automation result is established by literal controls.
+
+Native controls use `python -m pytest tests/ports/test_tesseract_process.py tests/ingest/test_native.py -q` with optional image dependencies. The actual installed-engine case additionally requires explicit `RFR_TEST_TESSERACT`, `RFR_TEST_TESSDATA` and `RFR_TEST_FONT` paths; without them it is skipped, not passed. The app-local adapter consumes the existing Docio protocol/TSV parser, B0 and BatchStore without changing canonical wire ownership. Preserve original/normalized/grid/TSV/engine/config identities, bounded child outputs/deadlines and failed/incomplete attempts. Native functional controls use authored pixels, not real-receipt accuracy or a qualified engine comparison. Keep prior startup/full-run failures visible; native CLI success does not close image HTTP/UI/save or whole-app gates. Third-party provenance, including the HEIC wrapper/binary licence distinction, is in docs/THIRD-PARTY.md.
 
 ## Invariants
 
@@ -47,4 +49,4 @@ Use the current workspace's pinned delivery and plan-adoption rules when partici
 
 Skill paths describe the development environment, not runtime imports. Do not copy skills, credentials or coordination history into the product. Claude imports this file; Cursor has a pointer; Grok/Codex read this root instruction file. No separate local skill mirrors are introduced.
 
-Changelog: v1 established bootstrap commands/invariants. v2 locked scaffold dependencies. v3 added models/schema parity/moved closures. v4 added journal commands and durability/provenance limits. v5 added evaluation/statistics controls. v6 added generic extraction. v7 adds actual receipt-plugin commands and conservative code checks; native OCR/app workflow/real-data evidence remain pending. Claude/Cursor pointers continue to import this single instruction source; no policy, hook or skill mirror is changed.
+Changelog: v1 established bootstrap commands/invariants. v2 locked scaffold dependencies. v3 added models/schema parity/moved closures. v4 added journal commands and durability/provenance limits. v5 added evaluation/statistics controls. v6 added generic extraction. v7 added receipt-plugin commands. v8 records the explicit app-local native CLI/controls and remaining real-data/HTTP/UI/acceptance boundaries. Claude/Cursor pointers continue to import this single instruction source; no hook or skill mirror is changed.
