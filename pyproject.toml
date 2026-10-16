@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=75"]
+requires = ["setuptools==84.0.0"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -10,14 +10,20 @@ readme = "README.md"
 requires-python = ">=3.12,<3.13"
 license = { file = "LICENSE" }
 dependencies = [
+    "fastapi==0.143.1",
     "pydantic>=2,<3",
+    "uvicorn==0.54.0",
 ]
 
 [tool.setuptools.packages.find]
 where = ["src"]
 
 [tool.setuptools.package-data]
-"rfr.shared.*" = ["schema.json", "README.md"]
+"*" = ["schema.json", "README.md", "LICENSE.*"]
+
+[[tool.uv.index]]
+url = "https://pypi.org/simple"
+default = true
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
@@ -38,6 +44,7 @@ select = ["E", "F", "I", "UP", "B"]
 
 [dependency-groups]
 dev = [
+    "httpx==0.28.1",
     "pytest>=9.1.1",
     "ruff>=0.17.0",
 ]

@@ -3,7 +3,7 @@
 ## Target and readiness
 
 - App root: this product repository; branch `main`.
-- Status: recognized-bundle CLI and synthetic local demo implemented; image application incomplete.
+- Status: recognized-bundle CLI, HTTP adapter and synthetic local demo implemented; image application incomplete.
 - Database: **No database required** for the local MVP. Private files, an append-only JSONL rulings
   journal and a rebuildable projection hold app state. Vendored provider-ledger code may independently
   use SQLite; it is not connected to live receipt inference.
@@ -21,7 +21,9 @@
 | Keyless demo | Create an owner-controlled `data/` parent, then `uv run --no-sync python scripts/demo.py --mode mock --out data/recognized-demo` |
 | Bundle CLI | `python -m rfr.cli --help`; validates recognized bundles, saves decisions and exports private CSV/JSONL |
 | Core | `src/rfr/shared/{docio,fieldextract,rulings,evalkit}`; receipt plugin and `src/rfr/pipeline` |
-| HTTP/frontend | DTO/schema/TypeScript contracts and request-policy guard only; no HTTP server or review viewer |
+| HTTP/frontend | `rfr.api.app.create_app`: recognized-bundle FastAPI factory, bounded actual ASGI requests and durable review/export; no running listener or review viewer |
+| HTTP checks | `python -m pytest tests/api -q`; actual in-process requests, no source images or live methods |
+| Package check | `uv build --wheel`; `python tools/check_wheel.py dist` verifies shipped schemas/licenses |
 | Focused tests | `python -m pytest tests/demo tests/pipeline tests/export tests/cli -q` |
 | Combined checks | `python -m pytest -q`; `python -m ruff check .`; `python -m ruff format --check .` |
 | Generated contracts | `python tools/generate_schemas.py --check`; `python tools/generate_api_contract.py --check` |
@@ -52,7 +54,13 @@ machine-evidence preservation, explicit conflict waivers, malformed-bundle refus
 behavior with provider/native imports and sockets blocked. See the reproducible commands above.
 No cloud check, frontend build, browser flow, native HEIC/OCR or live receipt-method check is implied.
 
-Complete image decoding/preprocessing/OCR, actual HTTP enforcement/worker ownership, source-overlay
+The HTTP factory's exact loopback Host/token/Origin policy, actual streamed-byte/message limits,
+body deadline, closed errors and private download headers are exercised in process. FastAPI,
+Uvicorn and httpx are installed from the portable public-registry lock; no server was launched.
+The host must supply a fresh capability and existing private root. See the README for the route
+inventory and body bounds. HTTP job control, image endpoints and source-image bytes remain absent.
+
+Complete image decoding/preprocessing/OCR, actual listener/worker ownership, source-overlay
 review UI, canonical live method integration and required independent evaluation before presenting
 the full app as ready. Rights, genuine human labels, frozen held-out data and applicable spend grants
 remain separate prerequisites. [Development status](DEVELOPMENT-STATUS.md) tracks those product gaps.

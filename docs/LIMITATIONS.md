@@ -2,8 +2,9 @@
 
 The synthetic recognized-bundle demo is available as of 2026-10-15; [development status](../DEVELOPMENT-STATUS.md) is the current
 implementation inventory. Durable recognized-item B0 jobs and pure API DTO/schema/TypeScript contracts
-are implemented. HTTP transport, actual request-stream enforcement and the viewer are still absent.
-Native/API dependencies have not been installed; no native image run or live provider call occurred.
+are implemented. A recognized-bundle FastAPI adapter now enforces admission and actual stream limits in process.
+FastAPI/Uvicorn/httpx are installed; listener/worker, source images and viewer remain absent. No native
+image run or live provider call occurred.
 
 The demo's deliberate arithmetic mismatch remains review-only until explicit synthetic issue waivers
 are recorded. Its final clean export means operationally resolved, including waived conflicts, not
@@ -12,12 +13,13 @@ values are explicitly waived as absent rather than guessed. The shipped fixture'
 confidence values are authored controls, despite valid source-bound schema tags. No original image
 exists for this demo. See [fixture provenance](../examples/README.md).
 
-Combined-suite verification currently has an unresolved same-head CAS process-start barrier failure.
-The unchanged process controls passed in isolation, but the barrier failed again in a second combined
-run. This is not an established contention diagnosis or a passing full-suite result; acceptance
-remains blocked. See [development status](../DEVELOPMENT-STATUS.md) for the observed check outcomes.
+Two earlier combined runs had unexplained five-second process-start barrier failures. A later
+independent default combined run of the unchanged demo candidate passed with original deadlines,
+and the narrow local slice/current gate were accepted with notes. This is not an established cause
+or stable timing-reliability claim. The HTTP continuation changes source/dependencies and requires
+its own checks and independent disposition; whole-app acceptance remains outstanding.
 
-The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. Image ingestion, native HEIC conversion, actual OCR, live model verification, image-upload/live-method job integration, receipt-domain evaluation scorers, HTTP transport and UI remain pending.
+The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. Image ingestion, native HEIC conversion, actual OCR, live model verification, image-upload/live-method job integration, receipt-domain evaluation scorers, application listener/worker integration and UI remain pending.
 
 B0 over-finds candidates from supplied retained recognized lines. It supports basic line amounts and explicitly printed quantity-times-unit-price forms, plus separately printed tip/service/discount adjustments. Missing quantities, unit prices, tax, currency codes and unknown adjustment stages are not guessed. Handwriting, complex/multicolumn layouts, Arabic/localized numeral formats and real OCR quality remain unmeasured. The current presets cover USD/EUR/GBP/CAD/AUD/JPY/KWD; other currency codes are rejected. Diagnostic checks/proposals default to blank review, with no calibrated automation claim.
 

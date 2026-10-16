@@ -1,6 +1,6 @@
 # Receipt Field Review
 
-Receipt Field Review proposes fixed receipt scalar/line-cell fields from supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. Image ingestion, actual native/model inference, the API and browser viewer remain under construction.
+Receipt Field Review proposes fixed receipt scalar/line-cell fields from supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. A local recognized-bundle HTTP adapter is implemented. Image ingestion, actual native/model inference, HTTP jobs and the browser viewer remain under construction.
 
 ## Keyless local demo
 
@@ -68,6 +68,45 @@ keeps original values.
 restart/rerun, native process CAS, stale conflicts, clean refusal, exports and real CLI entrypoints.
 Literal synthetic recognized pages and blocked network/provider imports are implementation controls,
 not image OCR or real receipt accuracy measurements.
+
+## Local recognized-bundle HTTP adapter
+
+`rfr.api.app.create_app(existing_private_root, origin="http://127.0.0.1:<port>",
+capability=<fresh ASCII token of 32–256 characters>)` returns the FastAPI ASGI app. The trusted host
+supplies the private root, exact loopback origin and capability. The factory starts no listener,
+issues no token and exposes no OpenAPI page. Do not embed the capability in a URL or public assets.
+
+Every HTTP request requires the exact `Host` and `X-RFR-Token`. Mutations also require the exact
+`Origin` and `Content-Type: application/json`. Duplicate security headers, cross-site fetches,
+transfer encoding and invalid lengths are refused before body reads. Actual JSON bytes are bounded
+independently of Content-Length (default 8 MiB + 4096 bytes), with at most 1024 ASGI messages and a
+five-second receive deadline. The adapter returns closed error codes without request/body echoes.
+Responses use `Cache-Control: no-store` and `X-Content-Type-Options: nosniff`.
+
+| Method / path | Input or result |
+|---|---|
+| GET `/api/status` | Current capabilities; images, HTTP jobs and live methods unavailable |
+| POST `/api/batches` | `CreateBatch` → batch identity |
+| POST `/api/batches/{batch}/recognized` | `RecognizedImport` → item identity and revision |
+| GET `/api/batches/{batch}/items` | Bounded item summaries |
+| GET `/api/batches/{batch}/items/{item}` | Typed review detail; no retained artifact bytes |
+| POST `/api/batches/{batch}/items/{item}/draft` | `DraftRequest` → stable `DecisionDraft` |
+| POST `/api/batches/{batch}/items/{item}/decisions` | Exact saved draft → append/retry outcome |
+| GET `/api/batches/{batch}/exports/{review\|clean}/{filename}` | Four fixed export filenames |
+
+Input models are in `src/rfr/api/models.py`; generated JSON/TypeScript contracts retain the same
+wire forms. Export filenames are `receipts.csv`, `line_items.csv`, `receipts.jsonl`, `omitted.json`.
+An empty clean data download returns 409 with omissions; the omission report remains downloadable.
+Source-bearing JSONL is private review data. No client-provided output path is accepted.
+
+`python -m pytest tests/api -q` exercises actual FastAPI/Starlette dispatch through TestClient and
+direct ASGI streaming, durable correction replay through a new app, exact retries, stale conflicts,
+clean refusal and explicit provisional waivers. These authored controls do not prove a TCP listener,
+browser, source overlay, native OCR, held-out quality or a hosted service. Windows async control
+socket pairs are permitted by the test harness; application socket connections remain denied.
+The pinned Starlette version currently warns that its httpx TestClient backend is deprecated;
+the warning is retained. `uv build --wheel` followed by `python tools/check_wheel.py dist` checks
+the actual package includes runtime schemas and vendored license notices.
 
 ## Check the scaffold without keys or dependencies
 

@@ -1,8 +1,8 @@
 # Development status
 
-Local recognized-bundle demo added on 2026-10-15. This is a local, partially implemented application. No hosted deployment,
+Local recognized-bundle HTTP adapter added on 2026-10-15. This is a local, partially implemented application. No hosted deployment,
 public release, measured receipt accuracy or independent finished-application acceptance is claimed.
-The implementation checkpoint before this documentation update is `604cac9a58d413c610576b8af1cc9f620ff950cd`.
+The recognized-bundle demo baseline is `f9dc18133452509e0195f6069eecf83320ef60bb`.
 
 ## Finished implementation slices
 
@@ -24,7 +24,9 @@ The implementation checkpoint before this documentation update is `604cac9a58d41
 - Canonical offline provider/ledger and screening components, with retained source provenance and
   licenses. These are not connected to live receipt methods.
 - Pure API DTOs, generated JSON schema and TypeScript client contracts, stable decision-draft
-  builder and a request-policy guard. These are contract code, not an HTTP implementation.
+  builder and a request-policy guard. The actual FastAPI adapter now applies these policies before
+  routing/body reads, counts streamed bytes/messages and enforces a receive deadline. Typed local
+  operations reuse the existing batch/journal/export implementation; no second persistence exists.
 - A runnable synthetic recognized-bundle demo through the real CLI and durable workflow. It retains
   correction drafts, initial review exports and clean-export refusals, records explicit provisional
   decisions/issue waivers, and verifies restart plus a real local B0 rerun before audited CSV/JSONL
@@ -38,31 +40,32 @@ configuration/contract TypeScript check. These checks were not rerun for this do
 pause. They establish tested component behavior on authored controls, not image OCR, HTTP security,
 browser behavior, live-provider quality or application acceptance.
 
-The demo continuation's first combined run passed 477 tests and 15 subtests, with two existing
-rulings process tests failing their five-second startup barriers. A fresh focused run of all six
-process controls passed without changing source or deadlines. A second combined run passed 478
-tests and 15 subtests, but the same-head CAS startup barrier failed again. Its cause remains
-unresolved and blocks acceptance; no deadline was relaxed. All six new demo controls passed in
-both combined runs, including a detached product copy, fixture-tamper refusal, restart/rerun and
-malformed update preservation. Lint/format, shared/API schema parity, Node scaffold controls and
-TypeScript checks passed. A wholly green combined run is not claimed. This evidence supports the
-synthetic local slice, not finished-app acceptance.
+The demo continuation's first two combined runs retained 2/1 five-second process-start barrier
+failures respectively, despite isolated passes. A later independent default, uninstrumented run
+of that exact demo candidate passed 479 ordinary tests plus 15 successful subreports with unchanged
+native deadlines. The local recognized-bundle slice and that current combined gate were accepted
+with notes. The earlier intermittent failures remain unexplained; no causal fix or stable timing
+reliability is claimed. Whole-app acceptance remains outstanding. This HTTP continuation has its
+own changed dependency/source checks and requires a fresh independent disposition.
+
+FastAPI, Starlette, Uvicorn and httpx are now installed through the portable official-PyPI lock.
+The actual wheel build succeeds and retains required schemas plus vendored license notices.
+In-process TestClient and direct ASGI controls exercise HTTP admission, bounded fragmented bodies,
+timeout/disconnect refusal, correction/retry/restart, stale conflicts and private exports. The
+Starlette httpx-backend deprecation warning is retained. Windows event-loop control socket pairs
+are allowed in the test harness; application socket connections remain denied. No application
+listener, browser, original image, actual OCR or live-provider call has been exercised.
 
 React/Vite/TypeScript scaffolding exists. No review viewer or runnable frontend build exists.
-Native/API dependency compatibility and bounded public package metadata were investigated, but
-Pillow/HEIF/FastAPI/Uvicorn/multipart/httpx were not installed into the application. No actual image
-decoding, Tesseract image execution, HTTP listener, Docker stack or provider call was run.
-`scripts/demo.py` now runs the shipped recognized bundle without keys or inference. Its output must
-be a new owner-private directory; an interrupted run preserves partial files without a completion
-marker. Synthetic arithmetic waivers illustrate operational review, not verified numbers or human
-Gold. The previous pause left no uncommitted source changes; the demo continues from that checkpoint.
+Pillow/HEIF/native OCR integration remains pending. The demo still uses authored geometry and
+confidence; explicit provisional waivers do not establish verified receipt arithmetic or human Gold.
 
 ## Outstanding work
 
 1. Complete bounded dependency setup and actual PNG/JPEG/HEIC ingestion/OCR integration, with source
    artifacts, coordinates, failures and retained image handling verified end to end.
-2. Implement the local HTTP adapter and worker ownership. Enforce request policies on actual streams
-   and test transport, capability/origin checks, lifecycle, conflicts and failures in process.
+2. Add actual listener/worker lifecycle and HTTP job integration. The recognized-bundle adapter
+   covers in-process request policy and durable review/export; native upload/job paths remain absent.
 3. Build the review UI: actual source overlays, all scalar/line/adjustment cells, keyboard review,
    visible conflicts/issues, persistent corrections, failure states and honest export omissions.
    Install real React type packages and validate the actual build/browser journey.
