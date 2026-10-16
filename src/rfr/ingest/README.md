@@ -29,6 +29,13 @@ reused; modified/incomplete output refuses further writes. A partial directory i
 diagnosis. The parent uses the existing local mutex and must be owner-controlled; these helpers do
 not provide hostile multiuser filesystem isolation or a power-loss directory-fsync guarantee.
 
+Reopening also requires the declared format/grid, EXIF orientation, dimensions and forward/inverse
+matrices to describe the same normalization. The normalized PNG's fixed IHDR header, including its
+CRC, must agree with the declared dimensions and 8-bit noninterlaced RGB profile. These checks use
+the [PNG header and chunk layout](https://www.w3.org/TR/png/#11IHDR) without importing an optional
+codec. They reject inconsistent metadata even when file hashes agree; they do not authenticate
+the producer, re-decode every pixel or validate every PNG chunk. Refusal preserves all staged bytes.
+
 `tests/ingest/test_images.py` exercises real codecs on authored images, eight JPEG orientations,
 HEIC orientation, multipage refusal, malformed signatures/data, pixel/output limits, missing
 extras, private staging/reopen, exact retry, hardlink/path refusal and the real local command.

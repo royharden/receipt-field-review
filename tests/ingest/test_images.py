@@ -270,3 +270,67 @@ def test_real_local_command_persist_reopen_refusal_and_no_receipt_import(tmp_pat
     assert json.loads(refused.stderr) == {"error": "unsupported_image_signature"}
     assert "authored" not in refused.stderr and not refused.stdout
     assert load_staged(out, result["manifest"]["original_sha256"]) == decoded
+
+
+@pytest.mark.parametrize(
+    ("changes", "diagnostic"),
+    [
+        ({"page_width_px": 49}, "image_manifest_geometry"),
+        ({"page_width_px": 49, "decoder_width_px": 49}, "image_page_header_mismatch"),
+        ({"exif_orientation": 6}, "image_manifest_geometry"),
+        ({"decoder_grid": "libheif-delivered"}, "image_manifest_grid"),
+        ({"original_format": "HEIC"}, "image_manifest_grid"),
+        ({"original_format": "JPEG"}, "image_original_format_mismatch"),
+        ({"container_orientation": 6}, "image_manifest_grid"),
+        (
+            {
+                "decoder_to_page": [[1.0, 0.0, 1.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+                "page_to_decoder": [[1.0, 0.0, -1.0], [0.0, 1.0, 0.0], [0.0, 0.0, 1.0]],
+            },
+            "image_manifest_geometry",
+        ),
+    ],
+)
+def test_staged_grid_cannot_disagree_with_pixels_or_declared_normalization(
+    changes, diagnostic, tmp_path
+):
+    # Catches accepted 49px metadata on a 48px PNG, including coordinated dimension edits
+    # and an invertible transform that is not the recorded EXIF normalization.
+    decoded = decode_bytes(encoded(quadrants()))
+    folder = stage_image(tmp_path, decoded)
+    path = folder / "manifest.json"
+    data = json.loads(path.read_bytes())
+    data.update(changes)
+    path.write_text(json.dumps(data), encoding="utf-8")
+    before = {p.name: p.read_bytes() for p in folder.iterdir()}
+    for action in [
+        lambda: load_staged(tmp_path, decoded.manifest.original_sha256),
+        lambda: stage_image(tmp_path, decoded),
+    ]:
+        with pytest.raises(ValueError, match=diagnostic):
+            action()
+    assert {p.name: p.read_bytes() for p in folder.iterdir()} == before
+
+
+@pytest.mark.parametrize("change", ["dimensions", "grayscale", "crc", "truncated"])
+def test_staged_page_header_is_checked_even_with_matching_rewritten_hash(change, tmp_path):
+    # Matching content hashes alone cannot establish the normalized source grid/profile.
+    decoded = decode_bytes(encoded(quadrants()))
+    folder = stage_image(tmp_path, decoded)
+    if change == "dimensions":
+        raw = encoded(Image.new("RGB", (49, 32)))
+    elif change == "grayscale":
+        raw = encoded(Image.new("L", (48, 32)))
+    elif change == "crc":
+        raw = decoded.page_png[:29] + bytes(4) + decoded.page_png[33:]
+    else:
+        raw = decoded.page_png[:20]
+    (folder / "page.png").write_bytes(raw)
+    manifest = folder / "manifest.json"
+    data = json.loads(manifest.read_bytes())
+    data.update(page_sha256=digest(raw), page_bytes=len(raw))
+    manifest.write_text(json.dumps(data), encoding="utf-8")
+    before = {p.name: p.read_bytes() for p in folder.iterdir()}
+    with pytest.raises(ImageInputError, match="image_page_header_mismatch"):
+        load_staged(tmp_path, decoded.manifest.original_sha256)
+    assert {p.name: p.read_bytes() for p in folder.iterdir()} == before

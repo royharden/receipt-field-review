@@ -5,6 +5,7 @@ import importlib
 import io
 import json
 import warnings
+import zlib
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Literal
@@ -79,6 +80,22 @@ class ImageManifest(Wire):
             or not 1 <= self.exif_orientation <= 8
         ):
             raise ValueError("image_manifest_bounds")
+        heic = self.original_format == "HEIC"
+        if (
+            self.decoder_grid != ("libheif-delivered" if heic else "Pillow-before-EXIF")
+            or (heic and self.exif_orientation != 1)
+            or (not heic and self.container_orientation is not None)
+        ):
+            raise ValueError("image_manifest_grid")
+        size = (self.decoder_width_px, self.decoder_height_px)
+        expected_size = size if self.exif_orientation <= 4 else size[::-1]
+        forward, inverse = orientation_matrices(self.exif_orientation, *size)
+        if (
+            (self.page_width_px, self.page_height_px) != expected_size
+            or self.decoder_to_page != forward
+            or self.page_to_decoder != inverse
+        ):
+            raise ValueError("image_manifest_geometry")
         TransformPair(
             source_to_engine=AffineTransform(
                 direction="source_to_engine",
@@ -113,6 +130,20 @@ class DecodedImage:
             or digest(self.page_png) != m.page_sha256
         ):
             raise ImageInputError("image_content_binding_mismatch")
+        if signature(self.original) != m.original_format:
+            raise ImageInputError("image_original_format_mismatch")
+        # Check the fixed PNG IHDR without loading optional native codecs again.
+        # This binds the declared grid/profile, not authenticity or full PNG validity.
+        raw = self.page_png
+        if (
+            len(raw) < 33
+            or raw[:16] != b"\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR"
+            or raw[24:29] != b"\x08\x02\x00\x00\x00"
+            or int.from_bytes(raw[16:20], "big") != m.page_width_px
+            or int.from_bytes(raw[20:24], "big") != m.page_height_px
+            or zlib.crc32(raw[12:29]) != int.from_bytes(raw[29:33], "big")
+        ):
+            raise ImageInputError("image_page_header_mismatch")
 
 
 def signature(raw: bytes) -> Literal["PNG", "JPEG", "HEIC"]:
