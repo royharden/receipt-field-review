@@ -49,3 +49,12 @@
   test the receiver, and exercise the actual browser transport before claiming a working UI.
 - Keep expected empty-clean refusal distinct from stale-decision conflict even when both use409.
   Show actionable omission/review guidance without implying that a clean refusal changed state.
+- A disabled button is not a policy guard. Keyboard and other entry points must honor the same
+  pending-intent rules; recover an uncertain result by retrying the exact retained draft rather than
+  constructing another intent against a stale view. Preserve canonical CAS and historical retries.
+- A saved notice can appear before state refresh finishes. In React controls, await the explicit
+  operation boundary inside act before asserting reload/cancel state. A synthetic DOM event and an
+  injected after-commit acknowledgement fault are distinct from native browser/network-loss proof.
+- npm lock-only setup can rewrite node_modules hidden lock metadata. Record that delta separately
+  from installed package code, and run isolated lock generation in the isolated runtime when exact
+  preservation of the original environment metadata is required.

@@ -1,9 +1,7 @@
 import { useEffect, useRef, useState } from "react";
-import { createRoot } from "react-dom/client";
 import type { Action, ApiStatus, Currency, DecisionDraft, ExportFile, ExportMode, ItemDetail,
   ItemReview, ItemSummary, Json, ReviewField } from "./contracts";
 import { ApiError, HttpReviewApi, describeError } from "./http";
-import "./style.css";
 
 const display = (value: Json | undefined) => value == null ? "—" :
   typeof value === "string" ? value : JSON.stringify(value);
@@ -37,8 +35,9 @@ function SourcePreview({ view, field }: { view: ItemReview; field: ReviewField |
 
 type Edit = { action: Action; value: string; reason: string; issues: string[]; issueReason: string };
 
-function Review({ api, batch, detail, changed, lock }: {
-  api: HttpReviewApi; batch: string; detail: ItemDetail; changed: (value: ItemDetail) => Promise<void>; lock: (value: boolean) => void;
+export function Review({ api, batch, detail, changed, lock }: {
+  api: Pick<HttpReviewApi, "draft" | "apply" | "item">; batch: string; detail: ItemDetail;
+  changed: (value: ItemDetail) => Promise<void>; lock: (value: boolean) => void;
 }) {
   const view = detail.review;
   const fields = Object.entries(view.fields);
@@ -71,7 +70,7 @@ function Review({ api, batch, detail, changed, lock }: {
     catch (e) { setError(message(e)); } finally { setBusy(false); }
   }
   async function save(retry = false) {
-    if (busy || conflict || (!retry && !valid)) return;
+    if (busy || conflict || (!retry && (pending !== null || !valid)) || (retry && pending === null)) return;
     setBusy(true); setError(""); setNotice("");
     let committed = false;
     try {
@@ -94,7 +93,7 @@ function Review({ api, batch, detail, changed, lock }: {
     }
     finally { setBusy(false); }
   }
-  submit.current = () => { void save(); };
+  submit.current = () => { void save(pending !== null); };
   useEffect(() => {
     const key = (event: KeyboardEvent) => {
       if (event.ctrlKey && event.key === "Enter") { event.preventDefault(); submit.current(); }
@@ -146,7 +145,7 @@ function Review({ api, batch, detail, changed, lock }: {
           <div className="actions"><button className="primary" disabled={busy || !valid || !!pending || conflict}
             onClick={() => void save()}>Save decision</button>
             {pending && <button disabled={busy || conflict} onClick={() => void save(true)}>Retry saved decision</button>}
-            <span className="muted">Ctrl + Enter to save</span></div>
+            <span className="muted">{pending ? "Ctrl + Enter to retry saved decision" : "Ctrl + Enter to save"}</span></div>
           {error && <p role="alert" className="error">{error}</p>}{notice && <p role="status" className="success">{notice}</p>}
           {!!Object.keys(edits).length && <button disabled={busy || !!pending} onClick={() => setEdits({})}>Discard unsaved edits</button>}
           <p className="muted">Edits stay in memory until saved. Reload state keeps your text, but clears a pending retry. Reload the page only after saving.</p>
@@ -160,7 +159,7 @@ function Review({ api, batch, detail, changed, lock }: {
   </>;
 }
 
-function App() {
+export function App() {
   const [token, setToken] = useState("");
   const [api, setApi] = useState<HttpReviewApi | null>(null);
   const [status, setStatus] = useState<ApiStatus | null>(null);
@@ -251,5 +250,3 @@ function App() {
     {notice && <p role="status" className="success global-message">{notice}</p>}
     <footer>Local review · Uncalibrated proposals require review · Operationally clean does not establish human Gold or measured accuracy</footer></main></>;
 }
-
-createRoot(document.getElementById("root")!).render(<App />);

@@ -104,8 +104,14 @@ No image upload, job execution, live method, static unsaved demo mode or hosted 
 The static snapshot accepts only bounded index/hashed JS/CSS files and refuses private-root overlap,
 links, unexpected files/directories and oversized artifacts. Responses carry a restrictive CSP.
 
-`npm run test:viewer` exercises client request boundaries/retry/error presentation; `npm run build`
-runs the real TypeScript compiler and Vite. `python -m pytest tests/api -q` checks actual ASGI hosting
+`npm run test:viewer` exercises the client and actual React review component; `npm run test:review`
+focuses on pending-intent recovery. Install both frozen Python and Node dependencies first. The React
+checks use jsdom and a test-only stdio bridge to actual canonical file/journal services. Their explicit
+fault withholds one success acknowledgement after a real commit; it is not native-browser input,
+live HTTP packet loss or OS file-save proof. Keyboard and visible retry must reuse the same saved
+draft, with no replacement intent or journal append. Genuine stale edits still refuse; unsaved
+cancel does not dispatch. A pending draft cannot be discarded through the visible cancel control.
+`npm run build` runs the real TypeScript compiler and Vite. `python -m pytest tests/api -q` checks actual ASGI hosting
 and API separation. See development status for the separately retained browser journey evidence.
 
 ## Local recognized-bundle HTTP adapter

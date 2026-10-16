@@ -46,3 +46,8 @@ Supplied text/geometry and agent-provisional decisions do not prove original-ima
 Capabilities and unsaved/pending decisions are memory-only, so a page reload discards unsaved work;
 saved decisions replay from the local journal. Static unsaved demo mode is not implemented. A
 single local Windows/Chromium journey is not a browser/OS/hosted-isolation or whole-app acceptance.
+
+The prior viewer was not accepted after a keyboard/pending-intent source finding. The targeted
+controller repair and actual React/canonical-service regression checks are separate from native
+keyboard/browser loss/save observations, which remain UNKNOWN until a qualified independent scope
+runs them. Earlier author-native download files do not become independent reviewer evidence.

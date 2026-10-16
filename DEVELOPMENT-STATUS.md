@@ -62,7 +62,9 @@ The React/TypeScript/Vite viewer now has an actual root build and same-origin lo
 All scalar/line/adjustment cells, recognized-text region preview, explicit decisions/waivers,
 private exports, saved-draft retry, unsaved-navigation locks and stale-state errors are implemented.
 A bounded immutable public shell is separated from capability-protected receipt APIs. New React
-type packages are pinned; isolated frontend setup preserves the retained prior runtime environments.
+type packages are pinned. Targeted repair setup used a separate installed runtime; the lock-only
+command rewrote the original node_modules hidden lock metadata. Retained package code files and
+Python/prior viewer runtime hashes remain unchanged; the setup metadata delta is recorded separately.
 Pillow/HEIF/native OCR integration remains pending. The demo still uses authored geometry and
 confidence; explicit provisional waivers do not establish verified receipt arithmetic or human Gold.
 
@@ -75,6 +77,15 @@ JSONL files; inspected JSONL retained all 18 original machine fields, artifact b
 labels. CLI-browser download cancellations and a download-event timeout during the bounded server
 window remain retained failures; their cause is not claimed resolved by alternate-browser success.
 This is author verification of a narrow recognized-only journey, pending independent viewer review.
+
+Independent viewer review found that Ctrl+Enter could bypass the disabled normal-save control
+while an exact draft was pending. A new stale draft could then turn off retry availability; canonical
+CAS still protected the saved decision. That viewer candidate was not accepted. The targeted repair
+guards all save entries, maps the shortcut to the retained exact retry and shows the matching hint.
+Actual React/synthetic-DOM controls use a real canonical commit with an explicit test-only lost
+acknowledgement, plus stale/busy/cancel/replay cases. These checks do not supply independent native
+UI/keyboard, browser response-loss or OS-save evidence. Fresh review and remaining native gates are
+still required; earlier author browser files and accepted HTTP evidence remain separate editions.
 
 ## Outstanding work
 

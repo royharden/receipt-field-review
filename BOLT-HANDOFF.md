@@ -36,6 +36,16 @@ refuses unresolved clean exports, records explicit synthetic issue waivers and p
 B0 rerun. `DEMO.json` is written last with input/output digests. It supplies no source image,
 measured OCR geometry/confidence, model transport, human Gold or accuracy result.
 
+## Pending-decision repair and test boundary
+
+The review controller guards pending drafts at every entry point. Ctrl+Enter and the visible retry
+reuse the retained draft/event identity; normal save cannot generate a replacement while recovery
+is pending. `npm run test:review` runs actual React rendering with synthetic DOM events and a real
+canonical file/journal test port, including an explicit acknowledgement fault after a real commit.
+It preserves genuine stale refusal and cancel behavior. This is not a native browser/lost-response
+or OS file-save gate; the earlier viewer candidate was not accepted, and independent review of the
+repair plus remaining native evidence are still required. No cloud readiness follows from it.
+
 ## Infrastructure inventory
 
 Migrations, hosted tables/RLS, buckets, edge functions, external auth providers, callback URLs,

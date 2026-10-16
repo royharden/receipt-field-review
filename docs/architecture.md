@@ -36,3 +36,9 @@ serves only index and hashed JS/CSS assets publicly under the exact Host policy.
 overlap that snapshot; receipt APIs remain token-protected. The browser uses same-origin requests,
 retains capability/unsaved drafts only in memory, and uses canonical server decisions/exports without
 a parallel browser store. Its text/geometry preview is distinct from an original-image overlay.
+
+The browser mount is isolated in bootstrap.tsx so tests can render the actual Review component
+without auto-mounting the app or inventing a parallel state controller. The consumer test port exposes
+only draft/apply/item; production uses HttpReviewApi. Synthetic DOM events and an explicit after-commit
+acknowledgement fault cross a real canonical service/journal boundary, without claiming live HTTP or
+native browser behavior. A retained pending intent is the only allowed retry payload.

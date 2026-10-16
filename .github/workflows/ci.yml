@@ -31,6 +31,13 @@ jobs:
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
         with:
           node-version: '24'
+      # React controls use the actual local canonical service through an explicit stdio test port.
+      # This does not supply a native browser or a real network-loss observation.
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6
+        with:
+          python-version: '3.12'
+      - run: python -m pip install uv==0.11.19
+      - run: uv sync --frozen
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run test:scaffold
       - run: npm run typecheck
