@@ -42,7 +42,9 @@ class RequestGuard:
         if type(self.max_body_bytes) is not int or not 1 <= self.max_body_bytes <= 25 * 1024 * 1024:
             raise ValueError("bounded_body_policy_required")
 
-    def authorize(self, method, raw_headers):
+    def authorize(self, method, raw_headers, *, capability_required=True):
+        if type(capability_required) is not bool:
+            raise ValueError("explicit_capability_policy_required")
         if type(raw_headers) not in (tuple, list) or len(raw_headers) > 64:
             raise RequestRefused(400, "header_count_limit")
         headers = {}
@@ -73,7 +75,9 @@ class RequestGuard:
         if headers.get("host") != urlsplit(self.origin).netloc:
             raise RequestRefused(403, "host_refused")
         supplied = headers.get("x-rfr-token", "")
-        if not hmac.compare_digest(supplied.encode("ascii"), self.capability.encode("ascii")):
+        if capability_required and not hmac.compare_digest(
+            supplied.encode("ascii"), self.capability.encode("ascii")
+        ):
             raise RequestRefused(401, "capability_required")
         origin = headers.get("origin")
         if origin is not None and origin != self.origin:

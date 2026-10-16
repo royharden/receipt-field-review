@@ -1,4 +1,4 @@
-// Configuration proposal only: the UI and Vite dependency are not installed in WP01.
+// Build from the repository root. Serve dist/web through the same-origin local Python host.
 export default {
   root: "web",
   build: { outDir: "../dist/web", emptyOutDir: true },

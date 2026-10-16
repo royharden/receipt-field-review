@@ -34,3 +34,5 @@ jobs:
       - run: npm ci --ignore-scripts --no-audit --no-fund
       - run: npm run test:scaffold
       - run: npm run typecheck
+      - run: npm run test:viewer
+      - run: npm run build

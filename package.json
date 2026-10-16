@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Configuration scaffold for the receipt review viewer; UI is pending",
+  "description": "Local recognized-bundle receipt review viewer",
   "engines": {
     "node": ">=24 <25"
   },
   "scripts": {
+    "build": "tsc --noEmit && vite build",
+    "test:viewer": "node --test tests/web/*.test.mjs",
     "test:scaffold": "node --test tests/contracts/test_frontend_config.mjs",
     "typecheck": "tsc --noEmit"
   },
@@ -16,6 +18,8 @@
     "react-dom": "19.3.1"
   },
   "devDependencies": {
+    "@types/react": "19.3.0",
+    "@types/react-dom": "19.3.0",
     "typescript": "7.0.2",
     "vite": "8.3.4"
   }

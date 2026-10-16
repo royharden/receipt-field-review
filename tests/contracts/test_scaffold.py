@@ -102,7 +102,7 @@ class BootstrapScope(unittest.TestCase):
         package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
         frontend_dependencies = set(package.get("dependencies", {}))
         self.assertTrue(frontend_dependencies.isdisjoint({"openai", "@typesafe-ai/sdk"}))
-        self.assertNotIn("build", package["scripts"])
+        self.assertEqual(package["scripts"]["build"], "tsc --noEmit && vite build")
 
 
 if __name__ == "__main__":

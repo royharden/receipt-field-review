@@ -27,11 +27,12 @@ from .models import (
 )
 from .operations import ReviewOperations
 from .security import RequestGuard, RequestRefused
+from .viewer import ViewerFiles
 
 
 class Admission:
-    def __init__(self, app: ASGIApp, *, guard: RequestGuard):
-        self.app, self.guard = app, guard
+    def __init__(self, app: ASGIApp, *, guard: RequestGuard, viewer: ViewerFiles | None):
+        self.app, self.guard, self.viewer = app, guard, viewer
 
     async def __call__(self, scope: Scope, receive: Receive, send: Send):
         if scope["type"] == "lifespan":
@@ -58,11 +59,17 @@ class Admission:
             await send(message)
 
         try:
-            self.guard.authorize(scope["method"], scope["headers"])
+            public = self.viewer.response(scope["method"], scope["path"]) if self.viewer else None
+            self.guard.authorize(
+                scope["method"], scope["headers"], capability_required=public is None
+            )
         except RequestRefused as error:
             await JSONResponse({"error": error.code}, status_code=error.status)(
                 scope, receive, private_response
             )
+            return
+        if public is not None:
+            await public(scope, receive, private_response)
             return
         await self.app(scope, receive, private_response)
 
@@ -74,6 +81,7 @@ def create_app(
     capability: str,
     max_body_bytes: int = 8 * 1024 * 1024 + 4096,
     body_timeout_s: float = 5.0,
+    viewer_root: Path | None = None,
 ) -> FastAPI:
     if (
         type(body_timeout_s) not in (int, float)
@@ -84,7 +92,11 @@ def create_app(
     guard = RequestGuard(origin, capability, max_body_bytes)
     operations = ReviewOperations(data_root)
     app = FastAPI(docs_url=None, redoc_url=None, openapi_url=None, debug=False)
-    app.add_middleware(Admission, guard=guard)
+    app.add_middleware(
+        Admission,
+        guard=guard,
+        viewer=ViewerFiles(viewer_root, data_root) if viewer_root is not None else None,
+    )
 
     async def body(request, model):
         accumulator = JsonBody(guard, request.method, request.scope["headers"])

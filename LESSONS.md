@@ -44,3 +44,8 @@
 - Starlette's outer server-error middleware sends unexpected-error responses outside user middleware.
   Set private response headers in the fallback handler too, and test the actual 500 response without
   echoing exception text or request data.
+- Browser-native fetch needs its Window receiver. An injected arrow-function test double can hide
+  an illegal receiver caused by calling a stored function as a class method. Bind it explicitly,
+  test the receiver, and exercise the actual browser transport before claiming a working UI.
+- Keep expected empty-clean refusal distinct from stale-decision conflict even when both use409.
+  Show actionable omission/review guidance without implying that a clean refusal changed state.

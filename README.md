@@ -1,6 +1,6 @@
 # Receipt Field Review
 
-Receipt Field Review proposes fixed receipt scalar/line-cell fields from supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. A local recognized-bundle HTTP adapter is implemented. Image ingestion, actual native/model inference, HTTP jobs and the browser viewer remain under construction.
+Receipt Field Review proposes fixed receipt scalar/line-cell fields from supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. A local recognized-bundle HTTP adapter and browser review viewer are implemented. Image ingestion, actual native/model inference, HTTP jobs and original-image overlays remain under construction.
 
 ## Keyless local demo
 
@@ -68,6 +68,45 @@ keeps original values.
 restart/rerun, native process CAS, stale conflicts, clean refusal, exports and real CLI entrypoints.
 Literal synthetic recognized pages and blocked network/provider imports are implementation controls,
 not image OCR or real receipt accuracy measurements.
+
+## Browser review viewer
+
+Build from the repository root with Node 24, then serve the artifact with Python 3.12:
+
+```text
+npm ci --ignore-scripts
+npm run build
+python -m rfr.serve --root <existing-private-batch-directory> --viewer dist/web --port <explicit-loopback-port>
+```
+
+The host reads `RFR_LOCAL_CAPABILITY` from its environment: supply a fresh 32–256 character printable
+ASCII capability before launch, then enter it in the viewer. The launcher binds only `127.0.0.1`,
+prints no capability and disables receipt-path access logs. The fixed public HTML/JS/CSS shell
+contains no receipt data or capability. Every API/read/export route still requires the capability;
+mutations also require the exact same-origin browser Origin. No CORS proxy is used.
+
+Create a single-currency batch or reopen its complete batch identity. Import recognized-bundle JSON,
+select any scalar, line cell or adjustment, inspect its supplied text/region and unchanged machine
+proposal/score, and save an explicit correction/confirmation/printed-absence waiver/reopen with a
+reason. Ctrl+Enter saves. Issue waivers require selecting the exact issues and giving a reason.
+Agent-provisional is the default; a claimed human reference stays unverified and is not human Gold.
+A clean export can include explicitly waived conflicts; it is not a receipt-accuracy certification.
+
+Unsaved edits and pending saved-draft retries block batch/item switching and export. A stale save
+is refused; reload state preserves the typed text before another explicit decision. On an uncertain
+apply response, retry the unchanged saved draft rather than generating another event. Do not reload
+the page before saving: unsaved text, capability and pending drafts are memory-only. The URL fragment
+remembers only the batch identity. Saved decisions live in the server journal and replay on restart.
+
+The recognized source preview uses supplied line text/geometry, with the selected field region.
+It is clearly labelled **Image unavailable**; it does not supply an original image or measured OCR.
+No image upload, job execution, live method, static unsaved demo mode or hosted backend is added.
+The static snapshot accepts only bounded index/hashed JS/CSS files and refuses private-root overlap,
+links, unexpected files/directories and oversized artifacts. Responses carry a restrictive CSP.
+
+`npm run test:viewer` exercises client request boundaries/retry/error presentation; `npm run build`
+runs the real TypeScript compiler and Vite. `python -m pytest tests/api -q` checks actual ASGI hosting
+and API separation. See development status for the separately retained browser journey evidence.
 
 ## Local recognized-bundle HTTP adapter
 

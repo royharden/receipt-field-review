@@ -1,6 +1,6 @@
 # Architecture boundary
 
-Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI, durable recognized-item B0 jobs, a synthetic CLI demo, API DTO/schema/TypeScript contracts and a recognized-bundle FastAPI adapter. Image ingestion, actual native/model inference, image-upload jobs, listener/worker ownership and UI remain pending. See the [current inventory](../DEVELOPMENT-STATUS.md).
+Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI, durable recognized-item B0 jobs, a synthetic CLI demo, API DTO/schema/TypeScript contracts and a recognized-bundle FastAPI adapter. Image ingestion, actual native/model inference, image-upload jobs, worker ownership and original-image UI remain pending; the recognized-bundle viewer and loopback launcher are implemented. See the [current inventory](../DEVELOPMENT-STATUS.md).
 
 The demo orchestrates existing CLI entrypoints, `BatchStore`, decision drafts and `JobStore`; it owns
 no parallel persistence or extraction implementation. Fresh CLI processes read saved decisions.
@@ -30,3 +30,9 @@ JSON; the async transport supplies the receive deadline. File/journal operations
 existing thread-safe local workflow. Review detail excludes retained artifact bytes, fixed private
 export routes retain audit sources, and unavailable images/jobs/live methods stay explicit.
 Transport controls use the real ASGI app in process; no application listener or browser is implied.
+
+The local viewer is compiled from root React/TypeScript/Vite sources. A bounded startup snapshot
+serves only index and hashed JS/CSS assets publicly under the exact Host policy. Private roots cannot
+overlap that snapshot; receipt APIs remain token-protected. The browser uses same-origin requests,
+retains capability/unsaved drafts only in memory, and uses canonical server decisions/exports without
+a parallel browser store. Its text/geometry preview is distinct from an original-image overlay.

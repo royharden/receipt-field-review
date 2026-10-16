@@ -3,7 +3,7 @@
 The synthetic recognized-bundle demo is available as of 2026-10-15; [development status](../DEVELOPMENT-STATUS.md) is the current
 implementation inventory. Durable recognized-item B0 jobs and pure API DTO/schema/TypeScript contracts
 are implemented. A recognized-bundle FastAPI adapter now enforces admission and actual stream limits in process.
-FastAPI/Uvicorn/httpx are installed; listener/worker, source images and viewer remain absent. No native
+FastAPI/Uvicorn/httpx are installed; recognized-bundle viewer/listener are implemented; worker control and source images remain absent. No native
 image run or live provider call occurred.
 
 The demo's deliberate arithmetic mismatch remains review-only until explicit synthetic issue waivers
@@ -19,7 +19,7 @@ and the narrow local slice/current gate were accepted with notes. This is not an
 or stable timing-reliability claim. The HTTP continuation changes source/dependencies and requires
 its own checks and independent disposition; whole-app acceptance remains outstanding.
 
-The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. Image ingestion, native HEIC conversion, actual OCR, live model verification, image-upload/live-method job integration, receipt-domain evaluation scorers, application listener/worker integration and UI remain pending.
+The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. Image ingestion, native HEIC conversion, actual OCR, live model verification, image-upload/live-method job integration, receipt-domain evaluation scorers, worker/image integration and original-image UI remain pending.
 
 B0 over-finds candidates from supplied retained recognized lines. It supports basic line amounts and explicitly printed quantity-times-unit-price forms, plus separately printed tip/service/discount adjustments. Missing quantities, unit prices, tax, currency codes and unknown adjustment stages are not guessed. Handwriting, complex/multicolumn layouts, Arabic/localized numeral formats and real OCR quality remain unmeasured. The current presets cover USD/EUR/GBP/CAD/AUD/JPY/KWD; other currency codes are rejected. Diagnostic checks/proposals default to blank review, with no calibrated automation claim.
 
@@ -40,3 +40,9 @@ The app's ReplayOcr accepts only explicitly supplied bounded frames under an exp
 Python/native OCR is an external runtime boundary for the eventual static viewer. No hosted database, GitHub remote, Bolt import, backend provisioning or public release is established by this scaffold.
 
 Canonical S3/S6 offline components are vendored unchanged and pass actual moved public controls with original apps, SDKs and network blocked. They are not yet connected to receipt methods or a live transport. Recognized-bundle workflow tests use literal synthetic sources; operational clean exports, provisional decisions and unverified human claims do not establish human Gold or measured model quality.
+
+The current viewer and real loopback browser checks operate on authored recognized bundles.
+Supplied text/geometry and agent-provisional decisions do not prove original-image OCR or quality.
+Capabilities and unsaved/pending decisions are memory-only, so a page reload discards unsaved work;
+saved decisions replay from the local journal. Static unsaved demo mode is not implemented. A
+single local Windows/Chromium journey is not a browser/OS/hosted-isolation or whole-app acceptance.

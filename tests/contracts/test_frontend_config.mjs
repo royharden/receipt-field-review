@@ -6,15 +6,15 @@ const packageConfig = JSON.parse(readFileSync(new URL("../../package.json", impo
 const typescript = JSON.parse(readFileSync(new URL("../../tsconfig.json", import.meta.url), "utf8"));
 const vite = readFileSync(new URL("../../vite.config.ts", import.meta.url), "utf8");
 
-test("bootstrap never presents a scaffold check as a frontend build", () => {
+test("viewer build uses the real compiler and bundler without provider SDKs", () => {
   assert.equal(packageConfig.private, true);
-  assert.equal(packageConfig.scripts.build, undefined);
+  assert.equal(packageConfig.scripts.build, "tsc --noEmit && vite build");
   assert.equal(packageConfig.dependencies?.openai, undefined);
   assert.equal(packageConfig.dependencies?.["@typesafe-ai/sdk"], undefined);
   assert.ok(packageConfig.scripts["test:scaffold"].includes("node --test"));
 });
 
-test("future viewer configuration is root-portable and loopback bounded", () => {
+test("viewer configuration is root-portable and loopback bounded", () => {
   assert.match(vite, /root: "web"/);
   assert.match(vite, /outDir: "\.\.\/dist\/web"/);
   assert.equal((vite.match(/host: "127\.0\.0\.1"/g) ?? []).length, 2);

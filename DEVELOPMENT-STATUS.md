@@ -1,8 +1,8 @@
 # Development status
 
-Local recognized-bundle HTTP adapter added on 2026-10-15. This is a local, partially implemented application. No hosted deployment,
+Local recognized-bundle browser viewer added on 2026-10-15. This is a local, partially implemented application. No hosted deployment,
 public release, measured receipt accuracy or independent finished-application acceptance is claimed.
-The recognized-bundle demo baseline is `f9dc18133452509e0195f6069eecf83320ef60bb`.
+The accepted local HTTP baseline is `0fc71bb31078e30746f4b718c8efe18d94333d18`.
 
 ## Finished implementation slices
 
@@ -45,20 +45,36 @@ failures respectively, despite isolated passes. A later independent default, uni
 of that exact demo candidate passed 479 ordinary tests plus 15 successful subreports with unchanged
 native deadlines. The local recognized-bundle slice and that current combined gate were accepted
 with notes. The earlier intermittent failures remain unexplained; no causal fix or stable timing
-reliability is claimed. Whole-app acceptance remains outstanding. This HTTP continuation has its
-own changed dependency/source checks and requires a fresh independent disposition.
+reliability is claimed. Whole-app acceptance remains outstanding. The exact final HTTP candidate later passed an independent default combined run: 516 ordinary tests,
+531 suite-reported calls including subreports, zero failures/errors/skips, and six independent real
+ASGI checks. That local HTTP supplement was accepted with notes. The new viewer requires its own
+independent disposition; no unchanged combined rerun is counted for it.
 
 FastAPI, Starlette, Uvicorn and httpx are now installed through the portable official-PyPI lock.
 The actual wheel build succeeds and retains required schemas plus vendored license notices.
 In-process TestClient and direct ASGI controls exercise HTTP admission, bounded fragmented bodies,
 timeout/disconnect refusal, correction/retry/restart, stale conflicts and private exports. The
 Starlette httpx-backend deprecation warning is retained. Windows event-loop control socket pairs
-are allowed in the test harness; application socket connections remain denied. No application
-listener, browser, original image, actual OCR or live-provider call has been exercised.
+are allowed in the test harness; application socket connections remain denied. A later recognized-bundle viewer continuation exercised a real loopback Uvicorn listener and Chromium
+against authored data; original images, actual OCR and live providers remain unexercised.
 
-React/Vite/TypeScript scaffolding exists. No review viewer or runnable frontend build exists.
+The React/TypeScript/Vite viewer now has an actual root build and same-origin local Python launcher.
+All scalar/line/adjustment cells, recognized-text region preview, explicit decisions/waivers,
+private exports, saved-draft retry, unsaved-navigation locks and stale-state errors are implemented.
+A bounded immutable public shell is separated from capability-protected receipt APIs. New React
+type packages are pinned; isolated frontend setup preserves the retained prior runtime environments.
 Pillow/HEIF/native OCR integration remains pending. The demo still uses authored geometry and
 confidence; explicit provisional waivers do not establish verified receipt arithmetic or human Gold.
+
+The viewer continuation passed the actual TypeScript/Vite build, six client controls, three frontend
+configuration controls and 87 API controls. Authored Windows/Chromium browser controls exercised
+recognized import, keyboard correction, two-tab stale refusal with retained text, 17 remaining
+individual field decisions and nine explicit issue waivers. Final server restart replay preserved
+the corrected value and operationally resolved state. The in-app browser delivered actual CSV and
+JSONL files; inspected JSONL retained all 18 original machine fields, artifact bytes and provisional
+labels. CLI-browser download cancellations and a download-event timeout during the bounded server
+window remain retained failures; their cause is not claimed resolved by alternate-browser success.
+This is author verification of a narrow recognized-only journey, pending independent viewer review.
 
 ## Outstanding work
 
@@ -66,9 +82,9 @@ confidence; explicit provisional waivers do not establish verified receipt arith
    artifacts, coordinates, failures and retained image handling verified end to end.
 2. Add actual listener/worker lifecycle and HTTP job integration. The recognized-bundle adapter
    covers in-process request policy and durable review/export; native upload/job paths remain absent.
-3. Build the review UI: actual source overlays, all scalar/line/adjustment cells, keyboard review,
-   visible conflicts/issues, persistent corrections, failure states and honest export omissions.
-   Install real React type packages and validate the actual build/browser journey.
+3. Add original-image overlays and complete native/image job integration in the viewer. The current
+   browser serves recognized bundles and supplied geometry only; static unsaved demo mode and full
+   native/held-out/browser matrix remain pending.
 4. Integrate canonical J1/V2 model methods only after actual SDK, pricing, capabilities, cumulative
    budget reservation and bounded test authorization are established. Preserve every outcome and cost.
 5. Obtain lawful real receipts and independent human labels; implement receipt-domain scorers and
