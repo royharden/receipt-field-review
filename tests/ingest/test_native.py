@@ -58,7 +58,7 @@ def test_adapter_page_binding_is_normalized_and_never_uses_original_exif_again(t
     decoded = decode_bytes(source_image())
     directory = tmp_path / "run"
     directory.mkdir()
-    port = TesseractOcr(decoded, directory, Path(sys.executable), tmp_path)
+    port = TesseractOcr(decoded, directory, Path(sys.executable).resolve(strict=True), tmp_path)
     page = port.page_input
     assert (page.width_px, page.height_px) == (100, 60)
     assert page.grid_policy_id == "rgba8-source-grid-v1"
@@ -69,7 +69,9 @@ def test_adapter_page_binding_is_normalized_and_never_uses_original_exif_again(t
         port.recognize(page, bounds())
 
 
-@pytest.mark.parametrize("failure", ["missing", "timeout", "nonzero", "malformed"])
+@pytest.mark.parametrize(
+    "failure", ["missing", "timeout", "nonzero", "malformed", "model-mutation"]
+)
 def test_native_failure_preserves_existing_batch_source_and_journal(failure, tmp_path, monkeypatch):
     data = engine_files(tmp_path)
     source = tmp_path / "PRIVATE_SOURCE.png"
@@ -88,10 +90,18 @@ def test_native_failure_preserves_existing_batch_source_and_journal(failure, tmp
             return Capture("timeout", -1, b"", b"PRIVATE_NATIVE_DETAIL", 0.3, 1, True)
         if failure == "nonzero":
             return Capture("invalid", 3, b"", b"PRIVATE_NATIVE_DETAIL", 0.01, 1, True)
+        if failure == "model-mutation":
+            (data / "eng.traineddata").write_bytes(b"changed model marker")
+            raw = HEADER + b"\n1\t1\t0\t0\t0\t0\t0\t0\t100\t60\t-1\t\n"
+            return Capture("ok", 0, raw, b"", 0.01, 1, True)
         return Capture("ok", 0, b"PRIVATE_MALFORMED_TSV", b"", 0.01, 1, True)
 
     monkeypatch.setattr("rfr.ports.tesseract.bounded_command", capture)
-    executable = tmp_path / "missing-engine" if failure == "missing" else Path(sys.executable)
+    executable = (
+        tmp_path / "missing-engine"
+        if failure == "missing"
+        else Path(sys.executable).resolve(strict=True)
+    )
     with pytest.raises(NativeOcrError) as refused:
         import_image(store, source, executable, data, date(2026, 10, 16))
     assert "PRIVATE" not in str(refused.value)
@@ -107,7 +117,9 @@ def test_blank_tsv_is_genuine_empty_page_not_a_failed_stage(tmp_path, monkeypatc
     data = engine_files(tmp_path)
     directory = tmp_path / "run"
     directory.mkdir()
-    port = TesseractOcr(decode_bytes(source_image()), directory, Path(sys.executable), data)
+    port = TesseractOcr(
+        decode_bytes(source_image()), directory, Path(sys.executable).resolve(strict=True), data
+    )
 
     def capture(command, *args):
         raw = (
@@ -127,7 +139,9 @@ def test_slow_startup_uses_overall_budget_without_resetting_ocr_deadline(tmp_pat
     data = engine_files(tmp_path)
     directory = tmp_path / "run"
     directory.mkdir()
-    port = TesseractOcr(decode_bytes(source_image()), directory, Path(sys.executable), data)
+    port = TesseractOcr(
+        decode_bytes(source_image()), directory, Path(sys.executable).resolve(strict=True), data
+    )
     clock, limits = [0.0], []
     monkeypatch.setattr("rfr.ports.tesseract.time.monotonic", lambda: clock[0])
 
@@ -153,7 +167,9 @@ def test_exhausted_total_budget_never_dispatches_ocr(tmp_path, monkeypatch):
     data = engine_files(tmp_path)
     directory = tmp_path / "run"
     directory.mkdir()
-    port = TesseractOcr(decode_bytes(source_image()), directory, Path(sys.executable), data)
+    port = TesseractOcr(
+        decode_bytes(source_image()), directory, Path(sys.executable).resolve(strict=True), data
+    )
     clock, calls = [0.0], []
     monkeypatch.setattr("rfr.ports.tesseract.time.monotonic", lambda: clock[0])
 
@@ -169,6 +185,171 @@ def test_exhausted_total_budget_never_dispatches_ocr(tmp_path, monkeypatch):
     assert result.issues == ("native_ocr_timeout",) and not port.execution["ocr_started"]
 
 
+@pytest.mark.parametrize(
+    "phase",
+    [
+        "conversion",
+        "serialization",
+        "artifact-write",
+        "execution-write",
+        "execution-serialize",
+        "result",
+        "artifact-promote",
+        "execution-promote",
+        "within-budget",
+    ],
+)
+def test_late_native_output_refuses_success_and_final_artifact(phase, tmp_path, monkeypatch):
+    import rfr.ports.tesseract as native_port
+
+    data = engine_files(tmp_path)
+    directory = tmp_path / "run"
+    directory.mkdir()
+    port = TesseractOcr(
+        decode_bytes(source_image()), directory, Path(sys.executable).resolve(), data
+    )
+    clock = [0.0]
+    monkeypatch.setattr(native_port.time, "monotonic", lambda: clock[0])
+
+    def capture(command, *args):
+        raw = (
+            b"tesseract v5.5-test\n"
+            if command[-1] == "--version"
+            else (HEADER + b"\n1\t1\t0\t0\t0\t0\t0\t0\t100\t60\t-1\t\n")
+        )
+        return Capture("ok", 0, raw, b"", 0.01, 1, True)
+
+    monkeypatch.setattr(native_port, "bounded_command", capture)
+    convert, serialize, persist, canonical, result_model, rename = (
+        native_port.page_from_artifact,
+        native_port.artifact_bytes,
+        native_port.immutable,
+        native_port.canonical_bytes,
+        native_port.OcrResult,
+        Path.rename,
+    )
+
+    def late_convert(*args):
+        result = convert(*args)
+        if phase == "conversion":
+            clock[0] = 31.0
+        elif phase == "within-budget":
+            clock[0] = 29.0
+        return result
+
+    def late_serialize(*args):
+        result = serialize(*args)
+        if phase == "serialization":
+            clock[0] = 31.0
+        return result
+
+    def late_write(path, raw):
+        persist(path, raw)
+        if phase == "artifact-write" and path.name in {"artifact.json", "pending-artifact.json"}:
+            clock[0] = 31.0
+        if phase == "execution-write" and path.name in {"execution.json", "pending-execution.json"}:
+            clock[0] = 31.0
+
+    def late_canonical(value):
+        raw = canonical(value)
+        if phase == "execution-serialize" and type(value) is dict and value.get("status") == "ok":
+            clock[0] = 31.0
+        return raw
+
+    def late_result(**kwargs):
+        result = result_model(**kwargs)
+        if phase == "result" and kwargs["status"] == "ok":
+            clock[0] = 31.0
+        return result
+
+    def late_rename(path, target):
+        result = rename(path, target)
+        if phase == "artifact-promote" and path.name == "pending-artifact.json":
+            clock[0] = 31.0
+        if phase == "execution-promote" and path.name == "pending-execution.json":
+            clock[0] = 31.0
+        return result
+
+    monkeypatch.setattr(native_port, "page_from_artifact", late_convert)
+    monkeypatch.setattr(native_port, "artifact_bytes", late_serialize)
+    monkeypatch.setattr(native_port, "immutable", late_write)
+    monkeypatch.setattr(native_port, "canonical_bytes", late_canonical)
+    monkeypatch.setattr(native_port, "OcrResult", late_result)
+    monkeypatch.setattr(Path, "rename", late_rename)
+    result = port.recognize(port.page_input, bounds())
+    if phase == "within-budget":
+        assert result.status == "ok" and result.page is not None and port.retained_artifact
+        assert (directory / "artifact.json").read_bytes() == port.retained_artifact
+        assert json.loads((directory / "execution.json").read_bytes())["status"] == "ok"
+        return
+    assert result.status == "timeout" and result.page is None
+    assert result.issues == ("native_output_timeout",) and port.retained_artifact is None
+    assert not (directory / "artifact.json").exists()
+    execution = json.loads((directory / "execution.json").read_bytes())
+    assert execution["status"] == "timeout" and execution["issue"] == "native_output_timeout"
+    assert all(c["cleanup_complete"] for c in execution["commands"])
+
+
+def test_injected_native_fixture_accepts_symlink_interpreter_without_weakening_guard(
+    tmp_path, monkeypatch
+):
+    from rfr.pipeline.files import BatchError
+    from rfr.ports.tesseract import file_digest
+
+    link = tmp_path / "python-link.exe"
+    link.symlink_to(Path(sys.executable).resolve())
+    monkeypatch.setattr(sys, "executable", str(link))
+    with pytest.raises(BatchError, match="nonplain_private_path"):
+        file_digest(link)
+    test_blank_tsv_is_genuine_empty_page_not_a_failed_stage(tmp_path, monkeypatch)
+
+
+def test_late_native_conversion_never_registers_or_changes_existing_batch(tmp_path, monkeypatch):
+    import rfr.ports.tesseract as native_port
+
+    data = engine_files(tmp_path)
+    source = tmp_path / "source.png"
+    source.write_bytes(source_image())
+    private = tmp_path / "private"
+    private.mkdir()
+    store = BatchStore.create(private, CurrencyPolicy())
+    before = {p: p.read_bytes() for p in store.root.rglob("*") if p.is_file()}
+    clock = [0.0]
+    monkeypatch.setattr(native_port.time, "monotonic", lambda: clock[0])
+
+    def capture(command, *args):
+        raw = (
+            b"tesseract v5.5-test\n"
+            if command[-1] == "--version"
+            else (HEADER + b"\n1\t1\t0\t0\t0\t0\t0\t0\t100\t60\t-1\t\n")
+        )
+        return Capture("ok", 0, raw, b"", 0.01, 1, True)
+
+    original = native_port.page_from_artifact
+
+    def late(*args):
+        page = original(*args)
+        clock[0] = 31.0
+        return page
+
+    def no_registration(*args, **kwargs):
+        raise AssertionError("refused recognition must never reach registration")
+
+    monkeypatch.setattr(native_port, "bounded_command", capture)
+    monkeypatch.setattr(native_port, "page_from_artifact", late)
+    monkeypatch.setattr(store, "register", no_registration)
+    with pytest.raises(NativeOcrError, match="^native_output_timeout$"):
+        import_image(
+            store, source, Path(sys.executable).resolve(strict=True), data, date(2026, 10, 16)
+        )
+    assert not store.list_items() and all(p.read_bytes() == data for p, data in before.items())
+    run = next((store.root / "ocr").iterdir())
+    assert not any(
+        (run / name).exists() for name in ("artifact.json", "bundle.json", "import.json")
+    )
+    assert json.loads((run / "execution.json").read_bytes())["status"] == "timeout"
+
+
 @pytest.mark.parametrize("state", ["full", "deleted", "stale", "journal"])
 def test_known_batch_refusal_precedes_native_dispatch_and_retention(state, tmp_path, monkeypatch):
     data = engine_files(tmp_path)
@@ -178,7 +359,7 @@ def test_known_batch_refusal_precedes_native_dispatch_and_retention(state, tmp_p
     private.mkdir()
     store = BatchStore.create(private, CurrencyPolicy())
     item = TesseractOcr(
-        decode_bytes(source_image()), tmp_path, Path(sys.executable), data
+        decode_bytes(source_image()), tmp_path, Path(sys.executable).resolve(strict=True), data
     ).page_input.document_id
     manifest = store._manifest()
     if state == "full":
@@ -203,7 +384,7 @@ def test_known_batch_refusal_precedes_native_dispatch_and_retention(state, tmp_p
         import_image(
             store,
             source,
-            Path(sys.executable),
+            Path(sys.executable).resolve(strict=True),
             data,
             date(2026, 10, 16),
             expected_revision="b" * 64 if state == "stale" else None,

@@ -215,6 +215,13 @@ class TesseractOcr:
         plain(self.directory, directory=True)
         started = time.monotonic()
         status, issue = "invalid", "native_input_refused"
+        candidate, retained = None, None
+        published = []
+
+        def output_budget():
+            if time.monotonic() - started >= bounds.deadline_s:
+                raise NativeOcrError("native_output_timeout")
+
         try:
             if page != self.page_input or not 0 < bounds.deadline_s <= 60:
                 raise NativeOcrError("native_input_binding")
@@ -303,16 +310,34 @@ class TesseractOcr:
                 config_sha256=hashlib.sha256(config_raw).hexdigest(),
             )
             recognized = page_from_artifact(artifact, page)
-            self.retained_artifact = artifact_bytes(artifact)
-            immutable(self.directory / "artifact.json", self.retained_artifact)
-            self.execution.update(status="ok", issue=None)
-            return OcrResult(
+            output_budget()
+            retained = artifact_bytes(artifact)
+            output_budget()
+            candidate = OcrResult(
                 status="ok",
                 page=recognized,
                 issues=(),
                 capabilities=("installed-local-tesseract", "measured-word-boxes"),
                 processing_artifact_ref=artifact.artifact_id,
             )
+            output_budget()
+            self.execution.update(status="ok", issue=None)
+            execution_raw = canonical_bytes(self.execution)
+            output_budget()
+            # Candidates remain visibly pending until their writes complete inside the budget.
+            # If a later publication crosses it, preserve the bytes under refused names.
+            for name, data in (("artifact", retained), ("execution", execution_raw)):
+                pending = self.directory / ("pending-" + name + ".json")
+                immutable(pending, data)
+                output_budget()
+            for name in ("artifact", "execution"):
+                target = self.directory / (name + ".json")
+                if os.path.lexists(target):
+                    raise NativeOcrError("native_output_conflict")
+                (self.directory / ("pending-" + name + ".json")).rename(target)
+                published.append((target, self.directory / ("refused-" + name + ".json")))
+                output_budget()
+            status, issue = "ok", None
         except NativeOcrError as error:
             issue = str(error)
             status = (
@@ -331,9 +356,16 @@ class TesseractOcr:
         except (OSError, ValueError, TypeError, IndexError):
             issue = "native_output_or_state_refused"
         finally:
-            self.execution.setdefault("status", status)
-            self.execution.setdefault("issue", issue)
-            immutable(self.directory / "execution.json", canonical_bytes(self.execution))
+            if status != "ok":
+                for target, refused in reversed(published):
+                    if os.path.lexists(refused):
+                        raise NativeOcrError("native_refused_output_conflict")
+                    target.rename(refused)
+                self.execution.update(status=status, issue=issue)
+                immutable(self.directory / "execution.json", canonical_bytes(self.execution))
+        if status == "ok":
+            self.retained_artifact = retained
+            return candidate
         return OcrResult(
             status=status, page=None, issues=(issue,), capabilities=(), processing_artifact_ref=None
         )
