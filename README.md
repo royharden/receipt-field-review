@@ -89,7 +89,7 @@ A repeat explicitly runs OCR again. Identical machine evidence/context replays s
 different results require `--expected-revision` and retain review conflicts. Native failure does
 not register a successful or fabricated blank receipt. Private `ocr/native-*/` records retain
 execution outputs; incomplete attempts stay available for diagnosis. No automatic native retry or
-provider fallback occurs. Original-image HTTP serving and overlays are still absent.
+provider fallback occurs. Authenticated normalized-source HTTP reads are available; the viewer overlay remains absent.
 
 Actual Windows functional controls use authored pixels through the public CLI, correction/retry,
 repeat OCR, reopen and exports. A first version probe timed out; later controls passed without a
@@ -141,7 +141,7 @@ npm run build
 python -m rfr.serve --root <existing-private-batch-directory> --viewer dist/web --port <explicit-loopback-port>
 ```
 
-The host reads `RFR_LOCAL_CAPABILITY` from its environment: supply a fresh 32–256 character printable
+The host reads `RFR_LOCAL_CAPABILITY` from its environment: supply a fresh 32â€“256 character printable
 ASCII capability before launch, then enter it in the viewer. The launcher binds only `127.0.0.1`,
 prints no capability and disables receipt-path access logs. The fixed public HTML/JS/CSS shell
 contains no receipt data or capability. Every API/read/export route still requires the capability;
@@ -180,7 +180,7 @@ and API separation. See development status for the separately retained browser j
 ## Local recognized-bundle HTTP adapter
 
 `rfr.api.app.create_app(existing_private_root, origin="http://127.0.0.1:<port>",
-capability=<fresh ASCII token of 32–256 characters>)` returns the FastAPI ASGI app. The trusted host
+capability=<fresh ASCII token of 32â€“256 characters>)` returns the FastAPI ASGI app. The trusted host
 supplies the private root, exact loopback origin and capability. The factory starts no listener,
 issues no token and exposes no OpenAPI page. Do not embed the capability in a URL or public assets.
 
@@ -193,19 +193,31 @@ Responses use `Cache-Control: no-store` and `X-Content-Type-Options: nosniff`.
 
 | Method / path | Input or result |
 |---|---|
-| GET `/api/status` | Current capabilities; images, HTTP jobs and live methods unavailable |
-| POST `/api/batches` | `CreateBatch` → batch identity |
-| POST `/api/batches/{batch}/recognized` | `RecognizedImport` → item identity and revision |
+| GET `/api/status` | Current capabilities; source-page reads supported; image upload, HTTP jobs and live methods unavailable |
+| POST `/api/batches` | `CreateBatch` â†’ batch identity |
+| POST `/api/batches/{batch}/recognized` | `RecognizedImport` â†’ item identity and revision |
 | GET `/api/batches/{batch}/items` | Bounded item summaries |
 | GET `/api/batches/{batch}/items/{item}` | Typed review detail; no retained artifact bytes |
-| POST `/api/batches/{batch}/items/{item}/draft` | `DraftRequest` → stable `DecisionDraft` |
-| POST `/api/batches/{batch}/items/{item}/decisions` | Exact saved draft → append/retry outcome |
+| GET `/api/batches/{batch}/items/{item}/page?revision={revision}` | Authenticated normalized PNG for an existing local image, bound to the exact current item revision and Docio pixel grid |
+| POST `/api/batches/{batch}/items/{item}/draft` | `DraftRequest` â†’ stable `DecisionDraft` |
+| POST `/api/batches/{batch}/items/{item}/decisions` | Exact saved draft â†’ append/retry outcome |
 | GET `/api/batches/{batch}/exports/{review\|clean}/{filename}` | Four fixed export filenames |
 
 Input models are in `src/rfr/api/models.py`; generated JSON/TypeScript contracts retain the same
 wire forms. Export filenames are `receipts.csv`, `line_items.csv`, `receipts.jsonl`, `omitted.json`.
 An empty clean data download returns 409 with omissions; the omission report remains downloadable.
 Source-bearing JSONL is private review data. No client-provided output path is accepted.
+
+The optional source-page route reads only existing staged local pixels. It requires the same
+Host/capability/Origin policy as other private reads, plus the exact item revision from review
+detail. It checks original/staged hashes, dimensions, the metadata-free RGB PNG profile and the
+canonical Docio RGBA8 grid digest before returning bytes. Stale/deleted items, missing pixels,
+modified stages and mismatched grids refuse; the original image and its metadata are never served.
+`image_available` reflects verification for that review revision; source failure still permits
+recognized-text correction/export. Pillow's optional `images` extra is needed to verify pixels.
+Every response uses `no-store`/`nosniff`; successful reads carry `X-RFR-Item-Revision` and
+`X-RFR-Page-SHA256`. The current viewer still displays recognized text and supplied regions:
+it does not fetch this route or provide a source-image overlay. No upload or worker is added.
 
 `python -m pytest tests/api -q` exercises actual FastAPI/Starlette dispatch through TestClient and
 direct ASGI streaming, durable correction replay through a new app, exact retries, stale conflicts,
@@ -245,7 +257,7 @@ With the installed Python environment, run `python -m pytest tests/module -q` fo
 
 ## Planned workflow
 
-The intended image workflow imports up to100 single-currency JPEG/PNG/HEIC receipts, shows highlighted source regions, supports keyboard review, and exports CSV/JSONL. Provided recognized bundles support durable corrections, unchanged-evidence reruns, changed-evidence conflicts and audited exports through the CLI and local HTTP viewer. Durable recognized-item jobs execute B0 and retain explicit J1/V2-unavailable outcomes. Optional local decoding and installed-engine OCR now have CLI entrypoints. Image serving, image-upload jobs and original-image browser overlays remain pending. The FastAPI adapter enforces bounded streaming and request policy for the recognized-bundle workflow.
+The intended image workflow imports up to100 single-currency JPEG/PNG/HEIC receipts, shows highlighted source regions, supports keyboard review, and exports CSV/JSONL. Provided recognized bundles support durable corrections, unchanged-evidence reruns, changed-evidence conflicts and audited exports through the CLI and local HTTP viewer. Durable recognized-item jobs execute B0 and retain explicit J1/V2-unavailable outcomes. Optional local decoding and installed-engine OCR now have CLI entrypoints. Authenticated normalized-source reads are implemented; image-upload jobs and original-image browser overlays remain pending. The FastAPI adapter enforces bounded streaming and request policy for the recognized-bundle workflow.
 
 ## Architecture
 

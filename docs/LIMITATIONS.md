@@ -4,7 +4,7 @@ The synthetic recognized-bundle demo is available as of 2026-10-15; [development
 implementation inventory. Durable recognized-item B0 jobs and pure API DTO/schema/TypeScript contracts
 are implemented. A recognized-bundle FastAPI adapter now enforces admission and actual stream limits in process.
 FastAPI/Uvicorn/httpx are installed; recognized-bundle viewer/listener are implemented; HTTP image
-worker control and source-image serving remain absent. An optional installed-Tesseract CLI now
+worker control and original-image UI overlays remain absent. Existing normalized local pixels can be read through the revision/grid-bound authenticated API. An optional installed-Tesseract CLI now
 executes actual local OCR on normalized images and joins canonical B0/review/export. No live
 provider call or receipt-quality measurement is supplied by that functional control.
 
@@ -46,7 +46,7 @@ and review-process timeout failures; a later moved-runtime native import also ex
 30-second total budget despite successful, reaped engine commands. Its four other targeted passes
 do not establish timing stability, explain the earlier failures or satisfy the combined gate.
 
-The app's ReplayOcr accepts only explicitly supplied bounded frames under an expected engine/config profile. A replay hit is not actual native execution or source/capture authority; misses cannot fall back to a paid/native operation. HTTP image loading, lawful capture handling and the complete image job/UI integration remain pending. Model/provider strict replay will use the canonical provider owner, rather than this OCR-specific adapter.
+The app's ReplayOcr accepts only explicitly supplied bounded frames under an expected engine/config profile. A replay hit is not actual native execution or source/capture authority; misses cannot fall back to a paid/native operation. Authenticated HTTP reads of existing normalized local pixels are implemented with revision/grid checks. Image upload, lawful capture handling and the complete image job/UI integration remain pending. Model/provider strict replay will use the canonical provider owner, rather than this OCR-specific adapter.
 
 Python/native OCR is an external runtime boundary for the eventual static viewer. No hosted database, GitHub remote, Bolt import, backend provisioning or public release is established by this scaffold.
 

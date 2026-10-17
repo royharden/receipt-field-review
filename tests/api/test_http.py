@@ -65,9 +65,8 @@ def test_real_http_correction_retry_restart_and_explicit_clean_exports(tmp_path,
         assert status.status_code == 200
         caps = status.json()["capabilities"]
         assert caps["recognized_import"] and caps["review_persistence"]
-        assert not any(
-            caps[k] for k in ("source_images", "image_upload", "local_b0", "jev", "vision")
-        )
+        assert caps["source_images"]
+        assert not any(caps[k] for k in ("image_upload", "local_b0", "jev", "vision"))
         base, revision = imported(c, bundle)
         before = c.get(f"{base}/items/{item}").json()
         assert before["image_available"] is False

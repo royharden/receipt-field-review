@@ -24,7 +24,7 @@
 | Local native import | `python -m rfr.cli --root <private-root> import-image --batch <id> --source <image> --tesseract <installed-executable> --tessdata <model-directory> --reference-date <ISO-date>`; existing review CLI then corrects/exports the imported item |
 | Core | `src/rfr/shared/{docio,fieldextract,rulings,evalkit}`; receipt plugin and `src/rfr/pipeline` |
 | HTTP/frontend | `rfr.api.app.create_app`: recognized-bundle FastAPI factory, bounded actual ASGI requests and durable review/export; recognized-bundle React viewer and optional bounded public shell |
-| HTTP checks | `python -m pytest tests/api -q`; actual in-process requests, no source images or live methods |
+| HTTP checks | `python -m pytest tests/api -q`; in-process review and authenticated existing normalized-source reads; no live methods |
 | Package check | `uv build --wheel`; `python tools/check_wheel.py dist` verifies shipped schemas/licenses |
 | Focused tests | `python -m pytest tests/demo tests/pipeline tests/export tests/cli -q` |
 | Combined checks | `python -m pytest -q`; `python -m ruff check .`; `python -m ruff format --check .` |
@@ -103,7 +103,10 @@ The HTTP factory's exact loopback Host/token/Origin policy, actual streamed-byte
 body deadline, closed errors and private download headers are exercised in process. FastAPI,
 Uvicorn and httpx are installed from the portable public-registry lock; the viewer continuation launches a bounded real loopback server for authored browser checks.
 The host must supply a fresh capability and existing private root. See the README for the route
-inventory and body bounds. HTTP job control, image endpoints and source-image bytes remain absent.
+inventory and body bounds. An optional authenticated `/items/{item}/page?revision={revision}` read
+now verifies an existing normalized PNG against the current item and Docio pixel grid. It serves
+no original metadata, rejects stale/tampered/foreign grids, and mutates no decision state. The
+viewer does not fetch that route yet. Image upload, HTTP job control and source overlays remain absent.
 
 Complete the remaining preprocessing/engine qualification, actual listener/worker ownership, original-image source overlays, canonical live method integration and required independent evaluation before presenting
 the full app as ready. Rights, genuine human labels, frozen held-out data and applicable spend grants

@@ -161,7 +161,7 @@ def create_app(
             capabilities=Capabilities(
                 recognized_import=True,
                 image_upload=False,
-                source_images=False,
+                source_images=True,
                 review_persistence=True,
                 local_b0=False,
                 jev=False,
@@ -186,6 +186,19 @@ def create_app(
     @app.get("/api/batches/{batch_id}/items/{item_id}")
     async def detail(batch_id: str, item_id: str):
         return await run_in_threadpool(operations.detail, batch_id, item_id)
+
+    @app.get("/api/batches/{batch_id}/items/{item_id}/page")
+    async def source_page(batch_id: str, item_id: str, revision: str):
+        page = await run_in_threadpool(operations.source_page, batch_id, item_id, revision)
+        return Response(
+            page.png,
+            media_type="image/png",
+            headers={
+                "X-RFR-Item-Revision": page.revision,
+                "X-RFR-Page-SHA256": page.grid_sha256,
+                "Content-Disposition": 'inline; filename="source.png"',
+            },
+        )
 
     @app.post("/api/batches/{batch_id}/items/{item_id}/draft")
     async def draft(batch_id: str, item_id: str, request: Request):

@@ -71,3 +71,20 @@ The explicit CLI path uses a read-only installed executable/model, bounded child
 and conservative review-only extraction. It performs no provider call or automatic restart retry.
 Native executable qualification, model provenance, codec allocation isolation, broader preprocessing,
 HTTP image-job integration and original-image overlays remain distinct from this local consumer join.
+
+## Existing normalized-source read
+
+The local API's optional `source_images` consumer reads staged pixels for one current image item.
+It shares the authoritative BatchStore mutex with registration/deletion, checks the requested item
+revision, and binds the returned RGB PNG to the existing Docio RGBA8 grid digest/dimensions.
+Staging hashes alone do not establish pixel identity. Only the staging encoder's IHDR/IDAT/IEND
+profile is accepted; ancillary metadata, trailing bytes and malformed chunks refuse. The original
+container is retained privately and never served. No parallel image index or decision store exists.
+
+All reads cross the existing capability/Host/Origin guard before filesystem/codec access and use
+private response headers. Missing/invalid optional pixels produce `image_available=false` in
+review detail without preventing text review; the page request itself returns a closed refusal.
+A response is a revision-bound snapshot; deletion cannot revoke bytes already returned. This
+owner-local in-process decoder has pixel/byte bounds, not a hostile-upload process sandbox or
+decoder CPU deadline. Uploads, workers, frontend fetching/overlays and native browser proof remain
+separate work. Tiny authored pixels and injected native outputs do not establish OCR accuracy.

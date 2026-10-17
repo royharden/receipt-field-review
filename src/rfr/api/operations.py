@@ -10,7 +10,7 @@ from ..pipeline.files import BatchError
 from ..pipeline.store import BatchStore
 from ..shared.rulings.identity import canonical_bytes
 from ..shared.rulings.models import AppendReceipt, ScalarSubject
-from ..shared.rulings.store import JournalStore
+from ..shared.rulings.store import JournalStore, PriorConflict
 from .models import (
     BatchSummary,
     CreateBatch,
@@ -20,6 +20,8 @@ from .models import (
     ItemSummary,
     RecognizedImport,
 )
+from .security import RequestRefused
+from .source_images import SourcePage, source_page
 
 
 def _wire[T: BaseModel](model: type[T], value: object) -> T:
@@ -73,7 +75,17 @@ class ReviewOperations:
     def detail(self, batch_id: str, item_id: str) -> ItemDetail:
         view = self._store(batch_id).detail(item_id)
         review = {key: value for key, value in view.items() if key != "retained_artifact_base64"}
-        return _wire(ItemDetail, {"review": review, "image_available": False})
+        # Missing/invalid optional source pixels must not prevent text correction/export.
+        # Availability is checked against this exact review revision, never a cached filename.
+        try:
+            self.source_page(batch_id, item_id, view["revision"])
+            available = True
+        except (RequestRefused, BatchError, OSError, ValueError, PriorConflict):
+            available = False
+        return _wire(ItemDetail, {"review": review, "image_available": available})
+
+    def source_page(self, batch_id: str, item_id: str, revision: str) -> SourcePage:
+        return source_page(self._store(batch_id), item_id, revision)
 
     def draft(self, batch_id: str, item_id: str, request: DraftRequest) -> DecisionDraft:
         request = _request(DraftRequest, request)

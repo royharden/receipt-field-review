@@ -129,7 +129,8 @@ independent acceptance remain open. No timeout was widened and no failed run was
    native CLI boundary to durable image jobs. The basic actual image/OCR/B0/review CLI join is now
    implemented; real-data quality, reusable native-adapter export and broad acceptance remain open.
 2. Add actual listener/worker lifecycle and HTTP job integration. The recognized-bundle adapter
-   covers in-process request policy and durable review/export; native upload/job paths remain absent.
+   covers in-process request policy and durable review/export. Authenticated normalized-source reads
+   now bind existing local pixels to the current item revision/Docio grid; native upload/job paths remain absent.
 3. Add original-image overlays and complete native/image job integration in the viewer. The current
    browser serves recognized bundles and supplied geometry only; static unsaved demo mode and full
    native/held-out/browser matrix remain pending.
