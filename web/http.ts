@@ -1,5 +1,5 @@
 import type { ApiStatus, AppendReceipt, BatchSummary, Currency, DecisionDraft, DraftInput,
-  ExportFile, ExportMode, ItemDetail, ItemSummary } from "./contracts";
+  ExportFile, ExportMode, ItemDetail, ItemSummary, SourcePage } from "./contracts";
 
 export class ApiError extends Error {
   readonly status: number;
@@ -20,7 +20,7 @@ export function describeError(error: unknown): string {
   return "Request did not complete. Check the local server; a saved decision may be retried unchanged.";
 }
 
-/** Recognized-only routes. No image/job/model implementation or persistent browser storage. */
+/** Local review routes. No upload/job/model dispatch or persistent browser storage. */
 export class HttpReviewApi {
   private readonly token: string;
   private readonly origin: string;
@@ -34,14 +34,14 @@ export class HttpReviewApi {
     // Browser fetch requires the Window receiver; a method call on this client is illegal.
     this.token = token; this.origin = origin; this.fetcher = fetcher.bind(globalThis);
   }
-  private async request(path: string, payload?: unknown): Promise<Response> {
+  private async request(path: string, payload?: unknown, signal?: AbortSignal): Promise<Response> {
     const response = await this.fetcher(this.origin + path, {
       method: payload === undefined ? "GET" : "POST",
       headers: { "X-RFR-Token": this.token, ...(payload === undefined ? {} :
         { "Content-Type": "application/json" }) },
       body: payload === undefined ? undefined : JSON.stringify(payload),
       credentials: "omit", cache: "no-store", redirect: "error", mode: "same-origin",
-      signal: AbortSignal.timeout(15_000),
+      signal: signal ? AbortSignal.any([signal, AbortSignal.timeout(15_000)]) : AbortSignal.timeout(15_000),
     });
     if (!response.ok) {
       let code = "request_refused";
@@ -66,6 +66,30 @@ export class HttpReviewApi {
   }
   async item(batch: string, item: string): Promise<ItemDetail> {
     return (await this.request(this.itemPath(batch, item))).json();
+  }
+  async image(batch: string, item: string, revision: string, page: SourcePage, signal?: AbortSignal): Promise<Blob> {
+    if (!/^[a-f0-9]{64}$/.test(revision) || !/^[a-f0-9]{64}$/.test(page.page_sha256) ||
+        !Number.isSafeInteger(page.width_px) || !Number.isSafeInteger(page.height_px) ||
+        page.width_px < 1 || page.height_px < 1 || page.width_px * page.height_px > 25_000_000) {
+      throw new Error("source_image_identity_refused");
+    }
+    const response = await this.request(this.itemPath(batch, item) + `/page?revision=${revision}`, undefined, signal);
+    if (response.headers.get("Content-Type")?.split(";")[0].trim().toLowerCase() !== "image/png" ||
+        response.headers.get("X-RFR-Item-Revision") !== revision ||
+        response.headers.get("X-RFR-Page-SHA256") !== page.page_sha256) {
+      throw new Error("source_image_identity_refused");
+    }
+    const blob = await response.blob();
+    if (blob.size < 33 || blob.size > 80 * 1024 * 1024) throw new Error("source_image_identity_refused");
+    const header = new Uint8Array(await blob.slice(0, 24).arrayBuffer());
+    const dimensions = new DataView(header.buffer, header.byteOffset, header.byteLength);
+    // The server verifies the complete normalized PNG and canonical RGBA grid. Here we bind
+    // that response to the requested view before creating a browser-local object URL.
+    if (![137, 80, 78, 71, 13, 10, 26, 10, 0, 0, 0, 13, 73, 72, 68, 82].every((v, i) => header[i] === v) ||
+        dimensions.getUint32(16) !== page.width_px || dimensions.getUint32(20) !== page.height_px) {
+      throw new Error("source_image_identity_refused");
+    }
+    return blob;
   }
   async importBundle(batch: string, bundle: unknown): Promise<{ item_id: string; revision: string }> {
     return (await this.request(`/api/batches/${encodeURIComponent(batch)}/recognized`, { bundle })).json();

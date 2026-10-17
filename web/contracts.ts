@@ -129,7 +129,7 @@ export interface ReviewApi {
   createBatch(currency: Currency): Promise<BatchSummary>;
   batch(batch: string): Promise<BatchView>;
   item(batch: string, item: string): Promise<ItemDetail>;
-  image(batch: string, item: string): Promise<Blob>;
+  image(batch: string, item: string, revision: string, page: SourcePage, signal?: AbortSignal): Promise<Blob>;
   draft(batch: string, item: string, input: DraftInput): Promise<DecisionDraft>;
   apply(batch: string, draft: DecisionDraft): Promise<AppendReceipt>;
   startJob(batch: string, request: string, spec: JobSpec): Promise<JobRecord>;

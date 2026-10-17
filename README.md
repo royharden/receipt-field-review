@@ -1,6 +1,6 @@
 # Receipt Field Review
 
-Receipt Field Review imports local receipt images through an optional installed Tesseract engine or accepts supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. A local recognized-bundle HTTP adapter and browser review viewer are implemented. HTTP image jobs, live model methods and original-image overlays remain under construction.
+Receipt Field Review imports local receipt images through an optional installed Tesseract engine or accepts supplied recognized pages, preserves review decisions across unchanged-evidence reruns, and exports private CSV/JSONL with field audit metadata. It uses four reusable foundations, a durable decision journal and canonical offline execution components. A local review viewer can fetch existing normalized receipt pixels and overlay the selected field region. HTTP image jobs, live model methods and native image/browser qualification remain pending.
 
 ## Keyless local demo
 
@@ -89,7 +89,7 @@ A repeat explicitly runs OCR again. Identical machine evidence/context replays s
 different results require `--expected-revision` and retain review conflicts. Native failure does
 not register a successful or fabricated blank receipt. Private `ocr/native-*/` records retain
 execution outputs; incomplete attempts stay available for diagnosis. No automatic native retry or
-provider fallback occurs. Authenticated normalized-source HTTP reads are available; the viewer overlay remains absent.
+provider fallback occurs. Authenticated normalized-source HTTP reads and the viewer's selected-region overlay are implemented; native browser qualification remains pending.
 
 Actual Windows functional controls use authored pixels through the public CLI, correction/retry,
 repeat OCR, reopen and exports. A first version probe timed out; later controls passed without a
@@ -160,9 +160,13 @@ apply response, retry the unchanged saved draft rather than generating another e
 the page before saving: unsaved text, capability and pending drafts are memory-only. The URL fragment
 remembers only the batch identity. Saved decisions live in the server journal and replay on restart.
 
-The recognized source preview uses supplied line text/geometry, with the selected field region.
-It is clearly labelled **Image unavailable**; it does not supply an original image. Imported native
-items retain measured OCR geometry, while supplied bundles carry their own declared provenance.
+The source preview fetches available normalized receipt pixels with the capability header and exact
+item revision. Response MIME, revision, grid identity and PNG dimensions must match the review detail
+before display. The selected region uses that page's pixel grid. Changing item/revision hides old
+pixels immediately, aborts obsolete requests and releases object URLs; no capability enters image URLs.
+Loading, absent, refused or undecodable images retain recognized text/geometry for review. Original
+containers and metadata are never served. Imported native items retain measured OCR geometry, while
+supplied bundles carry their own declared provenance. Neither preview establishes receipt accuracy.
 No image upload, job execution, live method, static unsaved demo mode or hosted backend is added.
 The static snapshot accepts only bounded index/hashed JS/CSS files and refuses private-root overlap,
 links, unexpected files/directories and oversized artifacts. Responses carry a restrictive CSP.
@@ -172,7 +176,10 @@ focuses on pending-intent recovery. Install both frozen Python and Node dependen
 checks use jsdom and a test-only stdio bridge to actual canonical file/journal services. Their explicit
 fault withholds one success acknowledgement after a real commit; it is not native-browser input,
 live HTTP packet loss or OS file-save proof. Keyboard and visible retry must reuse the same saved
-draft, with no replacement intent or journal append. Genuine stale edits still refuse; unsaved
+draft, with no replacement intent or journal append. Source-preview controls separately exercise
+image loading/failure, selected boxes, request identity, cancellation and stale-response cleanup.
+They use authored transport inputs and synthetic image events, not a native browser/decoder.
+Genuine stale edits still refuse; unsaved
 cancel does not dispatch. A pending draft cannot be discarded through the visible cancel control.
 `npm run build` runs the real TypeScript compiler and Vite. `python -m pytest tests/api -q` checks actual ASGI hosting
 and API separation. See development status for the separately retained browser journey evidence.
@@ -216,8 +223,8 @@ modified stages and mismatched grids refuse; the original image and its metadata
 `image_available` reflects verification for that review revision; source failure still permits
 recognized-text correction/export. Pillow's optional `images` extra is needed to verify pixels.
 Every response uses `no-store`/`nosniff`; successful reads carry `X-RFR-Item-Revision` and
-`X-RFR-Page-SHA256`. The current viewer still displays recognized text and supplied regions:
-it does not fetch this route or provide a source-image overlay. No upload or worker is added.
+`X-RFR-Page-SHA256`. The viewer fetches this route into a memory-only object URL and shows the
+selected source region on the matching normalized image, retaining text fallback. No upload or worker is added.
 
 `python -m pytest tests/api -q` exercises actual FastAPI/Starlette dispatch through TestClient and
 direct ASGI streaming, durable correction replay through a new app, exact retries, stale conflicts,
@@ -257,7 +264,7 @@ With the installed Python environment, run `python -m pytest tests/module -q` fo
 
 ## Planned workflow
 
-The intended image workflow imports up to100 single-currency JPEG/PNG/HEIC receipts, shows highlighted source regions, supports keyboard review, and exports CSV/JSONL. Provided recognized bundles support durable corrections, unchanged-evidence reruns, changed-evidence conflicts and audited exports through the CLI and local HTTP viewer. Durable recognized-item jobs execute B0 and retain explicit J1/V2-unavailable outcomes. Optional local decoding and installed-engine OCR now have CLI entrypoints. Authenticated normalized-source reads are implemented; image-upload jobs and original-image browser overlays remain pending. The FastAPI adapter enforces bounded streaming and request policy for the recognized-bundle workflow.
+The intended image workflow imports up to100 single-currency JPEG/PNG/HEIC receipts, shows highlighted source regions, supports keyboard review, and exports CSV/JSONL. Provided recognized bundles support durable corrections, unchanged-evidence reruns, changed-evidence conflicts and audited exports through the CLI and local HTTP viewer. Durable recognized-item jobs execute B0 and retain explicit J1/V2-unavailable outcomes. Optional local decoding and installed-engine OCR now have CLI entrypoints. Authenticated normalized-source reads and frontend overlays are implemented; image-upload jobs and native image/browser qualification remain pending. The FastAPI adapter enforces bounded streaming and request policy for the recognized-bundle workflow.
 
 ## Architecture
 

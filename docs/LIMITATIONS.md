@@ -4,7 +4,7 @@ The synthetic recognized-bundle demo is available as of 2026-10-15; [development
 implementation inventory. Durable recognized-item B0 jobs and pure API DTO/schema/TypeScript contracts
 are implemented. A recognized-bundle FastAPI adapter now enforces admission and actual stream limits in process.
 FastAPI/Uvicorn/httpx are installed; recognized-bundle viewer/listener are implemented; HTTP image
-worker control and original-image UI overlays remain absent. Existing normalized local pixels can be read through the revision/grid-bound authenticated API. An optional installed-Tesseract CLI now
+worker control remains absent. Existing normalized local pixels can be read through the revision/grid-bound authenticated API and displayed with selected field overlays. Native image/browser qualification remains pending. An optional installed-Tesseract CLI now
 executes actual local OCR on normalized images and joins canonical B0/review/export. No live
 provider call or receipt-quality measurement is supplied by that functional control.
 
@@ -21,7 +21,7 @@ and the narrow local slice/current gate were accepted with notes. This is not an
 or stable timing-reliability claim. The HTTP continuation changes source/dependencies and requires
 its own checks and independent disposition; whole-app acceptance remains outstanding.
 
-The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. The app-local installed-engine CLI supplies basic image-to-receipt ingestion. Live model verification, image-upload/live-method jobs, receipt-domain scorers, worker/image integration and original-image UI remain pending.
+The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. The app-local installed-engine CLI supplies basic image-to-receipt ingestion. Live model verification, image-upload/live-method jobs, receipt-domain scorers, worker/image integration and native image/browser qualification remain pending.
 
 B0 over-finds candidates from supplied retained recognized lines. It supports basic line amounts and explicitly printed quantity-times-unit-price forms, plus separately printed tip/service/discount adjustments. Missing quantities, unit prices, tax, currency codes and unknown adjustment stages are not guessed. Handwriting, complex/multicolumn layouts, Arabic/localized numeral formats and real OCR quality remain unmeasured. The current presets cover USD/EUR/GBP/CAD/AUD/JPY/KWD; other currency codes are rejected. Diagnostic checks/proposals default to blank review, with no calibrated automation claim.
 
@@ -51,6 +51,12 @@ The app's ReplayOcr accepts only explicitly supplied bounded frames under an exp
 Python/native OCR is an external runtime boundary for the eventual static viewer. No hosted database, GitHub remote, Bolt import, backend provisioning or public release is established by this scaffold.
 
 Canonical S3/S6 offline components are vendored unchanged and pass actual moved public controls with original apps, SDKs and network blocked. They are not yet connected to receipt methods or a live transport. Recognized-bundle workflow tests use literal synthetic sources; operational clean exports, provisional decisions and unverified human claims do not establish human Gold or measured model quality.
+
+The new normalized-source preview has authored client/component controls for response identity,
+pixel-grid overlay, fallback, stale-response refusal and object-URL cleanup. jsdom image load/error
+events and transport doubles do not establish native decoding or actual browser/HTTP image behavior.
+The normalized derivative, not the original container/metadata, is displayed. Source image availability
+does not establish OCR accuracy, and recognized-only items continue to use the text/geometry preview.
 
 Existing viewer and real loopback browser verification uses authored recognized bundles.
 Supplied text/geometry and agent-provisional decisions do not prove original-image OCR or quality.

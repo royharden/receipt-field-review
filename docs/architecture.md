@@ -1,6 +1,6 @@
 # Architecture boundary
 
-Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI, durable recognized-item B0 jobs, a synthetic CLI demo, API DTO/schema/TypeScript contracts and a recognized-bundle FastAPI adapter. An optional installed-engine CLI now joins staged images through Tesseract/Docio/B0 into the same review workflow. Live model methods, image-upload jobs, worker ownership and original-image UI remain pending; the recognized-bundle viewer and loopback launcher are implemented. See the [current inventory](../DEVELOPMENT-STATUS.md).
+Current implementation: four reusable foundations, a bounded decision journal/projection, an injected evaluator, a receipt-specific B0 adapter, a durable provided-bundle review/export workflow and CLI, durable recognized-item B0 jobs, a synthetic CLI demo, API DTO/schema/TypeScript contracts and a recognized-bundle FastAPI adapter. An optional installed-engine CLI now joins staged images through Tesseract/Docio/B0 into the same review workflow. The viewer joins authenticated existing normalized pixels to selected field overlays. Live model methods, image-upload jobs, worker ownership and native image/browser qualification remain pending. See the [current inventory](../DEVELOPMENT-STATUS.md).
 
 The demo orchestrates existing CLI entrypoints, `BatchStore`, decision drafts and `JobStore`; it owns
 no parallel persistence or extraction implementation. Fresh CLI processes read saved decisions.
@@ -86,5 +86,13 @@ private response headers. Missing/invalid optional pixels produce `image_availab
 review detail without preventing text review; the page request itself returns a closed refusal.
 A response is a revision-bound snapshot; deletion cannot revoke bytes already returned. This
 owner-local in-process decoder has pixel/byte bounds, not a hostile-upload process sandbox or
-decoder CPU deadline. Uploads, workers, frontend fetching/overlays and native browser proof remain
-separate work. Tiny authored pixels and injected native outputs do not establish OCR accuracy.
+decoder CPU deadline. Uploads, workers and native browser proof remain separate work. Tiny authored
+pixels and injected native outputs do not establish OCR accuracy.
+
+The frontend uses the capability-bearing fetch client, checks revision/grid response headers and
+PNG dimensions against the current detail, then creates a memory-only object URL. Source pixels and
+selected geometry share one SVG viewBox; mismatched evidence grids have no overlay. Item/revision/grid
+changes hide previous pixels before effect cleanup, abort old requests and ignore late responses.
+Loading/decoding failures retain the recognized-text preview and leave decisions available. Browser
+object URLs are released at replacement/unmount. Actual React/jsdom and injected transport controls
+exercise this boundary; native browser decoding, HTTP image/save/restart and OCR accuracy are separate gates.

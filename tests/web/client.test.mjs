@@ -54,10 +54,59 @@ test("client refuses foreign origins, credentials and malformed capabilities", (
 });
 
 test("viewer source has no persistent receipt/capability storage or HTML evaluation path", () => {
-  for (const name of ["main.tsx", "http.ts"]) {
+  for (const name of ["main.tsx", "http.ts", "source-preview.tsx"]) {
     const source = readFileSync(new URL("../../web/" + name, import.meta.url), "utf8");
     assert.doesNotMatch(source, /localStorage|sessionStorage|document\.cookie|dangerouslySetInnerHTML|\.innerHTML\s*=|\beval\s*\(|new Function/);
   }
+});
+
+// Authored one-pixel PNG transport control; no image/OCR accuracy assertion.
+const png = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j4lwAAAAASUVORK5CYII=", "base64");
+const revision = "a".repeat(64), grid = "b".repeat(64);
+const page = { page_sha256:grid, width_px:1, height_px:1 };
+const imageHeaders = {"Content-Type":"image/png", "X-RFR-Item-Revision":revision, "X-RFR-Page-SHA256":grid};
+
+test("source pixels require exact revision/grid headers and private token fetch; cancellation reaches fetch", async () => {
+  // what_bug_this_catches: a direct img URL would omit capability or put it in the URL;
+  // an unbound image response could show pixels from a different receipt revision.
+  const controller = new AbortController(); let request;
+  const api = new HttpReviewApi(token, origin, async (url, init) => {
+    request={url,init}; return new Response(png, {headers:imageHeaders});
+  });
+  assert.deepEqual(new Uint8Array(await (await api.image("batch", "item/one", revision, page, controller.signal)).arrayBuffer()), new Uint8Array(png));
+  assert.equal(request.url, origin+"/api/batches/batch/items/item%2Fone/page?revision="+revision);
+  assert.equal(request.init.headers["X-RFR-Token"], token); assert.ok(!request.url.includes(token));
+  for (const [key,value] of Object.entries({credentials:"omit",cache:"no-store",redirect:"error",mode:"same-origin"}))
+    assert.equal(request.init[key], value);
+  controller.abort(); assert.equal(request.init.signal.aborted, true);
+});
+
+for (const [name, headers, body] of [
+  ["wrong MIME", {...imageHeaders,"Content-Type":"image/svg+xml"}, png],
+  ["missing grid", {"Content-Type":"image/png","X-RFR-Item-Revision":revision}, png],
+  ["wrong grid", {...imageHeaders,"X-RFR-Page-SHA256":"c".repeat(64)}, png],
+  ["wrong revision", {...imageHeaders,"X-RFR-Item-Revision":"c".repeat(64)}, png],
+  ["not PNG", imageHeaders, Buffer.alloc(40)],
+  ["truncated PNG", imageHeaders, png.subarray(0,24)],
+]) test(`source image refuses ${name} before display`, async () => {
+  const api = new HttpReviewApi(token, origin, async () => new Response(body,{headers}));
+  await assert.rejects(api.image("batch","item",revision,page), /source_image_identity_refused/);
+});
+
+test("source image refuses grid dimensions and malformed request identity", async () => {
+  // what_bug_this_catches: stretching another-size image would misalign the source overlay.
+  let calls=0;
+  const api = new HttpReviewApi(token,origin,async()=>{calls++;return new Response(png,{headers:imageHeaders});});
+  await assert.rejects(api.image("batch","item",revision,{...page,width_px:2}), /identity_refused/);
+  assert.equal(calls,1);
+  for(const [rev,dimensions] of [["bad",page],[revision,{...page,width_px:0}],[revision,{...page,width_px:25_000_001}]])
+    await assert.rejects(api.image("batch","item",rev,dimensions), /identity_refused/);
+  assert.equal(calls,1,"invalid requests must not reach private source endpoint");
+});
+
+test("source image stale/refused HTTP response retains typed error", async () => {
+  const api = new HttpReviewApi(token,origin,async()=>new Response('{"error":"item_revision_conflict"}',{status:409}));
+  await assert.rejects(api.image("batch","item",revision,page), e=>e instanceof ApiError && e.status===409);
 });
 
 test("empty-clean refusal is distinct from stale-edit conflict and malformed input", () => {

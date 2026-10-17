@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import type { Action, ApiStatus, Currency, DecisionDraft, ExportFile, ExportMode, ItemDetail,
-  ItemReview, ItemSummary, Json, ReviewField } from "./contracts";
+  ItemSummary, Json } from "./contracts";
 import { ApiError, HttpReviewApi, describeError } from "./http";
+import { SourcePreview } from "./source-preview";
 
 const display = (value: Json | undefined) => value == null ? "—" :
   typeof value === "string" ? value : JSON.stringify(value);
@@ -11,32 +12,10 @@ const batchHash = () => {
   return /^[a-f0-9]{32}$/.test(value) ? value : "";
 };
 
-function SourcePreview({ view, field }: { view: ItemReview; field: ReviewField | undefined }) {
-  const source = field?.machine.source;
-  const evidence = source?.kind === "document" ? source.evidence : null;
-  const page = view.document.pages.find(p => p.page_id === evidence?.page_id) ?? view.document.pages[0];
-  const box = evidence?.bbox_px;
-  return <section className="source-pane" aria-label="Recognized source preview">
-    <div className="section-title"><h2>Recognized source</h2><span className="tag">Image unavailable</span></div>
-    <p className="muted">Supplied text and geometry. This is not the original image or proof of measured OCR.</p>
-    {page ? <svg role="img" aria-label="Recognized text with selected field region"
-      viewBox={`0 0 ${page.width_px} ${page.height_px}`} className="page-preview">
-      <rect width={page.width_px} height={page.height_px} className="paper" />
-      {page.lines.map(line => line.bbox_px && <text key={line.stable_id}
-        x={line.bbox_px.x0} y={line.bbox_px.y1}
-        fontSize={Math.max(6, Math.min(40, line.bbox_px.y1 - line.bbox_px.y0))}>{line.text}</text>)}
-      {box && <rect x={box.x0} y={box.y0} width={box.x1 - box.x0} height={box.y1 - box.y0}
-        className="source-region" />}
-    </svg> : <p>No recognized page available.</p>}
-    <details><summary>Source references</summary><p className="mono">{evidence?.page_id ?? "No anchored evidence"}</p>
-      <p className="mono">{evidence?.evidence_artifact_sha256 ?? "No artifact reference"}</p></details>
-  </section>;
-}
-
 type Edit = { action: Action; value: string; reason: string; issues: string[]; issueReason: string };
 
 export function Review({ api, batch, detail, changed, lock }: {
-  api: Pick<HttpReviewApi, "draft" | "apply" | "item">; batch: string; detail: ItemDetail;
+  api: Pick<HttpReviewApi, "draft" | "apply" | "item" | "image">; batch: string; detail: ItemDetail;
   changed: (value: ItemDetail) => Promise<void>; lock: (value: boolean) => void;
 }) {
   const view = detail.review;
@@ -107,7 +86,7 @@ export function Review({ api, batch, detail, changed, lock }: {
       <p className="mono">{view.item_id}</p></div>
       <div><span className={`tag ${view.clean ? "clean" : "review-only"}`}>{view.clean ? "Operationally resolved" : "Review required"}</span>
         <p className="muted">{view.unfinished_fields.length} unfinished · {view.unresolved_issues.length} unresolved issues</p></div></div>
-    <div className="review-grid"><SourcePreview view={view} field={field} />
+    <div className="review-grid"><SourcePreview api={api} batch={batch} detail={detail} field={field} />
       <section className="review-pane" aria-label="Fields and decisions">
         <div className="section-title"><h2>Fields & line cells</h2><button disabled={busy} onClick={() => void refresh()}>Reload state</button></div>
         <p className="muted">Every scalar, line cell and adjustment remains visible. Select a field to review it.</p>
@@ -218,7 +197,7 @@ export function App() {
   return <><header><span className="brand">R<span>/</span> Receipt Field Review</span><span className="local">Local workspace</span>
     {api && <button disabled={locked} onClick={() => { setApi(null); setStatus(null); setDetail(null); setItems([]); }}>Disconnect</button>}</header>
     <main>{!api ? <section className="connect card"><span className="eyebrow">Review with evidence</span>
-      <h1>A clear view of every receipt field.</h1><p>Inspect recognized text, resolve uncertainty and save an auditable decision. Original images and native OCR are not available in this viewer yet.</p>
+      <h1>A clear view of every receipt field.</h1><p>Inspect recognized text and available normalized receipt images, resolve uncertainty and save an auditable decision. Image upload and native OCR are not available in this viewer yet.</p>
       <form onSubmit={e => { e.preventDefault(); void task(connect); }}><label>Local capability<input type="password" value={token}
         autoComplete="off" maxLength={256} onChange={e => setToken(e.target.value)} /></label>
         <label>Existing batch ID (optional)<input value={batchInput} onChange={e => setBatchInput(e.target.value)} /></label>
