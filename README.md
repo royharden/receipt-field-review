@@ -141,7 +141,7 @@ npm run build
 python -m rfr.serve --root <existing-private-batch-directory> --viewer dist/web --port <explicit-loopback-port>
 ```
 
-The host reads `RFR_LOCAL_CAPABILITY` from its environment: supply a fresh 32â€“256 character printable
+The host reads `RFR_LOCAL_CAPABILITY` from its environment: supply a fresh 32–256 character printable
 ASCII capability before launch, then enter it in the viewer. The launcher binds only `127.0.0.1`,
 prints no capability and disables receipt-path access logs. The fixed public HTML/JS/CSS shell
 contains no receipt data or capability. Every API/read/export route still requires the capability;
@@ -180,7 +180,7 @@ and API separation. See development status for the separately retained browser j
 ## Local recognized-bundle HTTP adapter
 
 `rfr.api.app.create_app(existing_private_root, origin="http://127.0.0.1:<port>",
-capability=<fresh ASCII token of 32â€“256 characters>)` returns the FastAPI ASGI app. The trusted host
+capability=<fresh ASCII token of 32–256 characters>)` returns the FastAPI ASGI app. The trusted host
 supplies the private root, exact loopback origin and capability. The factory starts no listener,
 issues no token and exposes no OpenAPI page. Do not embed the capability in a URL or public assets.
 
@@ -194,13 +194,13 @@ Responses use `Cache-Control: no-store` and `X-Content-Type-Options: nosniff`.
 | Method / path | Input or result |
 |---|---|
 | GET `/api/status` | Current capabilities; source-page reads supported; image upload, HTTP jobs and live methods unavailable |
-| POST `/api/batches` | `CreateBatch` â†’ batch identity |
-| POST `/api/batches/{batch}/recognized` | `RecognizedImport` â†’ item identity and revision |
+| POST `/api/batches` | `CreateBatch` → batch identity |
+| POST `/api/batches/{batch}/recognized` | `RecognizedImport` → item identity and revision |
 | GET `/api/batches/{batch}/items` | Bounded item summaries |
 | GET `/api/batches/{batch}/items/{item}` | Typed review detail; no retained artifact bytes |
 | GET `/api/batches/{batch}/items/{item}/page?revision={revision}` | Authenticated normalized PNG for an existing local image, bound to the exact current item revision and Docio pixel grid |
-| POST `/api/batches/{batch}/items/{item}/draft` | `DraftRequest` â†’ stable `DecisionDraft` |
-| POST `/api/batches/{batch}/items/{item}/decisions` | Exact saved draft â†’ append/retry outcome |
+| POST `/api/batches/{batch}/items/{item}/draft` | `DraftRequest` → stable `DecisionDraft` |
+| POST `/api/batches/{batch}/items/{item}/decisions` | Exact saved draft → append/retry outcome |
 | GET `/api/batches/{batch}/exports/{review\|clean}/{filename}` | Four fixed export filenames |
 
 Input models are in `src/rfr/api/models.py`; generated JSON/TypeScript contracts retain the same
