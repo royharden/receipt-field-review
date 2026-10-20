@@ -1,5 +1,6 @@
 """Receipt-local bounded job wires; no model, budget or shared-module schema replacement."""
 
+from datetime import date
 from typing import Literal
 
 from pydantic import Field, model_validator
@@ -11,6 +12,28 @@ class JobSpec(Wire):
     method: Literal["B0", "J1", "V2"]
     source_revisions: dict[OpaqueId, Sha256] = Field(min_length=1, max_length=100)
     config_ref: Literal["receipt-local/1"] = "receipt-local/1"
+
+
+class ImageJobInput(Wire):
+    original_sha256: Sha256
+    expected_revision: Sha256 | None = None
+
+
+class ImageJobSpec(Wire):
+    """Only retained content identities enter the queue, never client paths or executables."""
+
+    method: Literal["B0"] = "B0"
+    images: dict[OpaqueId, ImageJobInput] = Field(min_length=1, max_length=100)
+    reference_date: date
+    config_ref: Literal["receipt-image-local/1"] = "receipt-image-local/1"
+
+    @model_validator(mode="after")
+    def identities(self):
+        if any(
+            item != "receipt-image:" + value.original_sha256 for item, value in self.images.items()
+        ):
+            raise ValueError("image_job_identity_mismatch")
+        return self
 
 
 class ItemProgress(Wire):
@@ -32,26 +55,32 @@ class ItemProgress(Wire):
 class JobRecord(Wire):
     job_id: Sha256
     request_id: OpaqueId
-    spec: JobSpec
+    spec: JobSpec | ImageJobSpec
     execution_config_sha256: Sha256
     state: Literal["pending", "running", "complete", "partial", "failed", "interrupted"]
     items: dict[OpaqueId, ItemProgress] = Field(min_length=1, max_length=100)
     started_at: str | None = None
     ended_at: str | None = None
-    execution_origin: Literal["local_rules", "not_run"]
+    execution_origin: Literal["local_rules", "local_image_pipeline", "not_run"]
     model_cost_usd: None = None
     model_cost_status: Literal["not_applicable", "not_run"]
 
     @model_validator(mode="after")
     def fixed_cohort(self):
-        if set(self.items) != set(self.spec.source_revisions):
+        image_job = isinstance(self.spec, ImageJobSpec)
+        cohort = self.spec.images if image_job else self.spec.source_revisions
+        if set(self.items) != set(cohort):
             raise ValueError("job_must_retain_every_requested_item")
         statuses = {item.status for item in self.items.values()}
-        if (self.execution_origin == "local_rules") != (self.model_cost_status == "not_applicable"):
+        if (self.execution_origin != "not_run") != (self.model_cost_status == "not_applicable"):
             raise ValueError("local_execution_and_nonmodel_cost_branch_mismatch")
+        if self.execution_origin != "not_run" and self.execution_origin != (
+            "local_image_pipeline" if image_job else "local_rules"
+        ):
+            raise ValueError("execution_origin_must_match_job_kind")
         if self.spec.method != "B0" and ("ok" in statuses or self.execution_origin != "not_run"):
             raise ValueError("unconnected_model_arm_cannot_claim_local_success")
-        if "ok" in statuses and self.execution_origin != "local_rules":
+        if "ok" in statuses and self.execution_origin == "not_run":
             raise ValueError("successful_items_require_actual_local_execution")
         if self.state == "pending" and statuses != {"queued"}:
             raise ValueError("pending_job_has_no_results")

@@ -12,7 +12,7 @@ from ..shared.execution.callledger.models import decode_wire_json
 from ..shared.rulings.identity import canonical_bytes
 from ..shared.rulings.store import GenerationConflict, JournalError, PriorConflict
 from .files import BatchError, atomic, batch_mutex, plain, read
-from .job_models import ItemProgress, JobRecord, JobSpec
+from .job_models import ImageJobSpec, ItemProgress, JobRecord, JobSpec
 from .models import ReceiptBundle
 
 
@@ -100,12 +100,12 @@ class JobStore:
         with batch_mutex(self.batch.root):
             return self._load(job_id)
 
-    def start(self, request_id: str, spec: JobSpec):
+    def start(self, request_id: str, spec: JobSpec | ImageJobSpec, *, image_worker=None):
         if type(request_id) is not str or not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", request_id):
             raise BatchError("invalid_job_request_id")
-        if type(spec) is not JobSpec:
+        if type(spec) not in (JobSpec, ImageJobSpec):
             raise BatchError("closed_job_spec_required")
-        spec = JobSpec.model_validate_json(canonical_bytes(spec.model_dump(mode="json")))
+        spec = type(spec).model_validate_json(canonical_bytes(spec.model_dump(mode="json")))
         job_id = hashlib.sha256(request_id.encode("utf-8")).hexdigest()
         with batch_mutex(self.batch.root):
             path = self._path(job_id)
@@ -125,19 +125,42 @@ class JobStore:
                     raise BatchError("invalid_active_job_state") from None
                 if prior.state in {"pending", "running"}:
                     raise BatchError("batch_job_already_active")
+            image_job = isinstance(spec, ImageJobSpec)
+            if image_job:
+                if image_worker is None:
+                    raise BatchError("trusted_image_worker_required")
+                from ..ingest.images import load_staged
+
+                # Validate the entire fixed cohort before publishing a job or starting OCR.
+                for image in spec.images.values():
+                    load_staged(self.batch.root / "pages", image.original_sha256)
+            fingerprint = self._fingerprint(spec, image_worker)
             record = JobRecord(
                 job_id=job_id,
                 request_id=request_id,
                 spec=spec,
-                execution_config_sha256=local_execution_fingerprint(),
+                execution_config_sha256=fingerprint,
                 state="pending",
-                items={item: ItemProgress(status="queued") for item in spec.source_revisions},
+                items={
+                    item: ItemProgress(status="queued")
+                    for item in (spec.images if image_job else spec.source_revisions)
+                },
                 execution_origin="not_run",
                 model_cost_status="not_run",
             )
             self._save(record)
             atomic(active_path, canonical_bytes({"job_id": job_id}))
             return record
+
+    def _fingerprint(self, spec, image_worker):
+        local = local_execution_fingerprint()
+        if isinstance(spec, ImageJobSpec):
+            if image_worker is None:
+                raise BatchError("trusted_image_worker_required")
+            return hashlib.sha256(
+                canonical_bytes({"local": local, "image": image_worker.fingerprint()})
+            ).hexdigest()
+        return local
 
     def _progress(self, job_id, item_id, progress, *, execution_started=False):
         with batch_mutex(self.batch.root):
@@ -148,10 +171,15 @@ class JobStore:
             items[item_id] = progress
             update = {"items": items}
             if execution_started:
-                update.update(execution_origin="local_rules", model_cost_status="not_applicable")
+                update.update(
+                    execution_origin="local_image_pipeline"
+                    if isinstance(record.spec, ImageJobSpec)
+                    else "local_rules",
+                    model_cost_status="not_applicable",
+                )
             self._save(record.model_copy(update=update))
 
-    def run(self, job_id, *, local_b0=None):
+    def run(self, job_id, *, local_b0=None, image_worker=None):
         with batch_mutex(self.batch.root):
             record = self._load(job_id)
             if record.state != "pending":
@@ -159,6 +187,8 @@ class JobStore:
             record = record.model_copy(update={"state": "running", "started_at": _now()})
             self._save(record)  # Claim is durable before any executor is called.
         executor = local_b0 if local_b0 is not None else LocalB0()
+        if isinstance(record.spec, ImageJobSpec):
+            return self._run_images(record, image_worker)
         config_matches = record.execution_config_sha256 == local_execution_fingerprint()
         for item_id, expected in record.spec.source_revisions.items():
             if not config_matches:
@@ -204,6 +234,56 @@ class JobStore:
             except Exception:
                 progress = ItemProgress(status="error", reason="method_error")
             self._progress(job_id, item_id, progress)
+        return self._finish(job_id)
+
+    def _run_images(self, record, worker):
+        from ..ingest.images import load_staged
+
+        for item_id, image in record.spec.images.items():
+            try:
+                if self._fingerprint(record.spec, worker) != record.execution_config_sha256:
+                    raise BatchError("frozen_execution_config_changed")
+                load_staged(self.batch.root / "pages", image.original_sha256)
+                with batch_mutex(self.batch.root):
+                    manifest = self.batch._manifest()
+                    if (
+                        manifest.items.get(item_id) != image.expected_revision
+                        or item_id in manifest.items
+                        and manifest.items[item_id] is None
+                    ):
+                        raise GenerationConflict("requested_source_revision_changed")
+                    if item_id not in manifest.items and len(manifest.items) >= 100:
+                        raise BatchError("batch_item_limit")
+                    if not self.batch.journal.replay().can_append:
+                        raise BatchError("journal_not_clean")
+                self._progress(
+                    record.job_id, item_id, ItemProgress(status="running"), execution_started=True
+                )
+                result = worker.execute(self.batch, image, record.spec.reference_date)
+                bundle = self.batch.bundle(item_id)
+                if (
+                    type(result) is not dict
+                    or result.get("item_id") != item_id
+                    or result.get("revision") != bundle.revision
+                    or bundle.document.original_content_sha256 != image.original_sha256
+                    or bundle.receipt.context.reference_date != record.spec.reference_date
+                ):
+                    raise BatchError("image_result_identity_conflict")
+                progress = ItemProgress(status="ok", result_revision=bundle.revision)
+            except (GenerationConflict, PriorConflict):
+                progress = ItemProgress(status="stale", reason="source_revision_conflict")
+            except (BatchError, ValueError, OSError):
+                progress = ItemProgress(
+                    status="unavailable", reason="image_source_or_worker_refused"
+                )
+            except JournalError:
+                progress = ItemProgress(status="error", reason="decision_journal_refused")
+            except Exception:
+                progress = ItemProgress(status="error", reason="image_method_error")
+            self._progress(record.job_id, item_id, progress)
+        return self._finish(record.job_id)
+
+    def _finish(self, job_id):
         with batch_mutex(self.batch.root):
             record = self._load(job_id)
             if record.state != "running":

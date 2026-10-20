@@ -97,15 +97,22 @@ export interface AppendReceipt extends Wire {
 export interface JobSpec extends Wire {
   method: Method; source_revisions: Record<string, string>; config_ref: "receipt-local/1";
 }
+export interface ImageJobInput extends Wire {
+  original_sha256: string; expected_revision: string | null;
+}
+export interface ImageJobSpec extends Wire {
+  method: "B0"; images: Record<string, ImageJobInput>; reference_date: string;
+  config_ref: "receipt-image-local/1";
+}
 export interface JobItem extends Wire {
   status: "queued" | "running" | "ok" | "error" | "stale" | "unavailable" | "not_run" | "unknown_interrupted";
   result_revision: string | null; reason: string | null;
 }
 export interface JobRecord extends Wire {
-  job_id: string; request_id: string; spec: JobSpec; execution_config_sha256: string;
+  job_id: string; request_id: string; spec: JobSpec | ImageJobSpec; execution_config_sha256: string;
   state: "pending" | "running" | "complete" | "partial" | "failed" | "interrupted";
   items: Record<string, JobItem>; started_at: string | null; ended_at: string | null;
-  execution_origin: "local_rules" | "not_run"; model_cost_usd: null;
+  execution_origin: "local_rules" | "local_image_pipeline" | "not_run"; model_cost_usd: null;
   model_cost_status: "not_applicable" | "not_run";
 }
 export interface ItemSummary extends Wire {

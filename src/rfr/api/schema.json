@@ -162,6 +162,88 @@
     },
     "BatchView": {
       "$defs": {
+        "ImageJobInput": {
+          "additionalProperties": false,
+          "properties": {
+            "expected_revision": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Expected Revision"
+            },
+            "original_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Original Sha256",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "original_sha256"
+          ],
+          "title": "ImageJobInput",
+          "type": "object"
+        },
+        "ImageJobSpec": {
+          "additionalProperties": false,
+          "description": "Only retained content identities enter the queue, never client paths or executables.",
+          "properties": {
+            "config_ref": {
+              "const": "receipt-image-local/1",
+              "default": "receipt-image-local/1",
+              "title": "Config Ref",
+              "type": "string"
+            },
+            "images": {
+              "additionalProperties": {
+                "$ref": "#/$defs/ImageJobInput"
+              },
+              "maxProperties": 100,
+              "minProperties": 1,
+              "propertyNames": {
+                "maxLength": 512,
+                "minLength": 1
+              },
+              "title": "Images",
+              "type": "object"
+            },
+            "method": {
+              "const": "B0",
+              "default": "B0",
+              "title": "Method",
+              "type": "string"
+            },
+            "reference_date": {
+              "format": "date",
+              "title": "Reference Date",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "images",
+            "reference_date"
+          ],
+          "title": "ImageJobSpec",
+          "type": "object"
+        },
         "ItemProgress": {
           "additionalProperties": false,
           "properties": {
@@ -307,6 +389,7 @@
             "execution_origin": {
               "enum": [
                 "local_rules",
+                "local_image_pipeline",
                 "not_run"
               ],
               "title": "Execution Origin",
@@ -356,7 +439,15 @@
               "type": "integer"
             },
             "spec": {
-              "$ref": "#/$defs/JobSpec"
+              "anyOf": [
+                {
+                  "$ref": "#/$defs/JobSpec"
+                },
+                {
+                  "$ref": "#/$defs/ImageJobSpec"
+                }
+              ],
+              "title": "Spec"
             },
             "started_at": {
               "anyOf": [
@@ -4764,6 +4855,88 @@
     },
     "JobRecord": {
       "$defs": {
+        "ImageJobInput": {
+          "additionalProperties": false,
+          "properties": {
+            "expected_revision": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Expected Revision"
+            },
+            "original_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Original Sha256",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "original_sha256"
+          ],
+          "title": "ImageJobInput",
+          "type": "object"
+        },
+        "ImageJobSpec": {
+          "additionalProperties": false,
+          "description": "Only retained content identities enter the queue, never client paths or executables.",
+          "properties": {
+            "config_ref": {
+              "const": "receipt-image-local/1",
+              "default": "receipt-image-local/1",
+              "title": "Config Ref",
+              "type": "string"
+            },
+            "images": {
+              "additionalProperties": {
+                "$ref": "#/$defs/ImageJobInput"
+              },
+              "maxProperties": 100,
+              "minProperties": 1,
+              "propertyNames": {
+                "maxLength": 512,
+                "minLength": 1
+              },
+              "title": "Images",
+              "type": "object"
+            },
+            "method": {
+              "const": "B0",
+              "default": "B0",
+              "title": "Method",
+              "type": "string"
+            },
+            "reference_date": {
+              "format": "date",
+              "title": "Reference Date",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "images",
+            "reference_date"
+          ],
+          "title": "ImageJobSpec",
+          "type": "object"
+        },
         "ItemProgress": {
           "additionalProperties": false,
           "properties": {
@@ -4890,6 +5063,7 @@
         "execution_origin": {
           "enum": [
             "local_rules",
+            "local_image_pipeline",
             "not_run"
           ],
           "title": "Execution Origin",
@@ -4939,7 +5113,15 @@
           "type": "integer"
         },
         "spec": {
-          "$ref": "#/$defs/JobSpec"
+          "anyOf": [
+            {
+              "$ref": "#/$defs/JobSpec"
+            },
+            {
+              "$ref": "#/$defs/ImageJobSpec"
+            }
+          ],
+          "title": "Spec"
         },
         "started_at": {
           "anyOf": [
