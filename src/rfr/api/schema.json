@@ -1432,6 +1432,115 @@
       "title": "DraftRequest",
       "type": "object"
     },
+    "ImageJobStart": {
+      "$defs": {
+        "ImageJobInput": {
+          "additionalProperties": false,
+          "properties": {
+            "expected_revision": {
+              "anyOf": [
+                {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                },
+                {
+                  "type": "null"
+                }
+              ],
+              "default": null,
+              "title": "Expected Revision"
+            },
+            "original_sha256": {
+              "pattern": "^[0-9a-f]{64}$",
+              "title": "Original Sha256",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "original_sha256"
+          ],
+          "title": "ImageJobInput",
+          "type": "object"
+        },
+        "ImageJobSpec": {
+          "additionalProperties": false,
+          "description": "Only retained content identities enter the queue, never client paths or executables.",
+          "properties": {
+            "config_ref": {
+              "const": "receipt-image-local/1",
+              "default": "receipt-image-local/1",
+              "title": "Config Ref",
+              "type": "string"
+            },
+            "images": {
+              "additionalProperties": {
+                "$ref": "#/$defs/ImageJobInput"
+              },
+              "maxProperties": 100,
+              "minProperties": 1,
+              "propertyNames": {
+                "maxLength": 512,
+                "minLength": 1
+              },
+              "title": "Images",
+              "type": "object"
+            },
+            "method": {
+              "const": "B0",
+              "default": "B0",
+              "title": "Method",
+              "type": "string"
+            },
+            "reference_date": {
+              "format": "date",
+              "title": "Reference Date",
+              "type": "string"
+            },
+            "schema_version": {
+              "const": 1,
+              "default": 1,
+              "title": "Schema Version",
+              "type": "integer"
+            }
+          },
+          "required": [
+            "images",
+            "reference_date"
+          ],
+          "title": "ImageJobSpec",
+          "type": "object"
+        }
+      },
+      "additionalProperties": false,
+      "properties": {
+        "request_id": {
+          "pattern": "^[A-Za-z0-9_-]{1,128}$",
+          "title": "Request Id",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "spec": {
+          "$ref": "#/$defs/ImageJobSpec"
+        }
+      },
+      "required": [
+        "request_id",
+        "spec"
+      ],
+      "title": "ImageJobStart",
+      "type": "object"
+    },
     "ItemDetail": {
       "$defs": {
         "Block": {
@@ -7396,6 +7505,75 @@
         "state"
       ],
       "title": "ReviewLabel",
+      "type": "object"
+    },
+    "StagedImage": {
+      "additionalProperties": false,
+      "properties": {
+        "height": {
+          "exclusiveMinimum": 0,
+          "title": "Height",
+          "type": "integer"
+        },
+        "item_id": {
+          "maxLength": 512,
+          "minLength": 1,
+          "title": "Item Id",
+          "type": "string"
+        },
+        "normalized_png_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Normalized Png Sha256",
+          "type": "string"
+        },
+        "ocr_executed": {
+          "const": false,
+          "default": false,
+          "title": "Ocr Executed",
+          "type": "boolean"
+        },
+        "original_bytes": {
+          "exclusiveMinimum": 0,
+          "maximum": 20971520,
+          "title": "Original Bytes",
+          "type": "integer"
+        },
+        "original_format": {
+          "enum": [
+            "PNG",
+            "JPEG",
+            "HEIC"
+          ],
+          "title": "Original Format",
+          "type": "string"
+        },
+        "original_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "title": "Original Sha256",
+          "type": "string"
+        },
+        "schema_version": {
+          "const": 1,
+          "default": 1,
+          "title": "Schema Version",
+          "type": "integer"
+        },
+        "width": {
+          "exclusiveMinimum": 0,
+          "title": "Width",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "item_id",
+        "original_sha256",
+        "original_bytes",
+        "original_format",
+        "normalized_png_sha256",
+        "width",
+        "height"
+      ],
+      "title": "StagedImage",
       "type": "object"
     },
     "StartJob": {

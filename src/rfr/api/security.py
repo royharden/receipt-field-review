@@ -1,8 +1,19 @@
 """Pure request admission, not an HTTP server, capability issuer or Windows ACL claim."""
 
 import hmac
+import re
 from dataclasses import dataclass, field
 from urllib.parse import urlsplit
+
+IMAGE_BODY_LIMIT = 20 * 1024 * 1024
+
+
+def image_upload_route(method, path):
+    return (
+        method == "PUT"
+        and type(path) is str
+        and re.fullmatch(r"/api/batches/[0-9a-f]{32}/images/[0-9a-f]{64}", path) is not None
+    )
 
 
 class RequestRefused(RuntimeError):
@@ -42,7 +53,10 @@ class RequestGuard:
         if type(self.max_body_bytes) is not int or not 1 <= self.max_body_bytes <= 25 * 1024 * 1024:
             raise ValueError("bounded_body_policy_required")
 
-    def authorize(self, method, raw_headers, *, capability_required=True):
+    def body_limit(self, method, path=None):
+        return IMAGE_BODY_LIMIT if image_upload_route(method, path) else self.max_body_bytes
+
+    def authorize(self, method, raw_headers, *, capability_required=True, path=None):
         if type(capability_required) is not bool:
             raise ValueError("explicit_capability_policy_required")
         if type(raw_headers) not in (tuple, list) or len(raw_headers) > 64:
@@ -89,14 +103,24 @@ class RequestGuard:
         if method not in {"GET", "HEAD"}:
             if origin != self.origin:
                 raise RequestRefused(403, "mutation_origin_required")
-            if headers.get("content-type", "").split(";", 1)[0].strip() != "application/json":
-                raise RequestRefused(415, "json_content_type_required")
+            expected_type = (
+                "application/octet-stream"
+                if image_upload_route(method, path)
+                else "application/json"
+            )
+            if headers.get("content-type", "").split(";", 1)[0].strip() != expected_type:
+                raise RequestRefused(
+                    415,
+                    "binary_content_type_required"
+                    if image_upload_route(method, path)
+                    else "json_content_type_required",
+                )
         if "transfer-encoding" in headers:
             raise RequestRefused(400, "transfer_encoding_refused")
         if "content-length" in headers:
             length = headers["content-length"]
             if not length.isascii() or not length.isdecimal() or len(length) > 10:
                 raise RequestRefused(400, "invalid_content_length")
-            if int(length) > self.max_body_bytes:
+            if int(length) > self.body_limit(method, path):
                 raise RequestRefused(413, "request_body_limit")
         # The eventual transport MUST also count actual streamed bytes; Content-Length is not proof.

@@ -5,20 +5,20 @@ from typing import Never
 from pydantic import JsonValue
 
 from ..shared.execution.callledger.models import decode_wire_json
-from .security import RequestGuard, RequestRefused
+from .security import RequestGuard, RequestRefused, image_upload_route
 
 
 class JsonBody:
     """Authorize before feeding messages; never trust Content-Length as the actual byte bound."""
 
-    def __init__(self, guard: RequestGuard, method, raw_headers, *, max_messages=1024):
+    def __init__(self, guard: RequestGuard, method, raw_headers, *, max_messages=1024, path=None):
         headers = tuple(raw_headers) if type(raw_headers) in (tuple, list) else raw_headers
-        guard.authorize(method, headers)
+        guard.authorize(method, headers, path=path)
         if method not in {"POST", "PUT", "PATCH", "DELETE"}:
             raise RequestRefused(405, "json_body_method_required")
         if type(max_messages) is not int or not 1 <= max_messages <= 4096:
             raise ValueError("bounded_message_count_required")
-        self.maximum = guard.max_body_bytes
+        self.maximum = guard.body_limit(method, path)
         self.max_messages = max_messages
         self.expected = next(
             (int(value) for key, value in headers if key.lower() == b"content-length"), None
@@ -71,3 +71,19 @@ class JsonBody:
             return decode_wire_json(self._body.decode("utf-8"), max_bytes=self.maximum)
         except (UnicodeError, ValueError, RecursionError):
             self._refuse(400, "invalid_json_body")
+
+
+class BinaryBody(JsonBody):
+    """Exact image PUT only; reuse the same bounded ASGI message state machine."""
+
+    def __init__(self, guard, method, raw_headers, *, path, max_messages=1024):
+        if not image_upload_route(method, path):
+            raise RequestRefused(405, "image_upload_route_required")
+        super().__init__(guard, method, raw_headers, max_messages=max_messages, path=path)
+
+    def value(self) -> bytes:
+        if self.failed:
+            self._refuse(400, "body_already_refused")
+        if not self.complete:
+            self._refuse(400, "body_incomplete")
+        return bytes(self._body)

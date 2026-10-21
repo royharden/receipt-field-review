@@ -96,3 +96,12 @@ changes hide previous pixels before effect cleanup, abort old requests and ignor
 Loading/decoding failures retain the recognized-text preview and leave decisions available. Browser
 object URLs are released at replacement/unmount. Actual React/jsdom and injected transport controls
 exercise this boundary; native browser decoding, HTTP image/save/restart and OCR accuracy are separate gates.
+
+## Optional image HTTP host
+
+The opt-in factory now joins bounded binary staging and typed image-job start/status to the existing
+JobStore, ImageWorker and BatchStore. A single lifespan-owned executor and data-root process lock
+serialize host work; there is no new database or replay queue. Graceful shutdown stops between
+items and drains actual work before releasing ownership. Synchronous codec decoding still lacks a
+hard process shutdown boundary. See [image HTTP contract and limitations](image-http.md); source
+construction does not establish native/browser/quality or whole-app acceptance.

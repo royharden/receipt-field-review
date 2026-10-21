@@ -64,9 +64,11 @@ class LocalB0:
 
 
 class JobStore:
-    def __init__(self, batch):
+    def __init__(self, batch, *, create=True):
         self.batch = batch
         self.folder = batch.root / "runs" / "jobs"
+        if not create:
+            return
         with batch_mutex(batch.root):
             plain(self.folder.parent, directory=True)
             self.folder.mkdir(exist_ok=True)
@@ -100,13 +102,29 @@ class JobStore:
         with batch_mutex(self.batch.root):
             return self._load(job_id)
 
-    def start(self, request_id: str, spec: JobSpec | ImageJobSpec, *, image_worker=None):
+    def lookup_request(self, request_id, spec):
+        """Read-only historical retry before server busy/config admission; never resubmit."""
+        request_id, spec, job_id = self._intent(request_id, spec)
+        with batch_mutex(self.batch.root):
+            if not self._path(job_id).exists():
+                return None
+            record = self._load(job_id)
+            if record.request_id != request_id or record.spec != spec:
+                raise BatchError("job_request_intent_conflict")
+            return record
+
+    @staticmethod
+    def _intent(request_id, spec):
         if type(request_id) is not str or not re.fullmatch(r"[A-Za-z0-9_-]{1,128}", request_id):
             raise BatchError("invalid_job_request_id")
         if type(spec) not in (JobSpec, ImageJobSpec):
             raise BatchError("closed_job_spec_required")
         spec = type(spec).model_validate_json(canonical_bytes(spec.model_dump(mode="json")))
         job_id = hashlib.sha256(request_id.encode("utf-8")).hexdigest()
+        return request_id, spec, job_id
+
+    def start(self, request_id: str, spec: JobSpec | ImageJobSpec, *, image_worker=None):
+        request_id, spec, job_id = self._intent(request_id, spec)
         with batch_mutex(self.batch.root):
             path = self._path(job_id)
             if path.exists():
@@ -181,7 +199,7 @@ class JobStore:
                 )
             self._save(record.model_copy(update=update))
 
-    def run(self, job_id, *, local_b0=None, image_worker=None):
+    def run(self, job_id, *, local_b0=None, image_worker=None, should_stop=None):
         with batch_mutex(self.batch.root):
             record = self._load(job_id)
             if record.state != "pending":
@@ -190,7 +208,7 @@ class JobStore:
             self._save(record)  # Claim is durable before any executor is called.
         executor = local_b0 if local_b0 is not None else LocalB0()
         if isinstance(record.spec, ImageJobSpec):
-            return self._run_images(record, image_worker)
+            return self._run_images(record, image_worker, should_stop=should_stop)
         config_matches = record.execution_config_sha256 == local_execution_fingerprint()
         for item_id, expected in record.spec.source_revisions.items():
             if not config_matches:
@@ -238,10 +256,12 @@ class JobStore:
             self._progress(job_id, item_id, progress)
         return self._finish(job_id)
 
-    def _run_images(self, record, worker):
+    def _run_images(self, record, worker, *, should_stop=None):
         from ..ingest.images import load_staged
 
         for item_id, image in record.spec.images.items():
+            if should_stop is not None and should_stop():
+                return self._stop_images(record.job_id)
             try:
                 if worker is None:
                     raise BatchError("trusted_image_worker_required")
@@ -297,6 +317,26 @@ class JobStore:
                 progress = ItemProgress(status="error", reason="image_method_error")
             self._progress(record.job_id, item_id, progress)
         return self._finish(record.job_id)
+
+    def _stop_images(self, job_id):
+        """The owning loop calls this only between items, after actual in-flight progress."""
+        with batch_mutex(self.batch.root):
+            record = self._load(job_id)
+            if record.state != "running":
+                return record
+            items = {
+                item: ItemProgress(status="not_run", reason="server_shutdown")
+                if progress.status == "queued"
+                else progress
+                for item, progress in record.items.items()
+            }
+            if any(progress.status == "running" for progress in items.values()):
+                raise BatchError("cannot_stop_live_image_item")
+            record = record.model_copy(
+                update={"items": items, "state": "interrupted", "ended_at": _now()}
+            )
+            self._save(record)
+            return record
 
     def _finish(self, job_id):
         with batch_mutex(self.batch.root):

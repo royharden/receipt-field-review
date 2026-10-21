@@ -104,6 +104,18 @@ export interface ImageJobSpec extends Wire {
   method: "B0"; images: Record<string, ImageJobInput>; reference_date: string;
   config_ref: "receipt-image-local/1";
 }
+export interface ImageJobStart extends Wire { request_id: string; spec: ImageJobSpec }
+export interface StagedImage extends Wire {
+  item_id: string; original_sha256: string; original_bytes: number;
+  original_format: "PNG" | "JPEG" | "HEIC"; normalized_png_sha256: string;
+  width: number; height: number; ocr_executed: false;
+}
+// Provisional server routes; connecting the live viewer is a separate integration slice.
+export interface ImageJobsApi {
+  stageImage(batch: string, originalSha256: string, bytes: Blob): Promise<StagedImage>;
+  startImageJob(batch: string, input: ImageJobStart): Promise<JobRecord>;
+  imageJob(batch: string, job: string): Promise<JobRecord>;
+}
 export interface JobItem extends Wire {
   status: "queued" | "running" | "ok" | "error" | "stale" | "unavailable" | "not_run" | "unknown_interrupted";
   result_revision: string | null; reason: string | null;

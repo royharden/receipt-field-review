@@ -4,7 +4,9 @@ The synthetic recognized-bundle demo is available as of 2026-10-15; [development
 implementation inventory. Durable recognized-item B0 jobs and pure API DTO/schema/TypeScript contracts
 are implemented. A recognized-bundle FastAPI adapter now enforces admission and actual stream limits in process.
 FastAPI/Uvicorn/httpx are installed; recognized-bundle viewer/listener are implemented; HTTP image
-worker control remains absent. Existing normalized local pixels can be read through the revision/grid-bound authenticated API and displayed with selected field overlays. Native image/browser qualification remains pending. An optional installed-Tesseract CLI now
+worker control now has an opt-in binary staging/start/status implementation described in
+[image-http.md](image-http.md). Its graceful worker drain has no hard codec shutdown deadline;
+API source and runtime qualification remain separate from construction. Existing normalized local pixels can be read through the revision/grid-bound authenticated API and displayed with selected field overlays. Native image/browser qualification remains pending. An optional installed-Tesseract CLI now
 executes actual local OCR on normalized images and joins canonical B0/review/export. No live
 provider call or receipt-quality measurement is supplied by that functional control.
 
@@ -21,7 +23,7 @@ and the narrow local slice/current gate were accepted with notes. This is not an
 or stable timing-reliability claim. The HTTP continuation changes source/dependencies and requires
 its own checks and independent disposition; whole-app acceptance remains outstanding.
 
-The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. The app-local installed-engine CLI supplies basic image-to-receipt ingestion. Live model verification, image-upload/live-method jobs, receipt-domain scorers, worker/image integration and native image/browser qualification remain pending.
+The repository contains four reusable foundations, generated schemas, a bounded rulings journal/scalar projection, generic evaluation/selection and a receipt-local B0 plugin with fixed scalar/line-cell metadata and code checks. A provided-recognized-bundle file/JSONL review workflow, CLI, durable recognized-item jobs and audited private CSV/JSONL exports are implemented. The app-local installed-engine CLI supplies basic image-to-receipt ingestion. Live model verification, live-method jobs, receipt-domain scorers, complete image UI integration and native image/browser qualification remain pending. The optional image HTTP host is a separate source construction, with its own focused and independent qualification required.
 
 B0 over-finds candidates from supplied retained recognized lines. It supports basic line amounts and explicitly printed quantity-times-unit-price forms, plus separately printed tip/service/discount adjustments. Missing quantities, unit prices, tax, currency codes and unknown adjustment stages are not guessed. Handwriting, complex/multicolumn layouts, Arabic/localized numeral formats and real OCR quality remain unmeasured. The current presets cover USD/EUR/GBP/CAD/AUD/JPY/KWD; other currency codes are rejected. Diagnostic checks/proposals default to blank review, with no calibrated automation claim.
 
@@ -46,7 +48,7 @@ and review-process timeout failures; a later moved-runtime native import also ex
 30-second total budget despite successful, reaped engine commands. Its four other targeted passes
 do not establish timing stability, explain the earlier failures or satisfy the combined gate.
 
-The app's ReplayOcr accepts only explicitly supplied bounded frames under an expected engine/config profile. A replay hit is not actual native execution or source/capture authority; misses cannot fall back to a paid/native operation. Authenticated HTTP reads of existing normalized local pixels are implemented with revision/grid checks. Image upload, lawful capture handling and the complete image job/UI integration remain pending. Model/provider strict replay will use the canonical provider owner, rather than this OCR-specific adapter.
+The app's ReplayOcr accepts only explicitly supplied bounded frames under an expected engine/config profile. A replay hit is not actual native execution or source/capture authority; misses cannot fall back to a paid/native operation. Authenticated HTTP reads of existing normalized local pixels are implemented with revision/grid checks. Qualification of the new image upload host, lawful capture handling and the complete image job/UI integration remain pending. Model/provider strict replay will use the canonical provider owner, rather than this OCR-specific adapter.
 
 Python/native OCR is an external runtime boundary for the eventual static viewer. No hosted database, GitHub remote, Bolt import, backend provisioning or public release is established by this scaffold.
 
