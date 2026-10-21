@@ -138,6 +138,33 @@ def sibling_libraries(executable: Path) -> dict[str, str]:
     return {path.name: file_digest(path) for path in paths}
 
 
+def engine_identity(executable: Path, tessdata: Path) -> dict:
+    """File-only snapshot shared by queue admission and native execution."""
+    plain(tessdata, directory=True)
+    return {
+        "executable_sha256": file_digest(executable),
+        "eng_traineddata_sha256": file_digest(tessdata / "eng.traineddata"),
+        "sibling_dll_sha256": sibling_libraries(executable),
+        "tsv_config_sha256": file_digest(tessdata / "configs" / "tsv", 16384),
+    }
+
+
+def engine_identity_digest(config: dict) -> str:
+    return hashlib.sha256(
+        canonical_bytes(
+            {
+                key: config[key]
+                for key in (
+                    "executable_sha256",
+                    "eng_traineddata_sha256",
+                    "sibling_dll_sha256",
+                    "tsv_config_sha256",
+                )
+            }
+        )
+    ).hexdigest()
+
+
 def image_input(decoded: DecodedImage, execution_ref: str) -> PageInput:
     """The displayed RGBA8 grid is the OCR input; never reapply original EXIF transforms."""
     image_module = importlib.import_module("PIL.Image")
@@ -177,9 +204,18 @@ def image_input(decoded: DecodedImage, execution_ref: str) -> PageInput:
 class TesseractOcr:
     """One image/one execution implementing the canonical injected OcrAdapter contract."""
 
-    def __init__(self, decoded: DecodedImage, directory: Path, executable: Path, tessdata: Path):
+    def __init__(
+        self,
+        decoded: DecodedImage,
+        directory: Path,
+        executable: Path,
+        tessdata: Path,
+        *,
+        expected_engine_sha256: str | None = None,
+    ):
         self.decoded, self.directory = decoded, directory.absolute()
         self.executable, self.tessdata = executable.absolute(), tessdata.absolute()
+        self.expected_engine_sha256 = expected_engine_sha256
         self.page_input = image_input(decoded, "native:" + directory.name)
         self.retained_artifact = None
         self.config = None
@@ -233,9 +269,13 @@ class TesseractOcr:
                 or page.width_px * page.height_px > min(bounds.max_decoded_pixels, 25000000)
             ):
                 raise NativeOcrError("native_input_bounds")
-            plain(self.tessdata, directory=True)
-            binary_hash = file_digest(self.executable)
-            model_hash = file_digest(self.tessdata / "eng.traineddata")
+            snapshot = engine_identity(self.executable, self.tessdata)
+            snapshot_digest = engine_identity_digest(snapshot)
+            if (
+                self.expected_engine_sha256 is not None
+                and snapshot_digest != self.expected_engine_sha256
+            ):
+                raise NativeOcrError("native_queued_engine_identity_changed")
             immutable(self.directory / "input.png", self.decoded.page_png)
             immutable(self.directory / "input.json", canonical_bytes(page.model_dump(mode="json")))
             remaining = bounds.deadline_s - (time.monotonic() - started)
@@ -252,10 +292,7 @@ class TesseractOcr:
             self.config = {
                 "profile": "rfr-tesseract-config/1",
                 "engine_version": version,
-                "executable_sha256": binary_hash,
-                "eng_traineddata_sha256": model_hash,
-                "sibling_dll_sha256": sibling_libraries(self.executable),
-                "tsv_config_sha256": file_digest(self.tessdata / "configs" / "tsv", 16384),
+                **snapshot,
                 "language": "eng",
                 "oem": 1,
                 "psm": 6,
@@ -288,13 +325,7 @@ class TesseractOcr:
                 "tsv",
             ]
             raw = self._capture(command, remaining, bounds.max_output_bytes, "ocr")
-            if (
-                file_digest(self.executable) != binary_hash
-                or file_digest(self.tessdata / "eng.traineddata") != model_hash
-                or sibling_libraries(self.executable) != self.config["sibling_dll_sha256"]
-                or file_digest(self.tessdata / "configs" / "tsv", 16384)
-                != self.config["tsv_config_sha256"]
-            ):
+            if engine_identity(self.executable, self.tessdata) != snapshot:
                 raise NativeOcrError("native_engine_changed_during_execution")
             remaining = bounds.deadline_s - (time.monotonic() - started)
             if remaining <= 0:

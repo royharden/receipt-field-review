@@ -50,6 +50,7 @@ def inputs(batch):
 def worker(tmp_path, monkeypatch):
     engine = tmp_path / "trusted-engine.exe"
     engine.write_bytes(b"authored engine marker, not executable code")
+    (tmp_path / "trusted.dll").write_bytes(b"authored library marker")
     data = tmp_path / "tessdata"
     data.mkdir()
     (data / "eng.traineddata").write_bytes(b"authored model marker")
@@ -85,12 +86,12 @@ def test_sequential_image_join_persists_every_item_and_exact_retry_never_reexecu
     calls = []
     original = ImageWorker.execute
 
-    def execute(self, store, image, day):
+    def execute(self, store, image, day, *, expected_engine_sha256):
         calls.append(image.original_sha256)
         # Each preceding result has already been durably published before the next call.
         current = jobs.get(record.job_id)
         assert sum(p.status == "ok" for p in current.items.values()) == len(calls) - 1
-        return original(self, store, image, day)
+        return original(self, store, image, day, expected_engine_sha256=expected_engine_sha256)
 
     monkeypatch.setattr(ImageWorker, "execute", execute)
     result = jobs.run(record.job_id, image_worker=worker)
@@ -161,7 +162,9 @@ def test_changed_staged_bytes_after_queue_remain_failure_without_native_dispatch
         source = batch.root / "pages" / ("image-" + image.original_sha256) / "original.bin"
         source.write_bytes(pixels(50))
     monkeypatch.setattr(
-        ImageWorker, "execute", lambda *a: pytest.fail("changed retained bytes cannot dispatch")
+        ImageWorker,
+        "execute",
+        lambda *a, **kw: pytest.fail("changed retained bytes cannot dispatch"),
     )
     result = jobs.run(record.job_id, image_worker=worker)
     assert result.state == "failed" and result.execution_origin == "not_run"
@@ -175,14 +178,89 @@ def test_missing_worker_never_marks_image_execution_started(batch, inputs, worke
     assert {p.status for p in result.items.values()} == {"unavailable"}
 
 
+@pytest.mark.parametrize("component", ["executable", "model", "dll", "tsv-config"])
+def test_engine_replacement_after_job_preflight_before_native_snapshot_refuses_persistence(
+    batch, inputs, worker, monkeypatch, component
+):
+    """S2-IMG-001: a stable replacement during decode must not register under queued A."""
+    import rfr.ingest.native as native_import
+
+    item = next(iter(inputs))
+    jobs, record = queued(batch, {item: inputs[item]}, worker)
+    manifest_before = batch._manifest()
+    original_decode = native_import.decode_file
+    replacements = {
+        "executable": worker.executable,
+        "model": worker.tessdata / "eng.traineddata",
+        "dll": worker.executable.parent / "trusted.dll",
+        "tsv-config": worker.tessdata / "configs" / "tsv",
+    }
+    decoded = []
+
+    def replace_during_decode(source):
+        # Reaching this boundary proves the job's per-item fingerprint already matched A.
+        assert jobs.get(record.job_id).items[item].status == "running"
+        result = original_decode(source)
+        replacements[component].write_bytes(b"stable replacement B after job preflight")
+        decoded.append(source)
+        return result
+
+    monkeypatch.setattr(native_import, "decode_file", replace_during_decode)
+    monkeypatch.setattr(
+        "rfr.ports.tesseract.bounded_command",
+        lambda *a, **kw: pytest.fail("queued engine drift must precede native dispatch"),
+    )
+    result = jobs.run(record.job_id, image_worker=worker)
+    assert len(decoded) == 1 and result.state == "failed"
+    assert result.execution_config_sha256 == record.execution_config_sha256
+    assert result.items[item].status == "unavailable"
+    assert result.items[item].result_revision is None
+    assert batch._manifest() == manifest_before
+    run = next((batch.root / "ocr").iterdir())
+    execution = json.loads((run / "execution.json").read_bytes())
+    assert execution["issue"] == "native_queued_engine_identity_changed"
+    assert not execution["ocr_started"] and execution["commands"] == []
+    assert not (run / "artifact.json").exists()
+    assert not (run / "bundle.json").exists() and not (run / "import.json").exists()
+    # The failed exact retry stays terminal and never decodes/executes again.
+    assert jobs.start(record.request_id, record.spec) == result
+    assert jobs.run(record.job_id, image_worker=worker) == result and len(decoded) == 1
+
+
+def test_importer_refuses_mismatched_success_provenance_before_bundle_publication(
+    batch, inputs, worker, monkeypatch
+):
+    """S2-IMG-001: success alone cannot bypass the importer's queued identity check."""
+    from rfr.ports.tesseract import TesseractOcr
+
+    item = next(iter(inputs))
+    jobs, record = queued(batch, {item: inputs[item]}, worker)
+    manifest_before = batch._manifest()
+    recognize = TesseractOcr.recognize
+
+    def mismatched_provenance(self, page, bounds):
+        result = recognize(self, page, bounds)
+        assert result.status == "ok"
+        self.config["executable_sha256"] = "0" * 64
+        return result
+
+    monkeypatch.setattr(TesseractOcr, "recognize", mismatched_provenance)
+    result = jobs.run(record.job_id, image_worker=worker)
+    assert result.state == "failed" and result.items[item].status == "unavailable"
+    assert batch._manifest() == manifest_before
+    run = next((batch.root / "ocr").iterdir())
+    assert (run / "artifact.json").exists()  # Injected native output is retained, not imported.
+    assert not (run / "bundle.json").exists() and not (run / "import.json").exists()
+
+
 def test_engine_drift_between_items_refuses_remaining_dispatch(batch, inputs, worker, monkeypatch):
     jobs, record = queued(batch, inputs, worker)
     original = ImageWorker.execute
     calls = []
 
-    def execute(self, store, image, day):
+    def execute(self, store, image, day, *, expected_engine_sha256):
         calls.append(image.original_sha256)
-        result = original(self, store, image, day)
+        result = original(self, store, image, day, expected_engine_sha256=expected_engine_sha256)
         self.executable.write_bytes(b"changed after first completed item")
         return result
 
@@ -200,7 +278,9 @@ def test_source_revision_cas_refuses_new_image_rerun_without_current_revision(
     before = batch._manifest()
     next_job = jobs.start("second-image-intent", first.spec, image_worker=worker)
     monkeypatch.setattr(
-        ImageWorker, "execute", lambda *a: pytest.fail("existing source requires explicit CAS")
+        ImageWorker,
+        "execute",
+        lambda *a, **kw: pytest.fail("existing source requires explicit CAS"),
     )
     result = jobs.run(next_job.job_id, image_worker=worker)
     assert {p.status for p in result.items.values()} == {"stale"}
@@ -215,10 +295,10 @@ def test_per_item_failure_keeps_fixed_cohort_and_continues_sequentially(
     first_item = sorted(inputs)[0]
     first = inputs[first_item].original_sha256
 
-    def execute(self, store, image, day):
+    def execute(self, store, image, day, *, expected_engine_sha256):
         if image.original_sha256 == first:
             raise RuntimeError("private decoder details must not enter job state")
-        return original(self, store, image, day)
+        return original(self, store, image, day, expected_engine_sha256=expected_engine_sha256)
 
     monkeypatch.setattr(ImageWorker, "execute", execute)
     result = jobs.run(record.job_id, image_worker=worker)
@@ -235,7 +315,7 @@ def test_interruption_and_duplicate_claim_never_auto_repeat_image_execution(
     entered, release = Event(), Event()
     calls = []
 
-    def execute(self, store, image, day):
+    def execute(self, store, image, day, *, expected_engine_sha256):
         calls.append(image.original_sha256)
         entered.set()
         assert release.wait(5)

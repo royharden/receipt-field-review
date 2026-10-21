@@ -66,6 +66,12 @@ It rechecks staged bytes, engine/source fingerprints, capacity, tombstones, sour
 journal health before each item. Progress acknowledges success only after the resulting retained
 bundle identity/revision is verified. Exact retries, partial failures and explicit interruption
 recovery share the existing job contract; interruption never automatically repeats OCR.
+The same executable/model/sibling-DLL/TSV-config snapshot digest used to compare the queued
+fingerprint travels through the worker and importer. The native adapter compares its snapshot
+before dispatch, retains that identity in its engine configuration, and rechecks the files after
+OCR. The importer verifies the returned configuration against the expected digest before writing
+or registering a bundle. These bounded observations reject a stable replacement during decoding
+or staging; they do not provide an atomic filesystem snapshot or prevent change-and-restore races.
 `local_image_pipeline` identifies entry into the local adapter, including attempts that fail
 before OCR. It does not certify a native process, measured OCR quality or actual model execution.
 

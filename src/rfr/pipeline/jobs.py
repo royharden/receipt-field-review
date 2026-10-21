@@ -152,13 +152,15 @@ class JobStore:
             atomic(active_path, canonical_bytes({"job_id": job_id}))
             return record
 
-    def _fingerprint(self, spec, image_worker):
+    def _fingerprint(self, spec, image_worker, *, engine_sha256=None):
         local = local_execution_fingerprint()
         if isinstance(spec, ImageJobSpec):
             if image_worker is None:
                 raise BatchError("trusted_image_worker_required")
             return hashlib.sha256(
-                canonical_bytes({"local": local, "image": image_worker.fingerprint()})
+                canonical_bytes(
+                    {"local": local, "image": image_worker.fingerprint(engine_sha256=engine_sha256)}
+                )
             ).hexdigest()
         return local
 
@@ -241,7 +243,15 @@ class JobStore:
 
         for item_id, image in record.spec.images.items():
             try:
-                if self._fingerprint(record.spec, worker) != record.execution_config_sha256:
+                if worker is None:
+                    raise BatchError("trusted_image_worker_required")
+                # Use this same snapshot for both the queued-config comparison and importer.
+                # A fresh independent snapshot in either boundary would reopen the drift gap.
+                engine_sha256 = worker.engine_sha256()
+                if (
+                    self._fingerprint(record.spec, worker, engine_sha256=engine_sha256)
+                    != record.execution_config_sha256
+                ):
                     raise BatchError("frozen_execution_config_changed")
                 load_staged(self.batch.root / "pages", image.original_sha256)
                 with batch_mutex(self.batch.root):
@@ -259,7 +269,12 @@ class JobStore:
                 self._progress(
                     record.job_id, item_id, ItemProgress(status="running"), execution_started=True
                 )
-                result = worker.execute(self.batch, image, record.spec.reference_date)
+                result = worker.execute(
+                    self.batch,
+                    image,
+                    record.spec.reference_date,
+                    expected_engine_sha256=engine_sha256,
+                )
                 bundle = self.batch.bundle(item_id)
                 if (
                     type(result) is not dict

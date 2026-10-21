@@ -10,7 +10,7 @@ from rfr.ingest.images import decode_file, manifest_bytes, stage_image
 from rfr.pipeline.files import batch_mutex, immutable, plain
 from rfr.pipeline.models import ReceiptBundle
 from rfr.pipeline.store import BatchStore
-from rfr.ports.tesseract import NativeOcrError, TesseractOcr
+from rfr.ports.tesseract import NativeOcrError, TesseractOcr, engine_identity_digest
 from rfr.receipt.b0 import extract_b0
 from rfr.receipt.models import ReceiptContext
 from rfr.shared.docio.identity import canonical_bytes
@@ -26,6 +26,7 @@ def import_image(
     *,
     expected_revision: str | None = None,
     deadline_s: float = 30.0,
+    expected_engine_sha256: str | None = None,
 ):
     """Import one owner-local image; native failures never register a blank/successful item."""
     if (
@@ -40,7 +41,9 @@ def import_image(
     parent = store.root / "ocr"
     plain(parent, directory=True)
     directory = parent / ("native-" + uuid.uuid4().hex)
-    port = TesseractOcr(decoded, directory, executable, tessdata)
+    port = TesseractOcr(
+        decoded, directory, executable, tessdata, expected_engine_sha256=expected_engine_sha256
+    )
     # Early admission avoids dispatching OCR for a known full/deleted/stale/unclean batch.
     # register() remains authoritative and repeats its checks under its own lock.
     with batch_mutex(store.root):
@@ -71,6 +74,12 @@ def import_image(
     result = port.recognize(port.page_input, bounds)
     if result.status != "ok":
         raise NativeOcrError(result.issues[0])
+    # Validate the actual retained native provenance before publishing any successful bundle.
+    if (
+        expected_engine_sha256 is not None
+        and engine_identity_digest(port.config) != expected_engine_sha256
+    ):
+        raise NativeOcrError("native_queued_engine_identity_changed")
     raw = port.retained_artifact
     artifact_hash = hashlib.sha256(raw).hexdigest()
     document = Document(

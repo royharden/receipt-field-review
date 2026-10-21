@@ -25,10 +25,13 @@ class ImageWorker:
         ):
             raise ValueError("trusted_absolute_engine_paths_and_bounded_deadline_required")
 
-    def fingerprint(self):
-        # File-only admission. No engine process or capability probe runs here.
-        from ..ports.tesseract import file_digest, sibling_libraries
+    def engine_sha256(self):
+        from ..ports.tesseract import engine_identity, engine_identity_digest
 
+        return engine_identity_digest(engine_identity(self.executable, self.tessdata))
+
+    def fingerprint(self, *, engine_sha256=None):
+        # File-only admission. No engine process or capability probe runs here.
         root = Path(__file__).resolve().parents[1]
         files = {
             name: hashlib.sha256((root / name).read_bytes()).hexdigest()
@@ -54,17 +57,16 @@ class ImageWorker:
                     "files": files,
                     "versions": versions,
                     "executable": str(self.executable),
-                    "executable_sha256": file_digest(self.executable),
-                    "libraries": sibling_libraries(self.executable),
                     "tessdata": str(self.tessdata),
-                    "eng_sha256": file_digest(self.tessdata / "eng.traineddata"),
-                    "tsv_config_sha256": file_digest(self.tessdata / "configs" / "tsv"),
+                    "engine_sha256": self.engine_sha256()
+                    if engine_sha256 is None
+                    else engine_sha256,
                     "deadline_s": self.deadline_s,
                 }
             )
         ).hexdigest()
 
-    def execute(self, batch, image, reference_date):
+    def execute(self, batch, image, reference_date, *, expected_engine_sha256):
         from ..ingest.native import import_image
 
         # The caller has verified this immutable staged identity, including its derivative.
@@ -77,4 +79,5 @@ class ImageWorker:
             reference_date,
             expected_revision=image.expected_revision,
             deadline_s=self.deadline_s,
+            expected_engine_sha256=expected_engine_sha256,
         )
