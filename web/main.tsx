@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Action, ApiStatus, Currency, DecisionDraft, ExportFile, ExportMode, ItemDetail,
-  ItemSummary, Json } from "./contracts";
-import { ApiError, HttpReviewApi, describeError } from "./http";
+  ImageJobStart, ItemSummary, JobRecord, Json, StagedImage } from "./contracts";
+import { ApiError, HttpReviewApi, IMAGE_LIMIT, describeError, imageDigest } from "./http";
 import { SourcePreview } from "./source-preview";
 
 const display = (value: Json | undefined) => value == null ? "—" :
@@ -14,9 +14,10 @@ const batchHash = () => {
 
 type Edit = { action: Action; value: string; reason: string; issues: string[]; issueReason: string };
 
-export function Review({ api, batch, detail, changed, lock }: {
+export function Review({ api, batch, detail, changed, lock, disabled = false }: {
   api: Pick<HttpReviewApi, "draft" | "apply" | "item" | "image">; batch: string; detail: ItemDetail;
   changed: (value: ItemDetail) => Promise<void>; lock: (value: boolean) => void;
+  disabled?: boolean;
 }) {
   const view = detail.review;
   const fields = Object.entries(view.fields);
@@ -44,12 +45,13 @@ export function Review({ api, batch, detail, changed, lock }: {
     (!edit.issues.length || !!edit.issueReason.trim()) && (edit.action !== "correct" || !!edit.value.trim());
 
   async function refresh() {
+    if (disabled) return;
     setBusy(true); setError("");
     try { await changed(await api.item(batch, view.item_id)); setConflict(false); setPending(null); }
     catch (e) { setError(message(e)); } finally { setBusy(false); }
   }
   async function save(retry = false) {
-    if (busy || conflict || (!retry && (pending !== null || !valid)) || (retry && pending === null)) return;
+    if (disabled || busy || conflict || (!retry && (pending !== null || !valid)) || (retry && pending === null)) return;
     setBusy(true); setError(""); setNotice("");
     let committed = false;
     try {
@@ -88,10 +90,10 @@ export function Review({ api, batch, detail, changed, lock }: {
         <p className="muted">{view.unfinished_fields.length} unfinished · {view.unresolved_issues.length} unresolved issues</p></div></div>
     <div className="review-grid"><SourcePreview api={api} batch={batch} detail={detail} field={field} />
       <section className="review-pane" aria-label="Fields and decisions">
-        <div className="section-title"><h2>Fields & line cells</h2><button disabled={busy} onClick={() => void refresh()}>Reload state</button></div>
+        <div className="section-title"><h2>Fields & line cells</h2><button disabled={busy || disabled} onClick={() => void refresh()}>Reload state</button></div>
         <p className="muted">Every scalar, line cell and adjustment remains visible. Select a field to review it.</p>
         <div className="fields" aria-label="Receipt fields">{fields.map(([id, value]) => <button type="button" key={id}
-          className={`field ${id === selected ? "selected" : ""}`} disabled={busy || !!pending}
+          className={`field ${id === selected ? "selected" : ""}`} disabled={busy || disabled || !!pending}
           aria-pressed={id === selected} onClick={() => { setSelected(id); setError(""); setNotice(""); }}>
           <span><strong>{id.replaceAll("_", " ")}</strong><small>{value.review_state}</small></span>
           <span>{display(value.effective_value) === "—" ? display(value.machine.proposal) : display(value.effective_value)}</span>
@@ -101,7 +103,7 @@ export function Review({ api, batch, detail, changed, lock }: {
             <dt>Diagnostic score</dt><dd>{field.machine.confidence ?? "Unavailable"} · uncalibrated</dd>
             <dt>Method / label</dt><dd>{field.machine.method} / {field.label?.label_source ?? "unlabelled"}</dd></dl>
           {field.conflict && <p role="alert" className="error">Conflict: {field.conflict}</p>}
-          <fieldset disabled={busy || !!pending || conflict}><legend>Explicit decision</legend>
+          <fieldset disabled={busy || disabled || !!pending || conflict}><legend>Explicit decision</legend>
             <label>Action<select value={edit.action} onChange={e => update({ action: e.target.value as Action })}>
               <option value="correct">Correct value</option><option value="confirm">Confirm current proposal/value</option>
               <option value="waive_absent">Waive as printed absent</option><option value="reopen">Reopen for review</option></select></label>
@@ -121,12 +123,12 @@ export function Review({ api, batch, detail, changed, lock }: {
                 maxLength={1024} onChange={e => update({ issueReason: e.target.value })} /></label>}
             </details>
           </fieldset>
-          <div className="actions"><button className="primary" disabled={busy || !valid || !!pending || conflict}
+          <div className="actions"><button className="primary" disabled={busy || disabled || !valid || !!pending || conflict}
             onClick={() => void save()}>Save decision</button>
-            {pending && <button disabled={busy || conflict} onClick={() => void save(true)}>Retry saved decision</button>}
+            {pending && <button disabled={busy || disabled || conflict} onClick={() => void save(true)}>Retry saved decision</button>}
             <span className="muted">{pending ? "Ctrl + Enter to retry saved decision" : "Ctrl + Enter to save"}</span></div>
           {error && <p role="alert" className="error">{error}</p>}{notice && <p role="status" className="success">{notice}</p>}
-          {!!Object.keys(edits).length && <button disabled={busy || !!pending} onClick={() => setEdits({})}>Discard unsaved edits</button>}
+          {!!Object.keys(edits).length && <button disabled={busy || disabled || !!pending} onClick={() => setEdits({})}>Discard unsaved edits</button>}
           <p className="muted">Edits stay in memory until saved. Reload state keeps your text, but clears a pending retry. Reload the page only after saving.</p>
         </div>}
       </section></div>
@@ -136,6 +138,180 @@ export function Review({ api, batch, detail, changed, lock }: {
       {!!view.unresolved_issues.length && <ul>{view.unresolved_issues.map(issue => <li key={issue}>{issue}</li>)}</ul>}
     </section>
   </>;
+}
+
+type ImageRow = { name: string; file: File | null; bytes?: Blob; sha?: string;
+  staged?: StagedImage; selected: boolean; omitted?: boolean; error?: string };
+type FrozenImageRequest = { request: ImageJobStart; jobId: string };
+const terminalImageJob = (job: JobRecord | null) => !!job && !["pending", "running"].includes(job.state);
+const referenceDay = (day: string) => /^\d{4}-\d{2}-\d{2}$/.test(day) &&
+  !Number.isNaN(new Date(day + "T00:00:00Z").getTime()) && new Date(day + "T00:00:00Z").toISOString().slice(0, 10) === day;
+
+/** One in-memory image cohort. Only persisted JobRecord outcomes become review items. */
+export function ImageImport({ api, batch, uploadAvailable, workerAvailable, disabled, lock, settled }: {
+  api: Pick<HttpReviewApi, "stageImage" | "startImageJob" | "imageJob" | "items">;
+  batch: string; uploadAvailable: boolean; workerAvailable: boolean; disabled: boolean;
+  lock: (value: boolean) => void; settled: () => Promise<void>;
+}) {
+  const [rows, setRows] = useState<ImageRow[]>([]);
+  const [day, setDay] = useState("");
+  const [busy, setBusy] = useState(false);
+  const [error, setError] = useState("");
+  const [pending, setPending] = useState<FrozenImageRequest | null>(null);
+  const [job, setJob] = useState<JobRecord | null>(null);
+  const running = useRef(false);
+  const mounted = useRef(true);
+  useEffect(() => { mounted.current = true; return () => { mounted.current = false; }; }, []);
+  useEffect(() => {
+    lock(busy || rows.length > 0 || pending !== null);
+    return () => lock(false);
+  }, [busy, rows.length, pending, lock]);
+  const updateRow = (index: number, patch: Partial<ImageRow>) => {
+    if (mounted.current) setRows(old => old.map((row, i) => i === index ? { ...row, ...patch } : row));
+  };
+  function choose(files: FileList | null) {
+    if (disabled || running.current || rows.length || pending || !files) return;
+    const selected = Array.from(files);
+    if (!selected.length || selected.length > 100 || selected.some(f => f.size < 1 || f.size > IMAGE_LIMIT)) {
+      setError("Choose 1–100 JPEG, PNG or HEIC images, each nonempty and at most 20 MiB. Nothing was uploaded."); return;
+    }
+    setError(""); setRows(selected.map(file => ({ name: file.name, file, selected: true })));
+  }
+  async function stage() {
+    if (disabled || running.current || pending || !uploadAvailable) return;
+    running.current = true; setBusy(true); setError("");
+    const seen = new Set(rows.flatMap(r => r.staged ? [r.staged.original_sha256] : []));
+    try {
+      for (const [index, row] of rows.entries()) {
+        if (!mounted.current) break;
+        if (row.staged || row.omitted || !row.file) continue;
+        try {
+          const bytes = row.bytes ?? new Blob([await row.file.arrayBuffer()], { type: "application/octet-stream" });
+          const sha = row.sha ?? await imageDigest(await bytes.arrayBuffer());
+          if (!mounted.current) return;
+          // Retain a bounded snapshot for an uncertain upload retry; release bytes on success.
+          updateRow(index, { bytes, sha, error: undefined });
+          if (seen.has(sha)) {
+            updateRow(index, { file: null, bytes: undefined, selected: false, omitted: true,
+              error: "Duplicate image omitted from this cohort." }); continue;
+          }
+          const staged = await api.stageImage(batch, sha, bytes);
+          seen.add(sha);
+          updateRow(index, { staged, file: null, bytes: undefined, error: undefined });
+        } catch (e) {
+          updateRow(index, { error: message(e) });
+          throw e; // Keep successful rows and all unattempted inputs; never silently shrink the cohort.
+        }
+      }
+    } catch (e) { if (mounted.current) setError("Staging stopped. " + message(e)); }
+    finally { running.current = false; if (mounted.current) setBusy(false); }
+  }
+  function accept(next: JobRecord, frozen: FrozenImageRequest) {
+    const spec = next.spec, intended = frozen.request.spec;
+    if (next.job_id !== frozen.jobId || next.request_id !== frozen.request.request_id || !("images" in spec) ||
+        spec.method !== "B0" || spec.config_ref !== intended.config_ref || spec.reference_date !== intended.reference_date ||
+        Object.keys(spec.images).sort().join() !== Object.keys(intended.images).sort().join() ||
+        Object.keys(intended.images).some(id => spec.images[id].original_sha256 !== intended.images[id].original_sha256 ||
+          spec.images[id].expected_revision !== intended.images[id].expected_revision)) throw new Error("image_job_identity_refused");
+    if (mounted.current) setJob(next);
+  }
+  async function start() {
+    if (disabled || running.current || (!pending && (!workerAvailable || !referenceDay(day)))) return;
+    const selected = rows.filter(r => r.selected && !r.omitted);
+    if (!pending && (!selected.length || selected.some(r => !r.staged))) return;
+    running.current = true; setBusy(true); setError("");
+    try {
+      let frozen = pending;
+      if (!frozen) {
+        const current = await api.items(batch);
+        if (!mounted.current) return;
+        const images: ImageJobStart["spec"]["images"] = {};
+        for (const row of selected) {
+          const staged = row.staged!;
+          const existing = current.find(item => item.item_id === staged.item_id);
+          if (existing?.deleted || (existing && !existing.revision)) throw new Error("image_cohort_revision_refused");
+          images[staged.item_id] = { schema_version: 1, original_sha256: staged.original_sha256,
+            expected_revision: existing?.revision ?? null };
+        }
+        const request: ImageJobStart = { schema_version: 1, request_id: crypto.randomUUID(),
+          spec: { schema_version: 1, method: "B0", config_ref: "receipt-image-local/1", reference_date: day, images } };
+        frozen = { request, jobId: await imageDigest(new TextEncoder().encode(request.request_id).buffer) };
+        // Set before POST: a lost acknowledgement must retry these exact bytes and identity.
+        if (mounted.current) setPending(frozen);
+      }
+      if (!mounted.current) return;
+      let next: JobRecord;
+      try { next = await api.startImageJob(batch, frozen.request); }
+      catch (e) {
+        // The server looks up this intent before refusing an unavailable worker, before job creation.
+        // Only this exact POST refusal proves non-admission; unknown ACKs and observed jobs stay frozen.
+        if (!job && e instanceof ApiError && e.status === 503 && e.message === "image_worker_unavailable") {
+          if (mounted.current) {
+            setPending(null);
+            setError("Local extraction is unavailable. No image job was created. Retry when available or clear this image workflow.");
+          }
+          return;
+        }
+        throw e;
+      }
+      accept(next, frozen);
+      if (terminalImageJob(next)) await settled();
+    } catch (e) { if (mounted.current) setError(message(e)); }
+    finally { running.current = false; if (mounted.current) setBusy(false); }
+  }
+  async function refreshStatus(signal?: AbortSignal) {
+    if (!pending || running.current || signal?.aborted) return;
+    running.current = true; setBusy(true); setError("");
+    try {
+      const next = await api.imageJob(batch, pending.jobId, signal);
+      if (signal?.aborted || !mounted.current) return;
+      accept(next, pending);
+      if (terminalImageJob(next)) await settled();
+    } catch (e) { if (!signal?.aborted && mounted.current) setError(message(e)); }
+    finally { running.current = false; if (mounted.current) setBusy(false); }
+  }
+  useEffect(() => {
+    if (!job || terminalImageJob(job) || error) return;
+    const controller = new AbortController();
+    const timer = setTimeout(() => { void refreshStatus(controller.signal); }, 2000);
+    return () => { clearTimeout(timer); controller.abort(); };
+  }, [job, pending, error]);
+  const selected = rows.filter(r => r.selected && !r.omitted);
+  const canClear = !pending || terminalImageJob(job);
+  return <section className="card" aria-label="Receipt image import"><h2>Receipt images</h2>
+    <p>Choose JPEG, PNG or HEIC images for this batch. Staging saves images only; it does not run OCR or create reviewed fields.</p>
+    {!uploadAvailable && <p role="status">Image staging is unavailable on this server.</p>}
+    <label>Receipt image files<input type="file" multiple accept=".jpg,.jpeg,.png,.heic,image/jpeg,image/png,image/heic"
+      disabled={disabled || busy || !uploadAvailable || rows.length > 0 || !!pending}
+      onChange={e => { choose(e.target.files); e.target.value = ""; }} /></label>
+    {!!rows.length && <><ul>{rows.map((row, index) => <li key={index}>
+      <label className="check"><input type="checkbox" aria-label={`Include ${row.name}`}
+        checked={row.selected} disabled={disabled || busy || !!pending || !row.staged || row.omitted}
+        onChange={e => updateRow(index, { selected: e.target.checked })} />{row.name}</label>
+      <span>{row.staged ? "Staged · OCR not run" : row.omitted ? "Omitted duplicate" : "Not staged"}</span>
+      {row.error && <p role="status">{row.error}</p>}</li>)}</ul>
+      <button disabled={disabled || busy || !!pending || !uploadAvailable || !rows.some(r => r.file && !r.staged && !r.omitted)}
+        onClick={() => void stage()}>Stage remaining images</button>
+      <label>Extraction reference date<input type="date" value={day} disabled={disabled || busy || !!pending}
+        onChange={e => setDay(e.target.value)} /></label>
+      <p>{selected.length} selected images · local B0 extraction only · uncertain fields still require review.</p>
+      {!workerAvailable && <p role="status">Local extraction is unavailable. A staged image is not an OCR result.</p>}
+      <button disabled={disabled || busy || (!!job && !terminalImageJob(job)) || terminalImageJob(job) ||
+        (!pending && (!workerAvailable || !referenceDay(day) || !selected.length || selected.some(r => !r.staged)))}
+        onClick={() => void start()}>{pending ? "Retry frozen image job" : "Start selected images"}</button>
+      <button disabled={disabled || busy || !canClear} onClick={() => { setRows([]); setPending(null); setJob(null); setDay(""); setError(""); }}>Clear image workflow</button>
+      <p>Clearing removes this tab's selection; staged server images remain. No receipt content is saved in browser storage.</p>
+    </>}
+    {pending && <><p className="mono">Job {pending.jobId}</p>
+      <p>Batch, cohort, revisions, date and request identity are frozen. Keep this tab open until its outcome is known. Retrying sends the same request.</p>
+      <button disabled={disabled || busy} onClick={() => void refreshStatus()}>Read persisted image job status</button></>}
+    {job && <div aria-label="Image job result"><p role="status">Image job: {job.state}</p>
+      <ul>{Object.entries(job.items).map(([id, item]) => <li key={id}>{id}: {item.status}
+        {item.reason ? ` · ${item.reason}` : ""}{item.result_revision ? ` · revision ${item.result_revision}` : ""}</li>)}</ul>
+      {terminalImageJob(job) && <p>Only persisted successful items are available for review. Failed, stale, interrupted and unrun items remain listed here.</p>}</div>}
+    {busy && <p role="status">Working with the fixed image workflow…</p>}
+    {error && <p role="alert">{error}</p>}
+  </section>;
 }
 
 export function App() {
@@ -150,7 +326,8 @@ export function App() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const [reviewLocked, setReviewLocked] = useState(false);
-  const locked = busy || reviewLocked;
+  const [imageLocked, setImageLocked] = useState(false);
+  const locked = busy || reviewLocked || imageLocked;
   const [exportMode, setExportMode] = useState<ExportMode>("review");
   const [exportName, setExportName] = useState<ExportFile>("receipts.csv");
   const [notice, setNotice] = useState("");
@@ -197,7 +374,7 @@ export function App() {
   return <><header><span className="brand">R<span>/</span> Receipt Field Review</span><span className="local">Local workspace</span>
     {api && <button disabled={locked} onClick={() => { setApi(null); setStatus(null); setDetail(null); setItems([]); }}>Disconnect</button>}</header>
     <main>{!api ? <section className="connect card"><span className="eyebrow">Review with evidence</span>
-      <h1>A clear view of every receipt field.</h1><p>Inspect recognized text and available normalized receipt images, resolve uncertainty and save an auditable decision. Image upload and native OCR are not available in this viewer yet.</p>
+      <h1>A clear view of every receipt field.</h1><p>Import receipts when the local server supports image staging and extraction, inspect recognized fields and source images, and save an auditable decision.</p>
       <form onSubmit={e => { e.preventDefault(); void task(connect); }}><label>Local capability<input type="password" value={token}
         autoComplete="off" maxLength={256} onChange={e => setToken(e.target.value)} /></label>
         <label>Existing batch ID (optional)<input value={batchInput} onChange={e => setBatchInput(e.target.value)} /></label>
@@ -212,8 +389,11 @@ export function App() {
         <button disabled={locked || !/^[a-f0-9]{32}$/.test(batchInput)} onClick={() => void task(() => open(batchInput))}>Open batch</button></div>
       {batch && <div className="import-row"><label>Import recognized bundle<input type="file" accept=".json,application/json" disabled={locked}
         onChange={e => { const file = e.target.files?.[0]; e.target.value = ""; void importFile(file); }} /></label>
-        <p className="muted">Validated JSON only. No image upload or live method fallback.</p></div>}
+        <p className="muted">Validated JSON only. Image import uses the separate fixed-cohort workflow below.</p></div>}
     </section>
+    {batch && <ImageImport key={batch} api={api} batch={batch} uploadAvailable={status?.capabilities.image_upload === true}
+      workerAvailable={status?.capabilities.local_b0 === true} disabled={busy || reviewLocked} lock={setImageLocked}
+      settled={() => open(batch)} />}
     {reviewLocked && <p className="muted">Finish, retry or discard your current edits before switching batches/items or exporting.</p>}
     {batch && <section className="batch-bar card"><label>Receipt<select value={detail?.review.item_id ?? ""} disabled={locked || !items.some(x => !x.deleted)}
       onChange={e => { const id = e.target.value; void task(async () => { if (api) setDetail(await api.item(batch, id)); }); }}>
@@ -222,7 +402,7 @@ export function App() {
       <div className="exports"><label>Export mode<select value={exportMode} onChange={e => setExportMode(e.target.value as ExportMode)}><option value="review">Review (includes unresolved)</option><option value="clean">Clean (resolved only)</option></select></label>
         <label>Format<select value={exportName} onChange={e => setExportName(e.target.value as ExportFile)}>{["receipts.csv", "line_items.csv", "receipts.jsonl", "omitted.json"].map(name => <option key={name}>{name}</option>)}</select></label>
         <button disabled={locked} onClick={() => void task(download)}>Download export</button></div></section>}
-    {detail ? <Review key={batch + "/" + detail.review.item_id} api={api} batch={batch} detail={detail} changed={changed} lock={setReviewLocked} /> :
+    {detail ? <Review key={batch + "/" + detail.review.item_id} api={api} batch={batch} detail={detail} changed={changed} lock={setReviewLocked} disabled={imageLocked} /> :
       batch && <section className="empty card"><h2>Ready for a recognized bundle</h2><p>Import a validated bundle to see every field, check and source region. Conflicting arithmetic stays in review until explicitly resolved.</p></section>}
     </>}
     {busy && <p role="status">Working with the local journal…</p>}{error && <p role="alert" className="error global-message">{error}</p>}

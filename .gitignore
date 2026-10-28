@@ -22,3 +22,10 @@ data/
 *.tmp
 test-results/
 playwright-report/
+# Local credentials and archives
+ArchiveManager-creds.txt
+*.pem
+*.key
+*.p12
+*.pfx
+*.zip
