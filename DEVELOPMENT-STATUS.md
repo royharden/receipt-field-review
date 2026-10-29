@@ -131,9 +131,10 @@ independent acceptance remain open. No timeout was widened and no failed run was
 2. Add actual listener/worker lifecycle and HTTP job integration. The recognized-bundle adapter
    covers in-process request policy and durable review/export. Authenticated normalized-source reads
    now bind existing local pixels to the current item revision/Docio grid; native upload/job paths remain absent.
-3. Add original-image overlays and complete native/image job integration in the viewer. The current
-   browser serves recognized bundles and supplied geometry only; static unsaved demo mode and full
-   native/held-out/browser matrix remain pending.
+3. Qualify the new normalized-image fetch/selected-region overlay in the actual browser and complete
+   native/image job integration. The source preview now joins existing authenticated pixels with
+   revision/grid checks and text fallback; static unsaved demo mode and full native/held-out/browser
+   matrix remain pending. Authored component events do not establish native image decoding or save.
 4. Integrate canonical J1/V2 model methods only after actual SDK, pricing, capabilities, cumulative
    budget reservation and bounded test authorization are established. Preserve every outcome and cost.
 5. Obtain lawful real receipts and independent human labels; implement receipt-domain scorers and

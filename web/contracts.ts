@@ -97,15 +97,34 @@ export interface AppendReceipt extends Wire {
 export interface JobSpec extends Wire {
   method: Method; source_revisions: Record<string, string>; config_ref: "receipt-local/1";
 }
+export interface ImageJobInput extends Wire {
+  original_sha256: string; expected_revision: string | null;
+}
+export interface ImageJobSpec extends Wire {
+  method: "B0"; images: Record<string, ImageJobInput>; reference_date: string;
+  config_ref: "receipt-image-local/1";
+}
+export interface ImageJobStart extends Wire { request_id: string; spec: ImageJobSpec }
+export interface StagedImage extends Wire {
+  item_id: string; original_sha256: string; original_bytes: number;
+  original_format: "PNG" | "JPEG" | "HEIC"; normalized_png_sha256: string;
+  width: number; height: number; ocr_executed: false;
+}
+// Provisional server routes; connecting the live viewer is a separate integration slice.
+export interface ImageJobsApi {
+  stageImage(batch: string, originalSha256: string, bytes: Blob): Promise<StagedImage>;
+  startImageJob(batch: string, input: ImageJobStart): Promise<JobRecord>;
+  imageJob(batch: string, job: string): Promise<JobRecord>;
+}
 export interface JobItem extends Wire {
   status: "queued" | "running" | "ok" | "error" | "stale" | "unavailable" | "not_run" | "unknown_interrupted";
   result_revision: string | null; reason: string | null;
 }
 export interface JobRecord extends Wire {
-  job_id: string; request_id: string; spec: JobSpec; execution_config_sha256: string;
+  job_id: string; request_id: string; spec: JobSpec | ImageJobSpec; execution_config_sha256: string;
   state: "pending" | "running" | "complete" | "partial" | "failed" | "interrupted";
   items: Record<string, JobItem>; started_at: string | null; ended_at: string | null;
-  execution_origin: "local_rules" | "not_run"; model_cost_usd: null;
+  execution_origin: "local_rules" | "local_image_pipeline" | "not_run"; model_cost_usd: null;
   model_cost_status: "not_applicable" | "not_run";
 }
 export interface ItemSummary extends Wire {
@@ -129,7 +148,7 @@ export interface ReviewApi {
   createBatch(currency: Currency): Promise<BatchSummary>;
   batch(batch: string): Promise<BatchView>;
   item(batch: string, item: string): Promise<ItemDetail>;
-  image(batch: string, item: string): Promise<Blob>;
+  image(batch: string, item: string, revision: string, page: SourcePage, signal?: AbortSignal): Promise<Blob>;
   draft(batch: string, item: string, input: DraftInput): Promise<DecisionDraft>;
   apply(batch: string, draft: DecisionDraft): Promise<AppendReceipt>;
   startJob(batch: string, request: string, spec: JobSpec): Promise<JobRecord>;

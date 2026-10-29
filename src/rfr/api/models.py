@@ -4,12 +4,37 @@ from typing import Literal
 
 from pydantic import BaseModel, ConfigDict, Field, JsonValue, model_validator
 
-from ..pipeline.job_models import JobRecord, JobSpec
+from ..pipeline.job_models import ImageJobSpec, JobRecord, JobSpec
 from ..pipeline.models import ReceiptBundle
 from ..receipt.models import CheckResult, CurrencyPolicy, Receipt
 from ..shared.docio.models import Document, OpaqueId, Sha256, Wire
 from ..shared.fieldextract.models import FieldValue
 from ..shared.rulings.models import RulingIntent, ScalarGeneration
+
+
+class StagedImage(Wire):
+    item_id: OpaqueId
+    original_sha256: Sha256
+    original_bytes: int = Field(gt=0, le=20 * 1024 * 1024)
+    original_format: Literal["PNG", "JPEG", "HEIC"]
+    normalized_png_sha256: Sha256
+    width: int = Field(gt=0)
+    height: int = Field(gt=0)
+    ocr_executed: Literal[False] = False
+
+    @model_validator(mode="after")
+    def identity(self):
+        if (
+            self.item_id != "receipt-image:" + self.original_sha256
+            or self.width * self.height > 25_000_000
+        ):
+            raise ValueError("staged_image_identity_or_bounds")
+        return self
+
+
+class ImageJobStart(Wire):
+    request_id: str = Field(pattern=r"^[A-Za-z0-9_-]{1,128}$")
+    spec: ImageJobSpec
 
 
 class DecisionDraft(BaseModel):
@@ -194,6 +219,8 @@ class StartJob(Wire):
 
 
 API_MODELS = (
+    StagedImage,
+    ImageJobStart,
     DecisionDraft,
     DraftRequest,
     ReviewLabel,

@@ -48,4 +48,33 @@ After independently establishing that an old worker is gone, explicit interrupti
 completed outcomes, marks an unacknowledged running item unknown and the remaining queue not_run.
 It never resumes inference or resets a budget. A repeated request/run returns the same historical
 record. Job state is operational metadata, not spending authority or canonical ledger settlement.
-Original image upload jobs, live method adapters and API worker-lifetime ownership remain pending.
+Live method adapters, HTTP image upload and API worker-lifetime ownership remain pending.
+
+## Retained-image job seam
+
+An owner stages each image with `decode_bytes`/`stage_image` under the batch's existing `pages`
+directory, then constructs `ImageJobSpec(images={"receipt-image:<sha256>":
+ImageJobInput(original_sha256=..., expected_revision=...)}, reference_date=...)`.
+The closed intent permits 1–100 content identities, an explicit reference date and source CAS;
+it carries no filesystem or executable paths. `JobStore.start(request_id, spec,
+image_worker=ImageWorker(absolute_executable, absolute_tessdata))` checks every retained image
+before publishing a job. Engine paths are trusted server configuration, never upload fields.
+
+`JobStore.run(job_id, image_worker=worker)` claims the same durable active-job slot as recognized
+jobs and processes images sequentially through the existing `import_image`/BatchStore join.
+It rechecks staged bytes, engine/source fingerprints, capacity, tombstones, source revisions and
+journal health before each item. Progress acknowledges success only after the resulting retained
+bundle identity/revision is verified. Exact retries, partial failures and explicit interruption
+recovery share the existing job contract; interruption never automatically repeats OCR.
+The same executable/model/sibling-DLL/TSV-config snapshot digest used to compare the queued
+fingerprint travels through the worker and importer. The native adapter compares its snapshot
+before dispatch, retains that identity in its engine configuration, and rechecks the files after
+OCR. The importer verifies the returned configuration against the expected digest before writing
+or registering a bundle. These bounded observations reject a stable replacement during decoding
+or staging; they do not provide an atomic filesystem snapshot or prevent change-and-restore races.
+`local_image_pipeline` identifies entry into the local adapter, including attempts that fail
+before OCR. It does not certify a native process, measured OCR quality or actual model execution.
+
+The image-job controls use authored PNGs and injected native-command responses. They do not
+qualify an installed engine, actual receipt accuracy, HEIC runtime or browser workflow. This seam
+does not enable HTTP image upload or start an automatic/background worker.
