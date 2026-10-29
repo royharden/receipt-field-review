@@ -77,3 +77,7 @@ It does not sandbox native codec internals, enforce a decoder process deadline, 
 conversion or provide hostile multiuser filesystem isolation. HEIC matrices start at libheif
 delivered pixels; they do not recover raw container transforms. Linux codec CI and whole-app
 acceptance remain unverified. Changed or partial staging output is preserved and refused.
+
+### Merge checkpoint: scaffold CI
+
+The GitHub `scaffold` check for the image-jobs changes fails during pytest collection because `tests/api/test_image_jobs.py` and `tests/pipeline/test_image_jobs.py` share a module basename. Resolve the test discovery collision and rerun CI before treating runtime behavior as validated. The image-decoder and frontend-config checks passed on the recorded PR; the merge checkpoint did not run tests locally.
